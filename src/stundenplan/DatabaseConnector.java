@@ -2,6 +2,7 @@ package stundenplan;
 
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class DatabaseConnector {
 
@@ -23,7 +24,10 @@ public class DatabaseConnector {
             String url = "jdbc:sqlite://stundenplan.db";
             con = DriverManager.getConnection(url);
         } catch (Exception ex) {
-            //TODO Fehlermeldung PopUp
+            JOptionPane.showMessageDialog(null,
+                "Kann die Datenbank nicht öffnen.",
+                "FEHLER!",
+                JOptionPane.ERROR_MESSAGE);
         }
         
         try {
@@ -38,7 +42,10 @@ public class DatabaseConnector {
             this.stmt.close();
             this.con.close();
         } catch (SQLException ex) {
-            //TODO Fehlermeldung PopUp
+            JOptionPane.showMessageDialog(null,
+                "Konnte Datenbank nicht schliessen.",
+                "FEHLER!",
+                JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -48,7 +55,10 @@ public class DatabaseConnector {
             rs = stmt.executeQuery(SQL);
         
         } catch (SQLException ex) {
-            //TODO Fehlermeldung PopUp
+            JOptionPane.showMessageDialog(null,
+                "Problem bei leseRS holen.",
+                "FEHLER!",
+                JOptionPane.ERROR_MESSAGE);
         }
         return rs;
     }
@@ -60,7 +70,13 @@ public class DatabaseConnector {
         ResultSet rs = leseRS(sql);
         try {
             
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,
+                "Konnte keine Daten holen.",
+                "FEHLER!",
+                JOptionPane.ERROR_MESSAGE);
         }
+        return null; // fix das
                   
     }
 }
