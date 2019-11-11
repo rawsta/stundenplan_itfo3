@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author fielesebastian
  */
-public class Uebersicht extends javax.swing.JFrame {
+public class UebersichtGUI extends javax.swing.JFrame {
     
     // Datenbank verbinden
     private IConnection connect = null;
@@ -25,7 +25,7 @@ public class Uebersicht extends javax.swing.JFrame {
     /**
      * Creates new form Uebersicht
      */
-    public Uebersicht() {
+    public UebersichtGUI() {
         try {
             connect = DatabaseFactory.getIConnection();
             klassen = connect.holeKlasse();
@@ -41,11 +41,13 @@ public class Uebersicht extends javax.swing.JFrame {
         }
         // GUI initialisieren
         initComponents();
-        
+        setLocationRelativeTo(this); // Zentriert das Fenster
+       
         
         // Klassen Liste füllen
         KlassenListModel klassenList = new KlassenListModel(klassen);
         lst_class.setModel(klassenList);
+        
         
         // Lehrer Liste füllen
         LehrerListModel lehrerList = new LehrerListModel(lehrer);
@@ -82,11 +84,17 @@ public class Uebersicht extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         btn_action_new = new javax.swing.JButton();
         btn_subject_new = new javax.swing.JButton();
+        jSeparator6 = new javax.swing.JSeparator();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        menu_datei = new javax.swing.JMenu();
+        menu_close = new javax.swing.JMenuItem();
+        menu_hilfe = new javax.swing.JMenu();
+        menu_ueber = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lbl_window_title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_window_title.setText("Stundenplanverwaltungsoberfläche");
+        lbl_window_title.setText("Stundenplanverwaltungsoberfläche des Ludwig-Erhard Berufkollegs Münster");
 
         btn_close.setText("Programm beenden");
         btn_close.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +144,11 @@ public class Uebersicht extends javax.swing.JFrame {
             public Object getElementAt(int i) { return strings[i]; }
         });
         lst_teacher.setPreferredSize(new java.awt.Dimension(150, 50));
+        lst_teacher.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lst_teacherValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(lst_teacher);
 
         lst_class.setModel(new javax.swing.AbstractListModel() {
@@ -177,48 +190,79 @@ public class Uebersicht extends javax.swing.JFrame {
         btn_subject_new.setMinimumSize(new java.awt.Dimension(200, 30));
         btn_subject_new.setPreferredSize(new java.awt.Dimension(220, 50));
 
+        menu_datei.setText("Datei");
+        menu_datei.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_dateiActionPerformed(evt);
+            }
+        });
+
+        menu_close.setText("Programm beenden");
+        menu_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_closeActionPerformed(evt);
+            }
+        });
+        menu_datei.add(menu_close);
+
+        jMenuBar2.add(menu_datei);
+
+        menu_hilfe.setText("Hilfe");
+
+        menu_ueber.setText("Über das Programm");
+        menu_ueber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_ueberActionPerformed(evt);
+            }
+        });
+        menu_hilfe.add(menu_ueber);
+
+        jMenuBar2.add(menu_hilfe);
+
+        setJMenuBar(jMenuBar2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_action_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_subject_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_close))
-                    .addComponent(jSeparator2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator6)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btn_splan_current, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(73, 73, 73)
                                 .addComponent(btn_splan_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(78, 78, 78)
                                 .addComponent(btn_splan_prev, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btn_teacher_show, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btn_teacher_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btn_teacher_new, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGap(18, 18, Short.MAX_VALUE)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btn_class_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btn_class_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btn_class_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(lbl_window_title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_action_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_subject_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lbl_window_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btn_teacher_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_teacher_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_teacher_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, Short.MAX_VALUE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btn_class_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_class_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_class_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btn_close))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -231,7 +275,7 @@ public class Uebersicht extends javax.swing.JFrame {
                     .addComponent(btn_splan_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_splan_prev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_splan_current, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -249,14 +293,17 @@ public class Uebersicht extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btn_class_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_close)
                     .addComponent(btn_action_new, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_subject_new, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_close)
                 .addContainerGap())
         );
 
@@ -272,24 +319,44 @@ public class Uebersicht extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_splan_prevActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
-        String message = "Wollen Sie das Programm wirklich schließen?";
-        String title = "Wirklich schliessen?";
-        // display the JOptionPane showConfirmDialog
+        String message = "Wollen Sie die Stundenplanverwaltungsoberfläche wirklich beenden?";
+        String title = "Sind Sie sich sicher?";
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION){
           System.exit(0);
         }
     }//GEN-LAST:event_btn_closeActionPerformed
 
+    private void menu_ueberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_ueberActionPerformed
+        String message = "Die Stundenplanverwaltungsoberfläche für das Ludwig-Erhard Berufskolleg, Münster" +"\n"+
+                        "Diese Software wurde während einer Gruppenarbeit erstellt" +"\n"+
+                                "von Gruppe E der Klasse ITFO3 2019";
+        String title = "Stundenplanverwaltungsoberfläche";
+        // Info Panel
+        JOptionPane.showMessageDialog(null, message, title,JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_menu_ueberActionPerformed
+
+    private void menu_dateiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_dateiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menu_dateiActionPerformed
+
+    private void menu_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_closeActionPerformed
+        String message = "Wollen Sie die Stundenplanverwaltungsoberfläche wirklich beenden?";
+        String title = "Sind Sie sich sicher?";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION){
+          System.exit(0);
+        }
+    }//GEN-LAST:event_menu_closeActionPerformed
+
+    private void lst_teacherValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_teacherValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lst_teacherValueChanged
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -297,21 +364,9 @@ public class Uebersicht extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Uebersicht.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Uebersicht.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Uebersicht.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Uebersicht.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(UebersichtGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(() -> {
-            new Uebersicht().setVisible(true);
-        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -327,13 +382,19 @@ public class Uebersicht extends javax.swing.JFrame {
     private javax.swing.JButton btn_teacher_edit;
     private javax.swing.JButton btn_teacher_new;
     private javax.swing.JButton btn_teacher_show;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel lbl_window_title;
     private javax.swing.JList lst_class;
     private javax.swing.JList lst_teacher;
+    private javax.swing.JMenuItem menu_close;
+    private javax.swing.JMenu menu_datei;
+    private javax.swing.JMenu menu_hilfe;
+    private javax.swing.JMenuItem menu_ueber;
     // End of variables declaration//GEN-END:variables
 }
