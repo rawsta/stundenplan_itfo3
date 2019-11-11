@@ -280,9 +280,9 @@ public class Uebersicht extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
+        /*java.awt.EventQueue.invokeLater(() -> {
             new Uebersicht().setVisible(true);
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

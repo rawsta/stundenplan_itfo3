@@ -15,7 +15,22 @@ public class Stundenplan {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        // Set the Look & Feel
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Uebersicht.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Uebersicht.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Uebersicht.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Uebersicht.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            new Uebersicht().setVisible(true);
+        });
     }
     
 }
