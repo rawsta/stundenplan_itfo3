@@ -5,15 +5,15 @@
  */
 package stundenplan;
 
-import java.util.List;
-
 /**
  *
  * @author ellinghannah
  */
-public class Klasse {
+public class Regel {
     private int id;
-    private String name;
-    private Unterrichtseinheit[] unterricht;
-    private List<Lehrer> lehrerList;
+    private int prioritaet;
+    private Fach fach;
+    private Lehrer lehrer;
+    private Klasse klasse;
+    private boolean verfuegbar;
 }

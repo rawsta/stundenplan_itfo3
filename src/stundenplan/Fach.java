@@ -5,15 +5,11 @@
  */
 package stundenplan;
 
-import java.util.List;
-
 /**
  *
  * @author ellinghannah
  */
-public class Klasse {
+public class Fach {
     private int id;
     private String name;
-    private Unterrichtseinheit[] unterricht;
-    private List<Lehrer> lehrerList;
 }

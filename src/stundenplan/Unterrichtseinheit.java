@@ -5,15 +5,16 @@
  */
 package stundenplan;
 
-import java.util.List;
+import java.time.DayOfWeek;
+import javafx.util.Pair;
 
 /**
  *
  * @author ellinghannah
  */
-public class Klasse {
-    private int id;
-    private String name;
-    private Unterrichtseinheit[] unterricht;
-    private List<Lehrer> lehrerList;
+public class Unterrichtseinheit {
+    private DayOfWeek tag;
+    private int block;
+    private Klasse klasse;
+    private Pair<Lehrer, Lehrer> lehreinheit;
 }

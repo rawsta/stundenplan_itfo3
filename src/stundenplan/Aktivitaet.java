@@ -5,15 +5,15 @@
  */
 package stundenplan;
 
-import java.util.List;
+import javafx.util.Pair;
 
 /**
  *
  * @author ellinghannah
  */
-public class Klasse {
-    private int id;
-    private String name;
-    private Unterrichtseinheit[] unterricht;
-    private List<Lehrer> lehrerList;
+public class Aktivitaet {
+    private Klasse klasse;
+    private Pair<Lehrer, Lehrer> lehreinheit;
+    private Fach fach;
+            
 }
