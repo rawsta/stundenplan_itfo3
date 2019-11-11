@@ -29,6 +29,7 @@ public class Uebersicht extends javax.swing.JFrame {
         try {
             connect = DatabaseFactory.getIConnection();
             klassen = connect.holeKlasse();
+            lehrer = connect.holeLehrer();
             
         } catch (Exception e) {
             //e.printStackTrace();
@@ -41,6 +42,7 @@ public class Uebersicht extends javax.swing.JFrame {
         // GUI initialisieren
         initComponents();
         
+        
         // Klassen Liste füllen
         KlassenListModel klassenList = new KlassenListModel(klassen);
         lst_class.setModel(klassenList);
@@ -48,6 +50,7 @@ public class Uebersicht extends javax.swing.JFrame {
         // Lehrer Liste füllen
         LehrerListModel lehrerList = new LehrerListModel(lehrer);
         lst_teacher.setModel(lehrerList);
+        
     }
 
     /**
