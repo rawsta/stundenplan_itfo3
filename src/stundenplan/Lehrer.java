@@ -6,6 +6,7 @@
 package stundenplan;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,4 +19,12 @@ public class Lehrer {
     private List<Klasse> klassen;
     private Fach[] faecher;
     private Unterrichtseinheit[] stunden;
+
+    public Lehrer(int id, String name, String kuerzel) {
+        this.id = id;
+        this.name = name;
+        this.kuerzel = kuerzel;
+    }
+    
+    
 }

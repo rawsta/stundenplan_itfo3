@@ -17,7 +17,7 @@ public class Klasse {
     private Unterrichtseinheit[] unterricht;
     private List<Lehrer> lehrerList;
 
-    public Klasse(int id, String name, Unterrichtseinheit[] unterricht, List<Lehrer> lehrerList) {
+    public Klasse(int id, String name) {
         this.id = id;
         this.name = name;
         this.unterricht = unterricht;
