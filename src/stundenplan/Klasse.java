@@ -21,5 +21,38 @@ public class Klasse {
         this.id = id;
         this.name = name;
     }    
-     
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Unterrichtseinheit[] getUnterricht() {
+        return unterricht;
+    }
+
+    public void setUnterricht(Unterrichtseinheit[] unterricht) {
+        this.unterricht = unterricht;
+    }
+
+    public List<Lehrer> getLehrerList() {
+        return lehrerList;
+    }
+
+    public void setLehrerList(List<Lehrer> lehrerList) {
+        this.lehrerList = lehrerList;
+    }
+    
+    
 }

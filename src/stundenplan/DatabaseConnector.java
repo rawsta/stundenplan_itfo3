@@ -23,17 +23,16 @@ public class DatabaseConnector {
         try {
             String url = "jdbc:sqlite://stundenplan.db";
             con = DriverManager.getConnection(url);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,
-                "Kann die Datenbank nicht öffnen.",
-                "FEHLER!",
-                JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            System.out.println("Kann Datenbank nicht öffnen");
+            throw new RuntimeException(ex);
         }
         
         try {
             stmt = con.createStatement();
-        } catch (Exception ex) {
-            //TODO Fehlermeldung PopUp
+        } catch (SQLException ex) {
+            System.out.println("Konnte Statement nicht ausführen");
+            throw new RuntimeException(ex);
         }
     }
     
@@ -42,10 +41,8 @@ public class DatabaseConnector {
             this.stmt.close();
             this.con.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                "Konnte Datenbank nicht schliessen.",
-                "FEHLER!",
-                JOptionPane.ERROR_MESSAGE);
+            System.out.println("Konnte Datenbank nicht schliessen");
+            throw new RuntimeException(ex);
         }
     }
     
@@ -55,10 +52,8 @@ public class DatabaseConnector {
             rs = stmt.executeQuery(SQL);
         
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,
-                "Problem bei leseRS holen.",
-                "FEHLER!",
-                JOptionPane.ERROR_MESSAGE);
+            System.out.println("Konnte Daten nicht lesen");
+            throw new RuntimeException(ex);
         }
         return rs;
     }
@@ -71,10 +66,8 @@ public class DatabaseConnector {
         try {
             
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,
-                "Konnte keine Daten holen.",
-                "FEHLER!",
-                JOptionPane.ERROR_MESSAGE);
+            System.out.println("Konnte Daten nicht holen");
+            throw new RuntimeException(ex);
         }
         return null; // fix das
                   

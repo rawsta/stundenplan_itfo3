@@ -24,4 +24,38 @@ public class Unterrichtseinheit {
         this.klasse = klasse;
         this.lehreinheit = lehreinheit;
     }
+
+    public DayOfWeek getTag() {
+        return tag;
+    }
+
+    public void setTag(DayOfWeek tag) {
+        this.tag = tag;
+    }
+
+    public int getBlock() {
+        return block;
+    }
+
+    public void setBlock(int block) {
+        this.block = block;
+    }
+
+    public Klasse getKlasse() {
+        return klasse;
+    }
+
+    public void setKlasse(Klasse klasse) {
+        this.klasse = klasse;
+    }
+
+    public Pair<Lehrer, Lehrer> getLehreinheit() {
+        return lehreinheit;
+    }
+
+    public void setLehreinheit(Pair<Lehrer, Lehrer> lehreinheit) {
+        this.lehreinheit = lehreinheit;
+    }
+    
+    
 }

@@ -25,6 +25,54 @@ public class Regel {
         this.klasse = klasse;
         this.verfuegbar = verfuegbar;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPrioritaet() {
+        return prioritaet;
+    }
+
+    public void setPrioritaet(int prioritaet) {
+        this.prioritaet = prioritaet;
+    }
+
+    public Fach getFach() {
+        return fach;
+    }
+
+    public void setFach(Fach fach) {
+        this.fach = fach;
+    }
+
+    public Lehrer getLehrer() {
+        return lehrer;
+    }
+
+    public void setLehrer(Lehrer lehrer) {
+        this.lehrer = lehrer;
+    }
+
+    public Klasse getKlasse() {
+        return klasse;
+    }
+
+    public void setKlasse(Klasse klasse) {
+        this.klasse = klasse;
+    }
+
+    public boolean isVerfuegbar() {
+        return verfuegbar;
+    }
+
+    public void setVerfuegbar(boolean verfuegbar) {
+        this.verfuegbar = verfuegbar;
+    }
     
     
 }

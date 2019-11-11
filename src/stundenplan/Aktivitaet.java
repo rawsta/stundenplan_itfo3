@@ -21,5 +21,31 @@ public class Aktivitaet {
         this.lehreinheit = lehreinheit;
         this.fach = fach;
     }
+
+    public Klasse getKlasse() {
+        return klasse;
+    }
+
+    public void setKlasse(Klasse klasse) {
+        this.klasse = klasse;
+    }
+
+    public Pair<Lehrer, Lehrer> getLehreinheit() {
+        return lehreinheit;
+    }
+
+    public void setLehreinheit(Pair<Lehrer, Lehrer> lehreinheit) {
+        this.lehreinheit = lehreinheit;
+    }
+
+    public Fach getFach() {
+        return fach;
+    }
+
+    public void setFach(Fach fach) {
+        this.fach = fach;
+    }
+    
+    
     
 }

@@ -5,16 +5,37 @@
  */
 package stundenplan;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fielesebastian
  */
 public class Uebersicht extends javax.swing.JFrame {
+    
+    // Datenbank verbinden
+    private IConnection connect = null;
+    // Liste der Klassen
+    private List<Klasse> klassen = new ArrayList<>();
 
     /**
      * Creates new form Uebersicht
      */
     public Uebersicht() {
+        try {
+            connect = DatabaseFactory.getIConnection();
+            klassen = connect.holeKlasse();
+            
+        } catch (Exception e) {
+            //e.printStackTrace();
+            System.out.println(e);
+        } finally {
+            if (connect != null) {
+                connect.closeConnection();
+            }
+        }
         initComponents();
     }
 
@@ -33,19 +54,19 @@ public class Uebersicht extends javax.swing.JFrame {
         btn_teacher_new = new javax.swing.JButton();
         btn_splan_current = new javax.swing.JButton();
         btn_splan_new = new javax.swing.JButton();
-        btn_splan_latest = new javax.swing.JButton();
+        btn_splan_prev = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         lst_teacher = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lst_classes = new javax.swing.JList();
+        lst_class = new javax.swing.JList();
         btn_teacher_edit = new javax.swing.JButton();
-        btn_teacher_splan = new javax.swing.JButton();
+        btn_teacher_show = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btn_class_edit = new javax.swing.JButton();
+        btn_class_show = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        btn_block_new = new javax.swing.JButton();
+        btn_action_new = new javax.swing.JButton();
         btn_subject_new = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,10 +74,8 @@ public class Uebersicht extends javax.swing.JFrame {
         lbl_window_title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_window_title.setText("Stundenplanverwaltungsoberfläche");
 
-        btn_close.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         btn_close.setText("Programm beenden");
 
-        btn_class_new.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         btn_class_new.setText("Neue Klasse anlegen");
         btn_class_new.setMaximumSize(new java.awt.Dimension(180, 40));
         btn_class_new.setMinimumSize(new java.awt.Dimension(180, 40));
@@ -67,32 +86,28 @@ public class Uebersicht extends javax.swing.JFrame {
             }
         });
 
-        btn_teacher_new.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         btn_teacher_new.setText("Neue Lehrer anlegen");
         btn_teacher_new.setMaximumSize(new java.awt.Dimension(180, 40));
         btn_teacher_new.setMinimumSize(new java.awt.Dimension(180, 40));
         btn_teacher_new.setPreferredSize(new java.awt.Dimension(180, 40));
 
-        btn_splan_current.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         btn_splan_current.setText("Aktuelle Stundenpläne ansehen");
         btn_splan_current.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_splan_current.setMinimumSize(new java.awt.Dimension(200, 30));
         btn_splan_current.setPreferredSize(new java.awt.Dimension(220, 50));
 
-        btn_splan_new.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         btn_splan_new.setText("Neuen Stundenplan anlegen");
         btn_splan_new.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_splan_new.setMinimumSize(new java.awt.Dimension(200, 30));
         btn_splan_new.setPreferredSize(new java.awt.Dimension(220, 50));
 
-        btn_splan_latest.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-        btn_splan_latest.setText("vergangene Stundenpläne");
-        btn_splan_latest.setMaximumSize(new java.awt.Dimension(200, 30));
-        btn_splan_latest.setMinimumSize(new java.awt.Dimension(200, 30));
-        btn_splan_latest.setPreferredSize(new java.awt.Dimension(220, 50));
-        btn_splan_latest.addActionListener(new java.awt.event.ActionListener() {
+        btn_splan_prev.setText("vergangene Stundenpläne");
+        btn_splan_prev.setMaximumSize(new java.awt.Dimension(200, 30));
+        btn_splan_prev.setMinimumSize(new java.awt.Dimension(200, 30));
+        btn_splan_prev.setPreferredSize(new java.awt.Dimension(220, 50));
+        btn_splan_prev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_splan_latestActionPerformed(evt);
+                btn_splan_prevActionPerformed(evt);
             }
         });
 
@@ -104,46 +119,40 @@ public class Uebersicht extends javax.swing.JFrame {
         lst_teacher.setPreferredSize(new java.awt.Dimension(150, 50));
         jScrollPane1.setViewportView(lst_teacher);
 
-        lst_classes.setModel(new javax.swing.AbstractListModel() {
+        lst_class.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Klasse 1", "Klasse 2", "Klasse 3", "Klasse 4", "Klasse 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(lst_classes);
+        jScrollPane2.setViewportView(lst_class);
 
-        btn_teacher_edit.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         btn_teacher_edit.setText("Lehrer bearbeiten");
         btn_teacher_edit.setMaximumSize(new java.awt.Dimension(180, 40));
         btn_teacher_edit.setMinimumSize(new java.awt.Dimension(180, 40));
         btn_teacher_edit.setPreferredSize(new java.awt.Dimension(180, 40));
 
-        btn_teacher_splan.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-        btn_teacher_splan.setText("Stundenplan anzeigen");
-        btn_teacher_splan.setMaximumSize(new java.awt.Dimension(180, 40));
-        btn_teacher_splan.setMinimumSize(new java.awt.Dimension(180, 40));
-        btn_teacher_splan.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_teacher_show.setText("Stundenplan anzeigen");
+        btn_teacher_show.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_teacher_show.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_teacher_show.setPreferredSize(new java.awt.Dimension(180, 40));
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton3.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-        jButton3.setText("Klasse bearbeiten");
-        jButton3.setMaximumSize(new java.awt.Dimension(180, 40));
-        jButton3.setMinimumSize(new java.awt.Dimension(180, 40));
-        jButton3.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_class_edit.setText("Klasse bearbeiten");
+        btn_class_edit.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_class_edit.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_class_edit.setPreferredSize(new java.awt.Dimension(180, 40));
 
-        jButton4.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-        jButton4.setText("Stundenplan anzeigen");
-        jButton4.setMaximumSize(new java.awt.Dimension(180, 40));
-        jButton4.setMinimumSize(new java.awt.Dimension(180, 40));
-        jButton4.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_class_show.setText("Stundenplan anzeigen");
+        btn_class_show.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_class_show.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_class_show.setPreferredSize(new java.awt.Dimension(180, 40));
 
-        btn_block_new.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-        btn_block_new.setText("Neuer Unterrichtsblock");
-        btn_block_new.setMaximumSize(new java.awt.Dimension(200, 30));
-        btn_block_new.setMinimumSize(new java.awt.Dimension(200, 30));
-        btn_block_new.setPreferredSize(new java.awt.Dimension(220, 50));
+        btn_action_new.setText("Neue Aktivität");
+        btn_action_new.setMaximumSize(new java.awt.Dimension(200, 30));
+        btn_action_new.setMinimumSize(new java.awt.Dimension(200, 30));
+        btn_action_new.setPreferredSize(new java.awt.Dimension(220, 50));
 
-        btn_subject_new.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         btn_subject_new.setText("Neues Fach");
         btn_subject_new.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_subject_new.setMinimumSize(new java.awt.Dimension(200, 30));
@@ -157,7 +166,7 @@ public class Uebersicht extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_block_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_action_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_subject_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -170,14 +179,14 @@ public class Uebersicht extends javax.swing.JFrame {
                                 .addGap(73, 73, 73)
                                 .addComponent(btn_splan_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(78, 78, 78)
-                                .addComponent(btn_splan_latest, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btn_splan_prev, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btn_teacher_splan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btn_teacher_show, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btn_teacher_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btn_teacher_new, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(18, 18, Short.MAX_VALUE)
@@ -186,8 +195,8 @@ public class Uebersicht extends javax.swing.JFrame {
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn_class_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn_class_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btn_class_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(lbl_window_title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -201,7 +210,7 @@ public class Uebersicht extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btn_splan_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_splan_latest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_splan_prev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_splan_current, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,25 +218,25 @@ public class Uebersicht extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btn_teacher_splan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_teacher_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_teacher_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_teacher_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_class_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_class_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btn_class_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_close)
-                    .addComponent(btn_block_new, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_action_new, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_subject_new, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -239,9 +248,9 @@ public class Uebersicht extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_class_newActionPerformed
 
-    private void btn_splan_latestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_splan_latestActionPerformed
+    private void btn_splan_prevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_splan_prevActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_splan_latestActionPerformed
+    }//GEN-LAST:event_btn_splan_prevActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,25 +286,25 @@ public class Uebersicht extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_block_new;
+    private javax.swing.JButton btn_action_new;
+    private javax.swing.JButton btn_class_edit;
     private javax.swing.JButton btn_class_new;
+    private javax.swing.JButton btn_class_show;
     private javax.swing.JButton btn_close;
     private javax.swing.JButton btn_splan_current;
-    private javax.swing.JButton btn_splan_latest;
     private javax.swing.JButton btn_splan_new;
+    private javax.swing.JButton btn_splan_prev;
     private javax.swing.JButton btn_subject_new;
     private javax.swing.JButton btn_teacher_edit;
     private javax.swing.JButton btn_teacher_new;
-    private javax.swing.JButton btn_teacher_splan;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btn_teacher_show;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lbl_window_title;
-    private javax.swing.JList lst_classes;
+    private javax.swing.JList lst_class;
     private javax.swing.JList lst_teacher;
     // End of variables declaration//GEN-END:variables
 }
