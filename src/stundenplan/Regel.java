@@ -16,4 +16,15 @@ public class Regel {
     private Lehrer lehrer;
     private Klasse klasse;
     private boolean verfuegbar;
+
+    public Regel(int id, int prioritaet, Fach fach, Lehrer lehrer, Klasse klasse, boolean verfuegbar) {
+        this.id = id;
+        this.prioritaet = prioritaet;
+        this.fach = fach;
+        this.lehrer = lehrer;
+        this.klasse = klasse;
+        this.verfuegbar = verfuegbar;
+    }
+    
+    
 }

@@ -17,4 +17,11 @@ public class Unterrichtseinheit {
     private int block;
     private Klasse klasse;
     private Pair<Lehrer, Lehrer> lehreinheit;
+
+    public Unterrichtseinheit(DayOfWeek tag, int block, Klasse klasse, Pair<Lehrer, Lehrer> lehreinheit) {
+        this.tag = tag;
+        this.block = block;
+        this.klasse = klasse;
+        this.lehreinheit = lehreinheit;
+    }
 }

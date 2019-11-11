@@ -15,5 +15,11 @@ public class Aktivitaet {
     private Klasse klasse;
     private Pair<Lehrer, Lehrer> lehreinheit;
     private Fach fach;
-            
+
+    public Aktivitaet(Klasse klasse, Pair<Lehrer, Lehrer> lehreinheit, Fach fach) {
+        this.klasse = klasse;
+        this.lehreinheit = lehreinheit;
+        this.fach = fach;
+    }
+    
 }

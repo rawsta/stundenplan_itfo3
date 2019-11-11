@@ -12,4 +12,13 @@ package stundenplan;
 public class Fach {
     private int id;
     private String name;
+    private String kuerzel;
+
+    public Fach(int id, String name, String kuerzel) {
+        this.id = id;
+        this.name = name;
+        this.kuerzel = kuerzel;
+        
+    }
+
 }
