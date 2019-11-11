@@ -19,6 +19,8 @@ public class Uebersicht extends javax.swing.JFrame {
     private IConnection connect = null;
     // Liste der Klassen
     private List<Klasse> klassen = new ArrayList<>();
+    // Liste der Lehrer
+    private List<Lehrer> lehrer = new ArrayList<>();
 
     /**
      * Creates new form Uebersicht
@@ -36,7 +38,16 @@ public class Uebersicht extends javax.swing.JFrame {
                 connect.closeConnection();
             }
         }
+        // GUI initialisieren
         initComponents();
+        
+        // Klassen Liste füllen
+        KlassenListModel klassenList = new KlassenListModel(klassen);
+        lst_class.setModel(klassenList);
+        
+        // Lehrer Liste füllen
+        LehrerListModel lehrerList = new LehrerListModel(lehrer);
+        lst_teacher.setModel(lehrerList);
     }
 
     /**
@@ -75,6 +86,11 @@ public class Uebersicht extends javax.swing.JFrame {
         lbl_window_title.setText("Stundenplanverwaltungsoberfläche");
 
         btn_close.setText("Programm beenden");
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_closeActionPerformed(evt);
+            }
+        });
 
         btn_class_new.setText("Neue Klasse anlegen");
         btn_class_new.setMaximumSize(new java.awt.Dimension(180, 40));
@@ -251,6 +267,16 @@ public class Uebersicht extends javax.swing.JFrame {
     private void btn_splan_prevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_splan_prevActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_splan_prevActionPerformed
+
+    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
+        String message = "Wollen Sie das Programm wirklich schließen?";
+        String title = "Wirklich schliessen?";
+        // display the JOptionPane showConfirmDialog
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION){
+          System.exit(0);
+        }
+    }//GEN-LAST:event_btn_closeActionPerformed
 
     /**
      * @param args the command line arguments

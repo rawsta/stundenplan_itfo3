@@ -43,7 +43,39 @@ public interface IConnection {
     * @param results
     * @return klasse object
     */
-   public Klasse convertRowToObject(ResultSet results);
+   public Klasse convertRowToKlasse(ResultSet results);
+   
+   
+   /**
+    * Hole Lehrer aus Datenbank
+    * 
+    * @return Liste der Lehrer
+    */
+   public List<Lehrer> holeLehrer();
+
+   /**
+    * Lehrer in DB schreiben
+    * 
+    * @param lehrer
+    */
+   public void neuerLehrer(Lehrer lehrer);
+
+   /**
+    * Lehrer aktualisieren
+    * 
+    * @param name
+    * @param lehrer
+    */
+   public void updateLehrer(String name, Lehrer lehrer);
+
+
+   /**
+    * Konvertiert TabelRow zu Lehrer
+    * 
+    * @param results
+    * @return lehrer object
+    */
+   public Lehrer convertRowToLehrer(ResultSet results);
 
    /**
     * Datenbank öffnen

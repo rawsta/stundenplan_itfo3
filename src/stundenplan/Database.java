@@ -30,6 +30,7 @@ public class Database implements IConnection{
     /**
      * Verbindung aufbauen
      */
+    @Override
     public void openConnection() {
         try {
             if (this.connect == null || this.connect.isClosed()) {
@@ -48,6 +49,7 @@ public class Database implements IConnection{
     /**
      * Verbindung wieder schliessen
      */
+    @Override
     public void closeConnection() {
         try {
             if (this.statement != null) {
@@ -64,10 +66,11 @@ public class Database implements IConnection{
     }
     
     /**
-     * Klassen aus der Dat3enbank auslesen
+     * Klassen aus der Datenbank auslesen
      * 
      * @return Klassen
      */
+    @Override
     public ArrayList<Klasse> holeKlasse() {
         ArrayList<Klasse> klassen = new ArrayList<>();
         try {
@@ -75,7 +78,7 @@ public class Database implements IConnection{
             ResultSet results = this.statement.executeQuery(query);
             // wir wandeln ArrayList in Objekt um
             while (results.next()) {
-                    klassen.add(convertRowToObject(results));
+                    klassen.add(convertRowToKlasse(results));
             }
         } catch (SQLException e) {
                 System.out.println("SQLException beim auslesen der Klassen.");
@@ -89,6 +92,7 @@ public class Database implements IConnection{
      * 
      * @param klasse
      */
+    @Override
     public void neueKlasse(Klasse klasse) {
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement(
@@ -113,6 +117,7 @@ public class Database implements IConnection{
      * @param title
      * @param klasse
      */
+    @Override
     public void updateKlasse(String title, Klasse klasse) {
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement(
@@ -130,14 +135,15 @@ public class Database implements IConnection{
         }
 
     }
-
+    
     /**
-     * Konvertiert TabelRow zu Objekt
+     * Konvertiert TableRow zu Klasse
      * 
      * @param results
      * @return
      */
-    public Klasse convertRowToObject(ResultSet results) {
+    @Override
+    public Klasse convertRowToKlasse(ResultSet results) {
 
         Klasse tempKlasse = null;
         try {
@@ -152,6 +158,98 @@ public class Database implements IConnection{
         }
 
         return tempKlasse;
+    }
+    
+    /**
+     * Lehrer aus der Datenbank auslesen
+     * 
+     * @return lehrer
+     */
+    @Override
+    public ArrayList<Lehrer> holeLehrer() {
+        ArrayList<Lehrer> lehrer = new ArrayList<>();
+        try {
+            String query = "SELECT L_ID, Kuerzel, Name FROM Lehrer";
+            ResultSet results = this.statement.executeQuery(query);
+            // wir wandeln ArrayList in Objekt um
+            while (results.next()) {
+                    lehrer.add(convertRowToLehrer(results));
+            }
+        } catch (SQLException e) {
+                System.out.println("SQLException beim auslesen der Lehrer.");
+                throw new RuntimeException(e);
+        }
+        return lehrer;
+    }
+
+    /**
+     * Neue Lehrer anlegen
+     * 
+     * @param lehrer
+     */
+    public void neuerLehrer(Lehrer lehrer) {
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement(
+                            "INSERT INTO Lehrer (K_ID, Kuerzel, Name) VALUES (?, ?, ?)");
+            preparedStatement.setInt(1, lehrer.getId());
+            preparedStatement.setString(2, lehrer.getKuerzel());
+            preparedStatement.setString(3, lehrer.getName());
+            
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("SQLException - Kann die Klasse nicht einfügen");
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    /**
+     * Lehrer aktualisieren
+     * 
+     * @param kuerzel
+     * @param lehrer
+     */
+    public void updateLehrer(String kuerzel, Lehrer lehrer) {
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement(
+                            "UPDATE Kehrer SET L_ID = ?, Kuerzel = ?, Name = ? WHERE title = '" + kuerzel + "'");
+            preparedStatement.setInt(1, lehrer.getId());
+            preparedStatement.setString(2, lehrer.getKuerzel());
+            preparedStatement.setObject(3, lehrer.getName());
+            
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("SQLException Kann den Lehrer nicht aktualisieren");
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    /**
+     * Konvertiert TableRow zu Lehrer
+     * 
+     * @param results
+     * @return tempLehrer
+     */
+    @Override
+    public Lehrer convertRowToLehrer(ResultSet results) {
+
+        Lehrer tempLehrer = null;
+        try {
+            int l_id = results.getInt("L_ID");
+            String kuerzel = results.getString("Kuerzel");
+            String name = results.getString("Name");
+
+            tempLehrer = new Lehrer(l_id, kuerzel, name);
+
+        } catch (SQLException e) {
+            System.out.println("Kann den Lehrer nicht aufbauen");
+            throw new RuntimeException(e);
+        }
+
+        return tempLehrer;
     }
 
 

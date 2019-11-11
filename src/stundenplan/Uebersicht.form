@@ -133,6 +133,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Programm beenden"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_closeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_class_new">
       <Properties>

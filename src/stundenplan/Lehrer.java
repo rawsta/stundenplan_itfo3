@@ -25,6 +25,54 @@ public class Lehrer {
         this.name = name;
         this.kuerzel = kuerzel;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getKuerzel() {
+        return kuerzel;
+    }
+
+    public void setKuerzel(String kuerzel) {
+        this.kuerzel = kuerzel;
+    }
+
+    public List<Klasse> getKlassen() {
+        return klassen;
+    }
+
+    public void setKlassen(List<Klasse> klassen) {
+        this.klassen = klassen;
+    }
+
+    public Fach[] getFaecher() {
+        return faecher;
+    }
+
+    public void setFaecher(Fach[] faecher) {
+        this.faecher = faecher;
+    }
+
+    public Unterrichtseinheit[] getStunden() {
+        return stunden;
+    }
+
+    public void setStunden(Unterrichtseinheit[] stunden) {
+        this.stunden = stunden;
+    }
     
     
 }
