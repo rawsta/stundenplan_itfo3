@@ -20,8 +20,6 @@ public class Klasse {
     public Klasse(int id, String name) {
         this.id = id;
         this.name = name;
-        this.unterricht = unterricht;
-        this.lehrerList = lehrerList;
     }    
      
 }
