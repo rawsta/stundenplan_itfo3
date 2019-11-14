@@ -31,7 +31,7 @@ public class Database implements IConnection{
      * Verbindung aufbauen
      */
     @Override
-    public void openConnection() {
+    public final void openConnection() {
         try {
             if (this.connect == null || this.connect.isClosed()) {
                 this.connect = DriverManager.getConnection("jdbc:sqlite:stundenplan.db");
@@ -64,6 +64,8 @@ public class Database implements IConnection{
             throw new RuntimeException(e);
         }
     }
+    
+    /* ------------------------- Klassen ------------------------- */
     
     /**
      * Klassen aus der Datenbank auslesen
@@ -160,6 +162,8 @@ public class Database implements IConnection{
         return tempKlasse;
     }
     
+    /* ------------------------- Lehrer ------------------------- */
+    
     /**
      * Lehrer aus der Datenbank auslesen
      * 
@@ -182,11 +186,13 @@ public class Database implements IConnection{
         return lehrer;
     }
 
+    
     /**
      * Neue Lehrer anlegen
      * 
      * @param lehrer
      */
+    @Override
     public void neuerLehrer(Lehrer lehrer) {
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement(
@@ -198,18 +204,47 @@ public class Database implements IConnection{
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("SQLException - Kann die Klasse nicht einfügen");
+            System.out.println("SQLException - Kann den Lehrer nicht einfügen");
             throw new RuntimeException(e);
         }
 
     }
 
     /**
+     * ausgewählten Lehrer laden
+     * 
+     * @param kuerzel
+     * @return selectedLehrer
+     */
+    @Override
+    public Lehrer getSelectedLehrer(String kuerzel) {
+        Lehrer selectedLehrer = null;
+        
+        try {
+//            PreparedStatement preparedStatement = this.connect.prepareStatement(
+//                            "SELECT Kuerzel, Name FROM Lehrer WHERE Kuerzel = ?");
+//            preparedStatement.setString(1, kuerzel);
+//            ResultSet results = preparedStatement.executeQuery();
+            String query = "SELECT L_ID, Kuerzel, Name FROM Lehrer WHERE Kuerzel =" + kuerzel;
+            ResultSet results = this.statement.executeQuery(query);
+            selectedLehrer = convertRowToLehrer(results);
+
+        } catch (SQLException e) {
+            System.out.println("SQLException Kann den Lehrer nicht finden");
+            throw new RuntimeException(e);
+        }
+        
+        return selectedLehrer;
+
+    }
+    
+    /**
      * Lehrer aktualisieren
      * 
      * @param kuerzel
      * @param lehrer
      */
+    @Override
     public void updateLehrer(String kuerzel, Lehrer lehrer) {
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement(

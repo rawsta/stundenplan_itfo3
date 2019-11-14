@@ -52,6 +52,14 @@ public interface IConnection {
     * @return Liste der Lehrer
     */
    public List<Lehrer> holeLehrer();
+   
+   /**
+    * Hole Lehrer aus Datenbank
+    * 
+    * @param auswahl
+    * @return Liste der Lehrer
+    */
+   public Lehrer getSelectedLehrer(String auswahl);
 
    /**
     * Lehrer in DB schreiben

@@ -7,10 +7,7 @@ package stundenplan;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -56,21 +53,6 @@ public class UebersichtGUI extends javax.swing.JFrame {
         LehrerListModel lehrerList = new LehrerListModel(lehrer);
         lst_teacher.setModel(lehrerList);
         
-        // Auswahl der Liste erfassen
-//        ListSelectionListener listSelectionListener = new ListSelectionListener() {
-//            @Override
-//            public void valueChanged(ListSelectionEvent listSelectionEvent) {
-//                JList list = (JList) listSelectionEvent.getSource();
-//                int selections[] = list.getSelectedIndices();
-//                Object selectionValues[] = list.getSelectedValues();
-//                  System.out.println(" Auswahl: " + selectionValues[0] + " ");
-//                for (int i = 0, n = selections.length; i < n; i++) {
-//                  System.out.println(" Auswahl: " + selections[i] + "/" + selectionValues[i] + " ");
-//                }
-//            }
-//        };
-//        lst_teacher.addListSelectionListener(listSelectionListener);
-//        lst_class.addListSelectionListener(listSelectionListener);
         
     }
 
@@ -236,6 +218,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
             }
         });
 
+        menu_close.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         menu_close.setText("Programm beenden");
         menu_close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,6 +231,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
 
         menu_hilfe.setText("Hilfe");
 
+        menu_ueber.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         menu_ueber.setText("Über das Programm");
         menu_ueber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -394,7 +378,8 @@ public class UebersichtGUI extends javax.swing.JFrame {
 
     private void btn_teacher_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacher_editActionPerformed
         String auswahl = (String) lst_teacher.getSelectedValue(); 
-        System.out.println("gewählter Lehrer:" + auswahl + " ");
+//        System.out.println("gewählter Lehrer:" + auswahl + " ");
+        new LehrerEditGUI(auswahl).setVisible(true);
     }//GEN-LAST:event_btn_teacher_editActionPerformed
 
     private void btn_teacher_showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacher_showActionPerformed
