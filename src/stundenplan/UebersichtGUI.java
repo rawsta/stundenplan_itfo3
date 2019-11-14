@@ -7,7 +7,10 @@ package stundenplan;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -52,6 +55,22 @@ public class UebersichtGUI extends javax.swing.JFrame {
         // Lehrer Liste füllen
         LehrerListModel lehrerList = new LehrerListModel(lehrer);
         lst_teacher.setModel(lehrerList);
+        
+        // Auswahl der Liste erfassen
+//        ListSelectionListener listSelectionListener = new ListSelectionListener() {
+//            @Override
+//            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+//                JList list = (JList) listSelectionEvent.getSource();
+//                int selections[] = list.getSelectedIndices();
+//                Object selectionValues[] = list.getSelectedValues();
+//                  System.out.println(" Auswahl: " + selectionValues[0] + " ");
+//                for (int i = 0, n = selections.length; i < n; i++) {
+//                  System.out.println(" Auswahl: " + selections[i] + "/" + selectionValues[i] + " ");
+//                }
+//            }
+//        };
+//        lst_teacher.addListSelectionListener(listSelectionListener);
+//        lst_class.addListSelectionListener(listSelectionListener);
         
     }
 
@@ -162,11 +181,21 @@ public class UebersichtGUI extends javax.swing.JFrame {
         btn_teacher_edit.setMaximumSize(new java.awt.Dimension(180, 40));
         btn_teacher_edit.setMinimumSize(new java.awt.Dimension(180, 40));
         btn_teacher_edit.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_teacher_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_teacher_editActionPerformed(evt);
+            }
+        });
 
         btn_teacher_show.setText("Stundenplan anzeigen");
         btn_teacher_show.setMaximumSize(new java.awt.Dimension(180, 40));
         btn_teacher_show.setMinimumSize(new java.awt.Dimension(180, 40));
         btn_teacher_show.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_teacher_show.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_teacher_showActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -174,11 +203,21 @@ public class UebersichtGUI extends javax.swing.JFrame {
         btn_class_edit.setMaximumSize(new java.awt.Dimension(180, 40));
         btn_class_edit.setMinimumSize(new java.awt.Dimension(180, 40));
         btn_class_edit.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_class_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_class_editActionPerformed(evt);
+            }
+        });
 
         btn_class_show.setText("Stundenplan anzeigen");
         btn_class_show.setMaximumSize(new java.awt.Dimension(180, 40));
         btn_class_show.setMinimumSize(new java.awt.Dimension(180, 40));
         btn_class_show.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_class_show.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_class_showActionPerformed(evt);
+            }
+        });
 
         btn_action_new.setText("Neue Aktivität");
         btn_action_new.setMaximumSize(new java.awt.Dimension(200, 30));
@@ -352,6 +391,26 @@ public class UebersichtGUI extends javax.swing.JFrame {
     private void lst_teacherValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_teacherValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_lst_teacherValueChanged
+
+    private void btn_teacher_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacher_editActionPerformed
+        String auswahl = (String) lst_teacher.getSelectedValue(); 
+        System.out.println("gewählter Lehrer:" + auswahl + " ");
+    }//GEN-LAST:event_btn_teacher_editActionPerformed
+
+    private void btn_teacher_showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacher_showActionPerformed
+        String auswahl = (String) lst_teacher.getSelectedValue(); 
+        System.out.println("L-Stundenplan für:" + auswahl + " ");
+    }//GEN-LAST:event_btn_teacher_showActionPerformed
+
+    private void btn_class_showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_class_showActionPerformed
+        String auswahl = (String) lst_class.getSelectedValue(); 
+        System.out.println("K-Stundenplan für:" + auswahl + " ");
+    }//GEN-LAST:event_btn_class_showActionPerformed
+
+    private void btn_class_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_class_editActionPerformed
+        String auswahl = (String) lst_class.getSelectedValue(); 
+        System.out.println("gewählte Klasse:" + auswahl + " ");
+    }//GEN-LAST:event_btn_class_editActionPerformed
 
     /**
      * @param args the command line arguments

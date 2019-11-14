@@ -319,6 +319,9 @@
           <Dimension value="[180, 40]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_teacher_editActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_teacher_show">
       <Properties>
@@ -333,6 +336,9 @@
           <Dimension value="[180, 40]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_teacher_showActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
       <Properties>
@@ -352,6 +358,9 @@
           <Dimension value="[180, 40]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_class_editActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_class_show">
       <Properties>
@@ -366,6 +375,9 @@
           <Dimension value="[180, 40]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_class_showActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
     </Component>
