@@ -115,7 +115,7 @@ public class Database implements IConnection{
     }
 
     /**
-     * Klasse aktualisieren
+     * Klasse aktualisieren  // TODO: make a real prepared statement
      * 
      * @param title
      * @param klasse
@@ -213,7 +213,7 @@ public class Database implements IConnection{
     }
 
     /**
-     * ausgewählten Lehrer laden
+     * ausgewählten Lehrer laden // TODO: make a real prepared statement
      * 
      * @param kuerzel
      * @return selectedLehrer
@@ -223,12 +223,12 @@ public class Database implements IConnection{
         Lehrer selectedLehrer = null;
         
         try {
-            String query = "SELECT L_ID, Kuerzel, Name FROM Lehrer WHERE Kuerzel =" + kuerzel;
+            String query = "SELECT L_ID, Kuerzel, Name FROM Lehrer WHERE Kuerzel = '" + kuerzel + "'";
             ResultSet results = this.statement.executeQuery(query);
             selectedLehrer = convertRowToLehrer(results);
 
         } catch (SQLException e) {
-            System.out.println("SQLException Kann den Lehrer nicht finden");
+            System.out.println("SQLException - Kann den Lehrer nicht finden");
             throw new RuntimeException(e);
         }
         
@@ -237,7 +237,7 @@ public class Database implements IConnection{
     }
     
     /**
-     * Lehrer aktualisieren
+     * Lehrer aktualisieren // TODO: make a real prepared statement
      * 
      * @param kuerzel
      * @param lehrer
@@ -261,7 +261,7 @@ public class Database implements IConnection{
     }
 
     /**
-     * Konvertiert TableRow zu Lehrer
+     * Konvertiert TableRow zu Lehrer 
      * 
      * @param results
      * @return tempLehrer
@@ -311,7 +311,7 @@ public class Database implements IConnection{
 
     
     /**
-     * Neue Fach anlegen
+     * Neue Fach anlegen 
      * 
      * @param fach
      */
@@ -334,7 +334,7 @@ public class Database implements IConnection{
     }
 
     /**
-     * ausgewählten Fach laden
+     * ausgewählten Fach laden // TODO: make a real prepared statement
      * 
      * @param kuerzel
      * @return selectedFach
@@ -344,7 +344,7 @@ public class Database implements IConnection{
         Fach selectedFach = null;
         
         try {
-            String query = "SELECT F_ID, Kuerzel, Name FROM Fach WHERE Kuerzel =" + kuerzel;
+            String query = "SELECT F_ID, Kuerzel, Name FROM Fach WHERE Kuerzel ='" + kuerzel + "'";
             ResultSet results = this.statement.executeQuery(query);
             selectedFach = convertRowToFach(results);
 
@@ -358,7 +358,7 @@ public class Database implements IConnection{
     }
     
     /**
-     * Fach aktualisieren
+     * Fach aktualisieren // TODO: make a real prepared statement
      * 
      * @param kuerzel
      * @param fach
