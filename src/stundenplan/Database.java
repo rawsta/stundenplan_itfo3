@@ -9,8 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- *
- * @author rawsta
+ * Datenbank Klasse
+ * @author fielesebastian
  */
 public class Database implements IConnection{
     
@@ -64,6 +64,7 @@ public class Database implements IConnection{
             throw new RuntimeException(e);
         }
     }
+    
     
     /* ------------------------- Klassen ------------------------- */
     
@@ -162,6 +163,7 @@ public class Database implements IConnection{
         return tempKlasse;
     }
     
+    
     /* ------------------------- Lehrer ------------------------- */
     
     /**
@@ -196,7 +198,7 @@ public class Database implements IConnection{
     public void neuerLehrer(Lehrer lehrer) {
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement(
-                            "INSERT INTO Lehrer (K_ID, Kuerzel, Name) VALUES (?, ?, ?)");
+                            "INSERT INTO Lehrer (L_ID, Kuerzel, Name) VALUES (?, ?, ?)");
             preparedStatement.setInt(1, lehrer.getId());
             preparedStatement.setString(2, lehrer.getKuerzel());
             preparedStatement.setString(3, lehrer.getName());
@@ -221,10 +223,6 @@ public class Database implements IConnection{
         Lehrer selectedLehrer = null;
         
         try {
-//            PreparedStatement preparedStatement = this.connect.prepareStatement(
-//                            "SELECT Kuerzel, Name FROM Lehrer WHERE Kuerzel = ?");
-//            preparedStatement.setString(1, kuerzel);
-//            ResultSet results = preparedStatement.executeQuery();
             String query = "SELECT L_ID, Kuerzel, Name FROM Lehrer WHERE Kuerzel =" + kuerzel;
             ResultSet results = this.statement.executeQuery(query);
             selectedLehrer = convertRowToLehrer(results);
@@ -248,7 +246,7 @@ public class Database implements IConnection{
     public void updateLehrer(String kuerzel, Lehrer lehrer) {
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement(
-                            "UPDATE Kehrer SET L_ID = ?, Kuerzel = ?, Name = ? WHERE title = '" + kuerzel + "'");
+                            "UPDATE Lehrer SET L_ID = ?, Kuerzel = ?, Name = ? WHERE title = '" + kuerzel + "'");
             preparedStatement.setInt(1, lehrer.getId());
             preparedStatement.setString(2, lehrer.getKuerzel());
             preparedStatement.setObject(3, lehrer.getName());
@@ -287,6 +285,125 @@ public class Database implements IConnection{
         return tempLehrer;
     }
 
+/* ------------------------- Faecher ------------------------- */
+    
+    /**
+     * Faecher aus der Datenbank auslesen
+     * 
+     * @return faecher
+     */
+    @Override
+    public ArrayList<Fach> holeFach() {
+        ArrayList<Fach> faecher = new ArrayList<>();
+        try {
+            String query = "SELECT F_ID, Kuerzel, Name FROM Fach";
+            ResultSet results = this.statement.executeQuery(query);
+            // wir wandeln ArrayList in Objekt um
+            while (results.next()) {
+                    faecher.add(convertRowToFach(results));
+            }
+        } catch (SQLException e) {
+                System.out.println("SQLException beim auslesen der Lehrer.");
+                throw new RuntimeException(e);
+        }
+        return faecher;
+    }
 
+    
+    /**
+     * Neue Fach anlegen
+     * 
+     * @param fach
+     */
+    @Override
+    public void neuesFach(Fach fach) {
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement(
+                            "INSERT INTO Fach (F_ID, Kuerzel, Name) VALUES (?, ?, ?)");
+            preparedStatement.setInt(1, fach.getId());
+            preparedStatement.setString(2, fach.getKuerzel());
+            preparedStatement.setString(3, fach.getName());
+            
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("SQLException - Kann den Lehrer nicht einfügen");
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    /**
+     * ausgewählten Fach laden
+     * 
+     * @param kuerzel
+     * @return selectedFach
+     */
+    @Override
+    public Fach getSelectedFach(String kuerzel) {
+        Fach selectedFach = null;
+        
+        try {
+            String query = "SELECT F_ID, Kuerzel, Name FROM Fach WHERE Kuerzel =" + kuerzel;
+            ResultSet results = this.statement.executeQuery(query);
+            selectedFach = convertRowToFach(results);
+
+        } catch (SQLException e) {
+            System.out.println("SQLException Kann das Fach nicht finden");
+            throw new RuntimeException(e);
+        }
+        
+        return selectedFach;
+
+    }
+    
+    /**
+     * Fach aktualisieren
+     * 
+     * @param kuerzel
+     * @param fach
+     */
+    @Override
+    public void updateFach(String kuerzel, Fach fach) {
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement(
+                            "UPDATE Fach SET F_ID = ?, Kuerzel = ?, Name = ? WHERE title = '" + kuerzel + "'");
+            preparedStatement.setInt(1, fach.getId());
+            preparedStatement.setString(2, fach.getKuerzel());
+            preparedStatement.setObject(3, fach.getName());
+            
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("SQLException Kann das Fach nicht aktualisieren");
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    /**
+     * Konvertiert TableRow zu Fach
+     * 
+     * @param results
+     * @return tempFach
+     */
+    @Override
+    public Fach convertRowToFach(ResultSet results) {
+
+        Fach tempFach = null;
+        try {
+            int f_id = results.getInt("F_ID");
+            String kuerzel = results.getString("Kuerzel");
+            String name = results.getString("Name");
+
+            tempFach = new Fach(f_id, kuerzel, name);
+
+        } catch (SQLException e) {
+            System.out.println("Kann das Fach nicht aufbauen");
+            throw new RuntimeException(e);
+        }
+
+        return tempFach;
+    }
     
 }

@@ -13,6 +13,19 @@ import java.util.List;
  * @author rawsta
  */
 public interface IConnection {
+       
+   /**
+    * Datenbank öffnen
+    */
+   public void openConnection();
+
+   /**
+    * Datenbank schliessen
+    */
+   public void closeConnection();
+    
+    
+    /* ------------------------- Klassen ------------------------- */
         
     /**
     * Hole Klassen aus Datenbank
@@ -45,6 +58,8 @@ public interface IConnection {
     */
    public Klasse convertRowToKlasse(ResultSet results);
    
+   
+   /* ------------------------- Lehrer ------------------------- */
    
    /**
     * Hole Lehrer aus Datenbank
@@ -84,14 +99,45 @@ public interface IConnection {
     * @return lehrer object
     */
    public Lehrer convertRowToLehrer(ResultSet results);
+   
+
+   /* ------------------------- Faecher ------------------------- */
+   /**
+    * Hole Fach aus Datenbank
+    * 
+    * @return Liste der Fächer
+    */
+   public List<Fach> holeFach();
+   
+   /**
+    * Hole Fach aus Datenbank
+    * 
+    * @param auswahl
+    * @return ausgewähltes Fach
+    */
+   public Fach getSelectedFach(String auswahl);
 
    /**
-    * Datenbank öffnen
+    * Fach in DB schreiben
+    * 
+    * @param fach
     */
-   public void openConnection();
+   public void neuesFach(Fach fach);
 
    /**
-    * datenbank schliessen
+    * Fach aktualisieren
+    * 
+    * @param name
+    * @param faecher
     */
-   public void closeConnection();
+   public void updateFach(String name, Fach faecher);
+
+   /**
+    * Konvertiert TabelRow zu Fach
+    * 
+    * @param results
+    * @return Fach object
+    */
+   public Fach convertRowToFach(ResultSet results);
+   
 }
