@@ -98,14 +98,14 @@ public class Database implements IConnection{
     @Override
     public void neueKlasse(Klasse klasse) {
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement(
+            PreparedStatement prep = this.connect.prepareStatement(
                             "INSERT INTO Klasse (K_ID, Kuerzel) VALUES (?, ?)");
-            preparedStatement.setInt(1, klasse.getId());
-            preparedStatement.setString(2, klasse.getName());
-            preparedStatement.setObject(3, klasse.getUnterricht());
-            preparedStatement.setObject(4, klasse.getLehrerList());
+            prep.setInt(1, klasse.getId());
+            prep.setString(2, klasse.getName());
+            prep.setObject(3, klasse.getUnterricht());
+            prep.setObject(4, klasse.getLehrerList());
             
-            preparedStatement.executeUpdate();
+            prep.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("SQLException - Kann die Klasse nicht einfügen");
@@ -115,7 +115,7 @@ public class Database implements IConnection{
     }
 
     /**
-     * Klasse aktualisieren  // TODO: make a real prepared statement
+     * Klasse aktualisieren
      * 
      * @param title
      * @param klasse
@@ -123,14 +123,15 @@ public class Database implements IConnection{
     @Override
     public void updateKlasse(String title, Klasse klasse) {
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement(
-                            "UPDATE Klasse SET K_ID = ?, Kuerzel = ? WHERE title = '" + title + "'");
-            preparedStatement.setInt(1, klasse.getId());
-            preparedStatement.setString(2, klasse.getName());
-            preparedStatement.setObject(3, klasse.getUnterricht());
-            preparedStatement.setObject(4, klasse.getLehrerList());
+            PreparedStatement prep = this.connect.prepareStatement(
+                            "UPDATE Klasse SET K_ID = ?, Kuerzel = ? WHERE title = ?");
+            prep.setInt(1, klasse.getId());
+            prep.setString(2, klasse.getName());
+            prep.setObject(3, klasse.getUnterricht());
+            prep.setObject(4, klasse.getLehrerList());
+            prep.setString(5, title);
             
-            preparedStatement.executeUpdate();
+            prep.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("SQLException Kann die Klasse nicht aktualisieren");
@@ -188,7 +189,6 @@ public class Database implements IConnection{
         return lehrer;
     }
 
-    
     /**
      * Neue Lehrer anlegen
      * 
@@ -213,7 +213,7 @@ public class Database implements IConnection{
     }
 
     /**
-     * ausgewählten Lehrer laden // TODO: make a real prepared statement
+     * ausgewählten Lehrer laden 
      * 
      * @param kuerzel
      * @return selectedLehrer
@@ -223,8 +223,10 @@ public class Database implements IConnection{
         Lehrer selectedLehrer = null;
         
         try {
-            String query = "SELECT L_ID, Kuerzel, Name FROM Lehrer WHERE Kuerzel = '" + kuerzel + "'";
-            ResultSet results = this.statement.executeQuery(query);
+            PreparedStatement preparedStatement = this.connect.prepareStatement(
+                            "SELECT L_ID, Kuerzel, Name FROM Lehrer WHERE Kuerzel = ? ");
+            preparedStatement.setString(1, kuerzel);
+            ResultSet results = preparedStatement.executeQuery();
             selectedLehrer = convertRowToLehrer(results);
 
         } catch (SQLException e) {
@@ -237,7 +239,7 @@ public class Database implements IConnection{
     }
     
     /**
-     * Lehrer aktualisieren // TODO: make a real prepared statement
+     * Lehrer aktualisieren 
      * 
      * @param kuerzel
      * @param lehrer
@@ -245,13 +247,14 @@ public class Database implements IConnection{
     @Override
     public void updateLehrer(String kuerzel, Lehrer lehrer) {
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement(
-                            "UPDATE Lehrer SET L_ID = ?, Kuerzel = ?, Name = ? WHERE title = '" + kuerzel + "'");
-            preparedStatement.setInt(1, lehrer.getId());
-            preparedStatement.setString(2, lehrer.getKuerzel());
-            preparedStatement.setObject(3, lehrer.getName());
+            PreparedStatement prep = this.connect.prepareStatement(
+                            "UPDATE Lehrer SET L_ID = ?, Kuerzel = ?, Name = ? WHERE title = ?");
+            prep.setInt(1, lehrer.getId());
+            prep.setString(2, lehrer.getKuerzel());
+            prep.setObject(3, lehrer.getName());
+            prep.setString(4, kuerzel);
             
-            preparedStatement.executeUpdate();
+            prep.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("SQLException Kann den Lehrer nicht aktualisieren");
@@ -318,13 +321,13 @@ public class Database implements IConnection{
     @Override
     public void neuesFach(Fach fach) {
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement(
+            PreparedStatement prep = this.connect.prepareStatement(
                             "INSERT INTO Fach (F_ID, Kuerzel, Name) VALUES (?, ?, ?)");
-            preparedStatement.setInt(1, fach.getId());
-            preparedStatement.setString(2, fach.getKuerzel());
-            preparedStatement.setString(3, fach.getName());
+            prep.setInt(1, fach.getId());
+            prep.setString(2, fach.getKuerzel());
+            prep.setString(3, fach.getName());
             
-            preparedStatement.executeUpdate();
+            prep.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("SQLException - Kann den Lehrer nicht einfügen");
@@ -334,7 +337,7 @@ public class Database implements IConnection{
     }
 
     /**
-     * ausgewählten Fach laden // TODO: make a real prepared statement
+     * ausgewählten Fach laden
      * 
      * @param kuerzel
      * @return selectedFach
@@ -344,8 +347,10 @@ public class Database implements IConnection{
         Fach selectedFach = null;
         
         try {
-            String query = "SELECT F_ID, Kuerzel, Name FROM Fach WHERE Kuerzel ='" + kuerzel + "'";
-            ResultSet results = this.statement.executeQuery(query);
+            PreparedStatement prep = this.connect.prepareStatement( 
+                    "SELECT F_ID, Kuerzel, Name FROM Fach WHERE Kuerzel = ?");
+            prep.setString(1, kuerzel);
+            ResultSet results = prep.executeQuery();
             selectedFach = convertRowToFach(results);
 
         } catch (SQLException e) {
@@ -358,7 +363,7 @@ public class Database implements IConnection{
     }
     
     /**
-     * Fach aktualisieren // TODO: make a real prepared statement
+     * Fach aktualisieren
      * 
      * @param kuerzel
      * @param fach
@@ -367,10 +372,11 @@ public class Database implements IConnection{
     public void updateFach(String kuerzel, Fach fach) {
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement(
-                            "UPDATE Fach SET F_ID = ?, Kuerzel = ?, Name = ? WHERE title = '" + kuerzel + "'");
+                            "UPDATE Fach SET F_ID = ?, Kuerzel = ?, Name = ? WHERE title = ?");
             preparedStatement.setInt(1, fach.getId());
             preparedStatement.setString(2, fach.getKuerzel());
             preparedStatement.setObject(3, fach.getName());
+            preparedStatement.setString(4, kuerzel);
             
             preparedStatement.executeUpdate();
 

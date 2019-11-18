@@ -7,9 +7,10 @@
             <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/Aktivitaet.java</file>
             <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/UebersichtGUI.java</file>
             <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/KlassenListModel.java</file>
-            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/DatabaseFactory.java</file>
-            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/Lehrer.java</file>
+            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/IConnection.java</file>
             <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/LehrerEditGUI.java</file>
+            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/FachListModel.java</file>
+            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/Fach.java</file>
             <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/Database.java</file>
         </group>
     </open-files>
