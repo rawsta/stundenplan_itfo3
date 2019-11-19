@@ -70,6 +70,7 @@ public class Database implements IConnection{
     
     /**
      * Klassen aus der Datenbank auslesen
+     * tables: K_ID, Kuerzel
      * 
      * @return Klassen
      */
@@ -77,7 +78,7 @@ public class Database implements IConnection{
     public ArrayList<Klasse> holeKlasse() {
         ArrayList<Klasse> klassen = new ArrayList<>();
         try {
-            String query = "SELECT K_ID, Kuerzel, Name FROM Klasse";
+            String query = "SELECT K_ID, Kuerzel FROM Klasse";
             ResultSet results = this.statement.executeQuery(query);
             // wir wandeln ArrayList in Objekt um
             while (results.next()) {
@@ -102,8 +103,6 @@ public class Database implements IConnection{
                             "INSERT INTO Klasse (K_ID, Kuerzel) VALUES (?, ?)");
             prep.setInt(1, klasse.getId());
             prep.setString(2, klasse.getName());
-            prep.setObject(3, klasse.getUnterricht());
-            prep.setObject(4, klasse.getLehrerList());
             
             prep.executeUpdate();
 
@@ -127,9 +126,6 @@ public class Database implements IConnection{
                             "UPDATE Klasse SET K_ID = ?, Kuerzel = ? WHERE title = ?");
             prep.setInt(1, klasse.getId());
             prep.setString(2, klasse.getName());
-            prep.setObject(3, klasse.getUnterricht());
-            prep.setObject(4, klasse.getLehrerList());
-            prep.setString(5, title);
             
             prep.executeUpdate();
 
@@ -169,6 +165,7 @@ public class Database implements IConnection{
     
     /**
      * Lehrer aus der Datenbank auslesen
+     * tables: L_ID, Name, Kuerzel
      * 
      * @return lehrer
      */
@@ -292,6 +289,7 @@ public class Database implements IConnection{
     
     /**
      * Faecher aus der Datenbank auslesen
+     * tables: F_ID, Name, Kuerzel
      * 
      * @return faecher
      */
