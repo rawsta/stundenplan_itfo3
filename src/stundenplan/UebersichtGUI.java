@@ -125,6 +125,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        lst_teacher.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lst_teacher.setPreferredSize(new java.awt.Dimension(150, 50));
         lst_teacher.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -199,6 +200,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        lst_class.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(lst_class);
 
         btn_class_show.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -278,6 +280,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        lst_faecher.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lst_faecher.setPreferredSize(new java.awt.Dimension(150, 50));
         lst_faecher.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {

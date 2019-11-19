@@ -77,7 +77,7 @@ public class Database implements IConnection{
     public ArrayList<Klasse> holeKlasse() {
         ArrayList<Klasse> klassen = new ArrayList<>();
         try {
-            String query = "SELECT K_ID,Kuerzel FROM Klasse";
+            String query = "SELECT K_ID, Kuerzel, Name FROM Klasse";
             ResultSet results = this.statement.executeQuery(query);
             // wir wandeln ArrayList in Objekt um
             while (results.next()) {
