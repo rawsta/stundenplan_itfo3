@@ -63,7 +63,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         btn_teacher_save = new javax.swing.JButton();
         btn_teacher_save1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jList1 = new javax.swing.JList<String>();
         jLabel1 = new javax.swing.JLabel();
         tgl_mo_1 = new javax.swing.JToggleButton();
         lbl_verfuegbarkeit = new javax.swing.JLabel();
@@ -105,10 +105,10 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         btn_teacher_save1.setPreferredSize(new java.awt.Dimension(90, 30));
 
         jList1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Fach 1", "Fach 2", "Fach 3", "Fach 4", "Fach 5", "Fach 6" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jList1);
 
@@ -121,6 +121,11 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         tgl_mo_1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 tgl_mo_1ItemStateChanged(evt);
+            }
+        });
+        tgl_mo_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tgl_mo_1ActionPerformed(evt);
             }
         });
 
@@ -281,24 +286,43 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tgl_mo_1ItemStateChanged
 
     private void tgl_mo_2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_mo_2ItemStateChanged
-        // TODO add your handling code here:
+        if (tgl_mo_2.isSelected()) 
+            tgl_mo_2.setText("BELEGT");  
+        else  
+            tgl_mo_2.setText("Verfügbar");  
     }//GEN-LAST:event_tgl_mo_2ItemStateChanged
 
     private void tgl_mo_3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_mo_3ItemStateChanged
-        // TODO add your handling code here:
+        if (tgl_mo_3.isSelected()) 
+            tgl_mo_3.setText("BELEGT");  
+        else  
+            tgl_mo_3.setText("Verfügbar");  
     }//GEN-LAST:event_tgl_mo_3ItemStateChanged
 
     private void tgl_do_1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_do_1ItemStateChanged
-        // TODO add your handling code here:
+        if (tgl_do_1.isSelected()) 
+            tgl_do_1.setText("BELEGT");  
+        else  
+            tgl_do_1.setText("Verfügbar");  
     }//GEN-LAST:event_tgl_do_1ItemStateChanged
 
     private void tgl_do_2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_do_2ItemStateChanged
-        // TODO add your handling code here:
+        if (tgl_do_2.isSelected()) 
+            tgl_do_2.setText("BELEGT");  
+        else  
+            tgl_do_2.setText("Verfügbar");  
     }//GEN-LAST:event_tgl_do_2ItemStateChanged
 
     private void tgl_do_3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_do_3ItemStateChanged
-        // TODO add your handling code here:
+        if (tgl_do_3.isSelected()) 
+            tgl_do_3.setText("BELEGT");  
+        else  
+            tgl_do_3.setText("Verfügbar");  
     }//GEN-LAST:event_tgl_do_3ItemStateChanged
+
+    private void tgl_mo_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgl_mo_1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tgl_mo_1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
