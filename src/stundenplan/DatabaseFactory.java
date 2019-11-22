@@ -23,6 +23,7 @@ public class DatabaseFactory {
      * @return IConnection
      */
     public static IConnection getIConnection() {
+        SQLCON.openConnection();
         return DatabaseFactory.SQLCON;
 }
     
