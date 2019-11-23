@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import java.util.List;
 
 /**
- *
- * @author rawsta
+ * Interface Klasse für die Datenbank
+ * @author fielesebastian
  */
 public interface IConnection {
        

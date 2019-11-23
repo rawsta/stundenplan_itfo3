@@ -10,8 +10,8 @@ import java.util.List;
 import javax.swing.AbstractListModel;
 
 /**
- *
- * @author rawsta
+ * Das ListModel für die Lehrer
+ * @author fielesebastian
  */
 public class LehrerListModel extends AbstractListModel {
     

@@ -8,7 +8,7 @@ package stundenplan;
 import java.util.List;
 
 /**
- *
+ * Die "Klasse"-Klasse
  * @author ellinghannah
  */
 public class Klasse {
@@ -17,11 +17,19 @@ public class Klasse {
     private Unterrichtseinheit[] unterricht;
     private List<Lehrer> lehrerList;
 
+    /**
+     * Der Konstruktor
+     * 
+     * @param id
+     * @param name 
+     */
     public Klasse(int id, String name) {
         this.id = id;
         this.name = name;
     }    
 
+    /* ----------- Getter & Setter ----------- */
+    
     public int getId() {
         return id;
     }

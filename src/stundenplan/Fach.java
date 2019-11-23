@@ -6,7 +6,7 @@
 package stundenplan;
 
 /**
- *
+ * Die "Fach"-Klasse
  * @author ellinghannah
  */
 public class Fach {
@@ -14,13 +14,21 @@ public class Fach {
     private String name;
     private String kuerzel;
 
+    /**
+     * Der Konstruktor
+     * 
+     * @param id
+     * @param name
+     * @param kuerzel 
+     */
     public Fach(int id, String name, String kuerzel) {
         this.id = id;
         this.name = name;
         this.kuerzel = kuerzel;
-        
     }
 
+    /* ----------- Getter & Setter ----------- */
+    
     public int getId() {
         return id;
     }

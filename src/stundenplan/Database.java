@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * In dieser Klasse wird die Verbindung und die Abfragen der Datenbank verwaltet.
+ * Es wird IConnection als Interfaced implementiert um die Abfragen allgemein verfügbar zu machen. 
+ * TODO: Beschreibung ausbauen...
  */
 package stundenplan;
 
@@ -18,7 +18,8 @@ public class Database implements IConnection{
     private Statement statement;
 
     /**
-     * constructor
+     * Konstruktor für die Datenbank.
+     * 
      */
     public Database() {
         super();
@@ -29,11 +30,14 @@ public class Database implements IConnection{
 
     /**
      * Verbindung aufbauen
+     * 
      */
     @Override
     public final void openConnection() {
         try {
+            /* falls die Verbinung NULL oder geschlossen ist, wird sie aufgebaut */
             if (this.connect == null || this.connect.isClosed()) {
+                /* ´über den DriverManager wird die Verbindung zur DB im Stammverzeichnis aufgabaut */
                 this.connect = DriverManager.getConnection("jdbc:sqlite:stundenplan.db");
                 System.out.println("Datenbank gefunden.");
             }
@@ -227,7 +231,7 @@ public class Database implements IConnection{
             selectedLehrer = convertRowToLehrer(results);
 
         } catch (SQLException e) {
-            System.out.println("SQLException - Kann den Lehrer nicht finden");
+            System.out.println("SQLException - Kann den gewählten Lehrer nicht finden");
             throw new RuntimeException(e);
         }
         

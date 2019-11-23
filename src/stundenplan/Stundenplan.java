@@ -6,7 +6,7 @@
 package stundenplan;
 
 /**
- *
+ * Die zentrale Stundenplan-Klasse
  * @author fielesebastian
  */
 public class Stundenplan {

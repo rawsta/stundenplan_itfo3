@@ -1,19 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Fabrikmethode (https://de.wikipedia.org/wiki/Fabrikmethode).
+ * 
+ * 
  */
 package stundenplan;
 
 /**
- *
+ * Database Factory
  * @author rawsta
  */
 public class DatabaseFactory {
  
     /**
-     * singleton instance of IConnection 
-     * static final -> constants (uppercase)
+     * Singleton Instanz von IConnection 
+     * "static final" bezeichnet meistens Konstanten. 
+     * laut Namenskonvention werden Konstanten immer groß geschrieben.
+     * 
      */
     private static final IConnection SQLCON = new Database();
 

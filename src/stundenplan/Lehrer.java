@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- *
+ * Die "Lehrer"-Klasse
  * @author ellinghannah
  */
 public class Lehrer {
@@ -20,12 +20,21 @@ public class Lehrer {
     private Fach[] faecher;
     private Unterrichtseinheit[] stunden;
 
+    /**
+     * Der Konstruktor
+     * 
+     * @param id
+     * @param name
+     * @param kuerzel 
+     */
     public Lehrer(int id, String name, String kuerzel) {
         this.id = id;
         this.name = name;
         this.kuerzel = kuerzel;
     }
 
+    /* ----------- Getter & Setter ----------- */
+    
     public int getId() {
         return id;
     }

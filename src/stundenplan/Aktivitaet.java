@@ -8,7 +8,7 @@ package stundenplan;
 import javafx.util.Pair;
 
 /**
- *
+ * Die "Aktivität"-Klasse
  * @author ellinghannah
  */
 public class Aktivitaet {
@@ -16,12 +16,21 @@ public class Aktivitaet {
     private Pair<Lehrer, Lehrer> lehreinheit;
     private Fach fach;
 
+    /**
+     * Der Kontruktor
+     * 
+     * @param klasse
+     * @param lehreinheit
+     * @param fach 
+     */
     public Aktivitaet(Klasse klasse, Pair<Lehrer, Lehrer> lehreinheit, Fach fach) {
         this.klasse = klasse;
         this.lehreinheit = lehreinheit;
         this.fach = fach;
     }
 
+    /* ----------- Getter & Setter ----------- */
+    
     public Klasse getKlasse() {
         return klasse;
     }

@@ -6,7 +6,7 @@
 package stundenplan;
 
 /**
- *
+ * Die "Regel"-Klasse
  * @author ellinghannah
  */
 public class Regel {
@@ -17,6 +17,16 @@ public class Regel {
     private Klasse klasse;
     private boolean verfuegbar;
 
+    /**
+     * Der Konstruktor
+     * 
+     * @param id
+     * @param prioritaet
+     * @param fach
+     * @param lehrer
+     * @param klasse
+     * @param verfuegbar 
+     */
     public Regel(int id, int prioritaet, Fach fach, Lehrer lehrer, Klasse klasse, boolean verfuegbar) {
         this.id = id;
         this.prioritaet = prioritaet;
@@ -26,6 +36,8 @@ public class Regel {
         this.verfuegbar = verfuegbar;
     }
 
+    /* ----------- Getter & Setter ----------- */
+    
     public int getId() {
         return id;
     }

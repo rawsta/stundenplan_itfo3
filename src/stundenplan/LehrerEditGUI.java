@@ -22,7 +22,11 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         setLocationRelativeTo(this); // Zentriert das Fenster
     }
     
-    
+    /**
+     * LehrerEditGUI mit dem ausgewähltem Lehrer laden
+     * 
+     * @param auswahl 
+     */
     public LehrerEditGUI(String auswahl) {
         
         Lehrer tempLehrer = null;
@@ -321,7 +325,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tgl_do_3ItemStateChanged
 
     private void tgl_mo_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgl_mo_1ActionPerformed
-        // TODO add your handling code here:
+        // TODO Evtl die Verfügbarkeit in einem Array speichern und für die verfügbarkeit in den Blöcken die jeweillige position nehmen
     }//GEN-LAST:event_tgl_mo_1ActionPerformed
 
 

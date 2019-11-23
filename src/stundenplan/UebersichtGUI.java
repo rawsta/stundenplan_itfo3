@@ -10,7 +10,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Die zentrale GUI von der alle Interaktion ausgeht. 
+ * 
  * @author fielesebastian
  */
 public class UebersichtGUI extends javax.swing.JFrame {
@@ -25,7 +26,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
     private List<Fach> faecher = new ArrayList<>();
 
     /**
-     * Creates new form Uebersicht
+     * Hier werden die Daten geholt und die eigentliche GUI aufgebaut.
      */
     public UebersichtGUI() {
         try {
@@ -500,8 +501,10 @@ public class UebersichtGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_dateiActionPerformed
 
     private void menu_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_closeActionPerformed
+        /* Strings für die Meldung befüllen */
         String message = "Wollen Sie die Stundenplanverwaltungsoberfläche wirklich beenden?";
         String title = "Sind Sie sich sicher?";
+        /* Schließen Disalog aufrufen und Antwort verarbeiten */
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION){
           System.exit(0);
@@ -513,22 +516,27 @@ public class UebersichtGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_lst_teacherValueChanged
 
     private void btn_teacher_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacher_editActionPerformed
+        /* Gewählten Lehrer aus der Liste herausfinden */
         String auswahl = (String) lst_teacher.getSelectedValue(); 
 //        System.out.println("gewählter Lehrer:" + auswahl + " ");
+        /* Neue GUI mit dem ausgewählten Lehrer aufrufen */
         new LehrerEditGUI(auswahl).setVisible(true);
     }//GEN-LAST:event_btn_teacher_editActionPerformed
 
     private void btn_teacher_showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacher_showActionPerformed
+        /* Gewählten Lehrer aus der Liste herausfinden */
         String auswahl = (String) lst_teacher.getSelectedValue(); 
         System.out.println("L-Stundenplan für:" + auswahl + " ");
     }//GEN-LAST:event_btn_teacher_showActionPerformed
 
     private void btn_class_showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_class_showActionPerformed
+        /* Gewählte Klasse aus der Liste herausfinden */
         String auswahl = (String) lst_class.getSelectedValue(); 
         System.out.println("K-Stundenplan für:" + auswahl + " ");
     }//GEN-LAST:event_btn_class_showActionPerformed
 
     private void btn_class_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_class_editActionPerformed
+        /* Gewählte Klasse aus der Liste herausfinden */
         String auswahl = (String) lst_class.getSelectedValue(); 
         System.out.println("gewählte Klasse:" + auswahl + " ");
     }//GEN-LAST:event_btn_class_editActionPerformed

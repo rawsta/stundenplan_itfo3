@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author rawsta
+ * Das ListModel für die Klassen
+ * @author fielesebastian
  */
 public class KlassenListModel extends AbstractListModel {
     

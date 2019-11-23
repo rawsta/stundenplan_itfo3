@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Das ListModel für die Fächer
  * @author fielesebastian
  */
 public class FachListModel extends AbstractListModel {
