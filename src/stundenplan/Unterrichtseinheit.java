@@ -9,7 +9,7 @@ import java.time.DayOfWeek;
 import javafx.util.Pair;
 
 /**
- *
+ * Diw Unterrichtseinheit Klasse
  * @author ellinghannah
  */
 public class Unterrichtseinheit {
