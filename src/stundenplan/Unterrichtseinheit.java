@@ -18,6 +18,14 @@ public class Unterrichtseinheit {
     private Klasse klasse;
     private Pair<Lehrer, Lehrer> lehreinheit;
 
+    /**
+     * Unterrichtseinheit Konstruktor
+     * 
+     * @param tag
+     * @param block
+     * @param klasse
+     * @param lehreinheit 
+     */
     public Unterrichtseinheit(DayOfWeek tag, int block, Klasse klasse, Pair<Lehrer, Lehrer> lehreinheit) {
         this.tag = tag;
         this.block = block;
@@ -25,6 +33,8 @@ public class Unterrichtseinheit {
         this.lehreinheit = lehreinheit;
     }
 
+    /* ----------- Getter & Setter ----------- */
+    
     public DayOfWeek getTag() {
         return tag;
     }
