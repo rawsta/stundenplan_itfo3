@@ -35,9 +35,6 @@ public class FachListModel extends AbstractListModel {
 
     @Override
     public Object getElementAt(int index) {
-        
-        Fach tempKlasse = faecher.get(index);
-        
-        return tempKlasse.getName();
+        return index >= faecher.size() ? null : faecher.get(index);
     }
 }

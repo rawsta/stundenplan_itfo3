@@ -5,6 +5,8 @@
  */
 package stundenplan;
 
+import stundenplan.oberflaechen.UebersichtGUI;
+
 /**
  * Die zentrale Stundenplan-Klasse
  * @author fielesebastian

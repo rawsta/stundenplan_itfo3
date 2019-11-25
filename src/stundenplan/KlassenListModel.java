@@ -35,9 +35,6 @@ public class KlassenListModel extends AbstractListModel {
 
     @Override
     public Object getElementAt(int index) {
-        
-        Klasse tempKlasse = klassen.get(index);
-        
-        return tempKlasse.getName();
+        return index >= klassen.size() ? null : klassen.get(index);
     }
 }
