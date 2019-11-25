@@ -48,6 +48,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Stundenplanverwaltungsoberfl&#xe4;che"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar2"/>
@@ -73,7 +74,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btn_close" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_programm_beenden" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lbl_window_title" min="-2" pref="686" max="-2" attributes="0"/>
                           <Component id="jSeparator6" alignment="0" min="-2" pref="686" max="-2" attributes="0"/>
@@ -95,7 +96,7 @@
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
               <Component id="jSeparator6" min="-2" pref="8" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btn_close" min="-2" max="-2" attributes="0"/>
+              <Component id="btn_programm_beenden" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -110,7 +111,7 @@
         <Property name="text" type="java.lang.String" value="Stundenplanverwaltungsoberfl&#xe4;che des Ludwig-Erhard Berufkollegs M&#xfc;nster"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btn_close">
+    <Component class="javax.swing.JButton" name="btn_programm_beenden">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="12" style="0"/>
@@ -118,7 +119,7 @@
         <Property name="text" type="java.lang.String" value="Programm beenden"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_closeActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_programm_beendenActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator6">
@@ -149,9 +150,9 @@
                       <Component id="jScrollPane1" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btn_teacher_show" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btn_teacher_new" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btn_teacher_edit" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_lehrer_stundenplan_anzeigen" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_lehrer_anlegen" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_lehrer_bearbeiten" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="323" max="32767" attributes="0"/>
                   </Group>
@@ -163,11 +164,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="btn_teacher_show" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_lehrer_stundenplan_anzeigen" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btn_teacher_edit" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_lehrer_bearbeiten" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btn_teacher_new" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_lehrer_anlegen" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" pref="232" max="32767" attributes="0"/>
@@ -185,7 +186,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JList" name="lst_teacher">
+                <Component class="javax.swing.JList" name="lst_lehrer">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="12" style="0"/>
@@ -211,12 +212,12 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="lst_teacherValueChanged"/>
+                    <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="lst_lehrerValueChanged"/>
                   </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btn_teacher_show">
+            <Component class="javax.swing.JButton" name="btn_lehrer_stundenplan_anzeigen">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -233,10 +234,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_teacher_showActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_lehrer_stundenplan_anzeigenActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btn_teacher_edit">
+            <Component class="javax.swing.JButton" name="btn_lehrer_bearbeiten">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -253,10 +254,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_teacher_editActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_lehrer_bearbeitenActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btn_teacher_new">
+            <Component class="javax.swing.JButton" name="btn_lehrer_anlegen">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -292,9 +293,9 @@
                       <Component id="jScrollPane2" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btn_class_show" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btn_class_edit" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btn_class_new" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_klassen_stundenplan_anzeigen" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_klasse_bearbeiten" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_klasse_anlegen" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="323" max="32767" attributes="0"/>
                   </Group>
@@ -306,11 +307,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="btn_class_show" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_klassen_stundenplan_anzeigen" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btn_class_edit" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_klasse_bearbeiten" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btn_class_new" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_klasse_anlegen" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane2" pref="232" max="32767" attributes="0"/>
@@ -328,7 +329,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JList" name="lst_class">
+                <Component class="javax.swing.JList" name="lst_klassen">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="12" style="0"/>
@@ -347,7 +348,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btn_class_show">
+            <Component class="javax.swing.JButton" name="btn_klassen_stundenplan_anzeigen">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -364,10 +365,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_class_showActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_klassen_stundenplan_anzeigenActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btn_class_edit">
+            <Component class="javax.swing.JButton" name="btn_klasse_bearbeiten">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -384,10 +385,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_class_editActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_klasse_bearbeitenActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btn_class_new">
+            <Component class="javax.swing.JButton" name="btn_klasse_anlegen">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -404,7 +405,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_class_newActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_klasse_anlegenActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -423,11 +424,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" min="-2" pref="152" max="-2" attributes="0"/>
+                      <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btn_fach_edit" max="32767" attributes="0"/>
-                          <Component id="btn_fach_new" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_fach_bearbeiten" max="32767" attributes="0"/>
+                          <Component id="btn_fach_anlegen" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="321" max="32767" attributes="0"/>
                   </Group>
@@ -440,9 +441,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane3" pref="232" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="btn_fach_new" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_fach_anlegen" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Component id="btn_fach_edit" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_fach_bearbeiten" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -452,7 +453,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btn_fach_new">
+            <Component class="javax.swing.JButton" name="btn_fach_anlegen">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -470,6 +471,11 @@
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="0"/>
+                </Property>
+              </Properties>
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -510,7 +516,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btn_fach_edit">
+            <Component class="javax.swing.JButton" name="btn_fach_bearbeiten">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -527,7 +533,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_fach_editActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_fach_bearbeitenActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -546,9 +552,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
-                      <Component id="btn_action_new" min="-2" pref="195" max="-2" attributes="0"/>
+                      <Component id="btn_aktivitaet_anlegen" min="-2" pref="195" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btn_action_reset" min="-2" pref="195" max="-2" attributes="0"/>
+                      <Component id="btn_aktivitaet_zuruecksetzen" min="-2" pref="195" max="-2" attributes="0"/>
                       <EmptySpace pref="153" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -558,8 +564,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btn_action_new" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="btn_action_reset" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btn_aktivitaet_anlegen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btn_aktivitaet_zuruecksetzen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="126" max="32767" attributes="0"/>
                   </Group>
@@ -567,7 +573,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btn_action_new">
+            <Component class="javax.swing.JButton" name="btn_aktivitaet_anlegen">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -584,7 +590,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btn_action_reset">
+            <Component class="javax.swing.JButton" name="btn_aktivitaet_zuruecksetzen">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -618,8 +624,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btn_splan_current" min="-2" pref="195" max="-2" attributes="0"/>
-                          <Component id="btn_splan_new" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                          <Component id="btn_aktuellen_stundenplan_anzeigen" min="-2" pref="195" max="-2" attributes="0"/>
+                          <Component id="btn_stundenplan_anlegen" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="288" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -641,9 +647,9 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                              <Component id="btn_splan_current" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_aktuellen_stundenplan_anzeigen" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btn_splan_new" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_stundenplan_anlegen" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -654,7 +660,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btn_splan_current">
+            <Component class="javax.swing.JButton" name="btn_aktuellen_stundenplan_anzeigen">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -671,7 +677,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btn_splan_new">
+            <Component class="javax.swing.JButton" name="btn_stundenplan_anlegen">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
