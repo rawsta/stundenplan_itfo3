@@ -95,10 +95,13 @@ public class UebersichtGUI extends javax.swing.JFrame {
         btn_fach_edit = new javax.swing.JButton();
         Activities = new javax.swing.JPanel();
         btn_action_new = new javax.swing.JButton();
+        btn_action_reset = new javax.swing.JButton();
         tab_splan = new javax.swing.JPanel();
         btn_splan_current = new javax.swing.JButton();
         btn_splan_new = new javax.swing.JButton();
         btn_splan_prev = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
         jMenuBar2 = new javax.swing.JMenuBar();
         menu_datei = new javax.swing.JMenu();
         menu_close = new javax.swing.JMenuItem();
@@ -127,7 +130,9 @@ public class UebersichtGUI extends javax.swing.JFrame {
             public Object getElementAt(int i) { return strings[i]; }
         });
         lst_teacher.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lst_teacher.setPreferredSize(new java.awt.Dimension(150, 50));
+        lst_teacher.setMaximumSize(new java.awt.Dimension(43, 90));
+        lst_teacher.setMinimumSize(new java.awt.Dimension(43, 90));
+        lst_teacher.setPreferredSize(new java.awt.Dimension(43, 90));
         lst_teacher.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lst_teacherValueChanged(evt);
@@ -169,13 +174,13 @@ public class UebersichtGUI extends javax.swing.JFrame {
             tab_teacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab_teacherLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(tab_teacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_teacher_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_teacher_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_teacher_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addContainerGap(323, Short.MAX_VALUE))
         );
         tab_teacherLayout.setVerticalGroup(
             tab_teacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +194,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_teacher_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -249,7 +254,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
                     .addComponent(btn_class_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_class_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_class_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addContainerGap(323, Short.MAX_VALUE))
         );
         tab_classesLayout.setVerticalGroup(
             tab_classesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,7 +268,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_class_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -282,6 +287,8 @@ public class UebersichtGUI extends javax.swing.JFrame {
             public Object getElementAt(int i) { return strings[i]; }
         });
         lst_faecher.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lst_faecher.setMaximumSize(new java.awt.Dimension(150, 50));
+        lst_faecher.setMinimumSize(new java.awt.Dimension(150, 50));
         lst_faecher.setPreferredSize(new java.awt.Dimension(150, 50));
         lst_faecher.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -308,19 +315,19 @@ public class UebersichtGUI extends javax.swing.JFrame {
             tab_subjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab_subjectsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(tab_subjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_fach_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_fach_new, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(318, Short.MAX_VALUE))
+                    .addComponent(btn_fach_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
         tab_subjectsLayout.setVerticalGroup(
             tab_subjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab_subjectsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tab_subjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                     .addGroup(tab_subjectsLayout.createSequentialGroup()
                         .addComponent(btn_fach_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21)
@@ -337,21 +344,31 @@ public class UebersichtGUI extends javax.swing.JFrame {
         btn_action_new.setMinimumSize(new java.awt.Dimension(200, 30));
         btn_action_new.setPreferredSize(new java.awt.Dimension(220, 50));
 
+        btn_action_reset.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_action_reset.setText("Aktivitäten zurücksetzen");
+        btn_action_reset.setMaximumSize(new java.awt.Dimension(200, 30));
+        btn_action_reset.setMinimumSize(new java.awt.Dimension(200, 30));
+        btn_action_reset.setPreferredSize(new java.awt.Dimension(220, 50));
+
         javax.swing.GroupLayout ActivitiesLayout = new javax.swing.GroupLayout(Activities);
         Activities.setLayout(ActivitiesLayout);
         ActivitiesLayout.setHorizontalGroup(
             ActivitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ActivitiesLayout.createSequentialGroup()
-                .addContainerGap(228, Short.MAX_VALUE)
+            .addGroup(ActivitiesLayout.createSequentialGroup()
+                .addGap(120, 120, 120)
                 .addComponent(btn_action_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(258, 258, 258))
+                .addGap(18, 18, 18)
+                .addComponent(btn_action_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         ActivitiesLayout.setVerticalGroup(
             ActivitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ActivitiesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_action_new, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addGap(98, 98, 98)
+                .addGroup(ActivitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_action_new, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_action_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         tab_sections.addTab("Aktivitäten", Activities);
@@ -369,7 +386,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
         btn_splan_new.setPreferredSize(new java.awt.Dimension(220, 50));
 
         btn_splan_prev.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_splan_prev.setText("vergangene Stundenpläne");
+        btn_splan_prev.setText("Stundenplan ansehen");
         btn_splan_prev.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_splan_prev.setMinimumSize(new java.awt.Dimension(200, 30));
         btn_splan_prev.setPreferredSize(new java.awt.Dimension(220, 50));
@@ -379,28 +396,46 @@ public class UebersichtGUI extends javax.swing.JFrame {
             }
         });
 
+        jList1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Stundenplan 1", "Stundenplan 2", "Stundenplan 3", "Stundenplan 4", "Stundenplan 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane4.setViewportView(jList1);
+
         javax.swing.GroupLayout tab_splanLayout = new javax.swing.GroupLayout(tab_splan);
         tab_splan.setLayout(tab_splanLayout);
         tab_splanLayout.setHorizontalGroup(
-            tab_splanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            tab_splanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(tab_splanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_splan_current, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(btn_splan_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addComponent(btn_splan_prev, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(tab_splanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_splan_current, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_splan_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 288, Short.MAX_VALUE)
+                .addGroup(tab_splanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane4)
+                    .addComponent(btn_splan_prev, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         tab_splanLayout.setVerticalGroup(
             tab_splanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab_splanLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addGroup(tab_splanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btn_splan_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_splan_prev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_splan_current, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addGroup(tab_splanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tab_splanLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(tab_splanLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(btn_splan_current, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_splan_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(btn_splan_prev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tab_sections.addTab("Stundenpläne", tab_splan);
@@ -445,12 +480,12 @@ public class UebersichtGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tab_sections, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btn_close)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_window_title, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tab_sections, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -459,8 +494,8 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lbl_window_title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tab_sections, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tab_sections, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_close)
@@ -568,6 +603,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Activities;
     private javax.swing.JButton btn_action_new;
+    private javax.swing.JButton btn_action_reset;
     private javax.swing.JButton btn_class_edit;
     private javax.swing.JButton btn_class_new;
     private javax.swing.JButton btn_class_show;
@@ -580,10 +616,12 @@ public class UebersichtGUI extends javax.swing.JFrame {
     private javax.swing.JButton btn_teacher_edit;
     private javax.swing.JButton btn_teacher_new;
     private javax.swing.JButton btn_teacher_show;
+    private javax.swing.JList jList1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel lbl_window_title;
     private javax.swing.JList lst_class;
