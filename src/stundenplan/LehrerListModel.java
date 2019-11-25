@@ -11,6 +11,7 @@ import javax.swing.AbstractListModel;
 
 /**
  * Das ListModel für die Lehrer
+ * 
  * @author fielesebastian
  */
 public class LehrerListModel extends AbstractListModel {
@@ -19,20 +20,29 @@ public class LehrerListModel extends AbstractListModel {
     private List<Lehrer> lehrer = new ArrayList<>();
 
     /** 
-     * constructor
+     * Konstruktor für Lehrer
+     * 
      * @param lehrer 
      */
     public LehrerListModel(List<Lehrer> lehrer) {
         this.lehrer = lehrer;
     }
     
-    
+    /**
+     * Größe der Lehrer Liste ausgeben
+     * @return 
+     */
     @Override
     public int getSize() {
         return lehrer.size();
     }
 
-
+    /**
+     * Element an Index finden
+     * 
+     * @param index
+     * @return 
+     */
     @Override
     public Object getElementAt(int index) {
         

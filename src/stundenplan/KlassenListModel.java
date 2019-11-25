@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Das ListModel für die Klassen
+ * 
  * @author fielesebastian
  */
 public class KlassenListModel extends AbstractListModel {
@@ -19,20 +20,30 @@ public class KlassenListModel extends AbstractListModel {
     private List<Klasse> klassen = new ArrayList<>();
 
     /** 
-     * constructor for game table
+     * Konstruktor für die Klassen
+     * 
      * @param klassen 
      */
     public KlassenListModel(List<Klasse> klassen) {
         this.klassen = klassen;
     }
     
-    
+    /**
+     * Größe der Klassen ausgeben
+     * 
+     * @return Klassengröße
+     */
     @Override
     public int getSize() {
         return klassen.size();
     }
 
-
+    /**
+     * Element an Index finden
+     * 
+     * @param index
+     * @return 
+     */
     @Override
     public Object getElementAt(int index) {
         return index >= klassen.size() ? null : klassen.get(index);
