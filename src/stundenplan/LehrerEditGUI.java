@@ -81,6 +81,8 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
 
+        setPreferredSize(new java.awt.Dimension(410, 310));
+
         lbl_teacher_edit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_teacher_edit.setText("Lehrer bearbeiten");
 
