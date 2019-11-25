@@ -8,6 +8,8 @@ package stundenplan;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import stundenplan.datenbank.DatenbankFactory;
+import stundenplan.datenbank.IConnection;
 
 /**
  * Die zentrale GUI von der alle Interaktion ausgeht. 

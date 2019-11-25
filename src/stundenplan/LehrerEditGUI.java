@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package stundenplan;
+import stundenplan.datenbank.DatenbankFactory;
+import stundenplan.datenbank.IConnection;
+
 
 /**
  *
@@ -32,7 +35,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         Lehrer tempLehrer = null;
         
         try {
-            connect = DatabaseFactory.getIConnection();
+            connect = DatenbankFactory.getIConnection();
             tempLehrer = connect.getSelectedLehrer(auswahl);
         } catch (Exception e) {
             System.out.println(e);
