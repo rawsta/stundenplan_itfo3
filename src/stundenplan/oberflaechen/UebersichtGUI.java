@@ -59,11 +59,11 @@ public class UebersichtGUI extends javax.swing.JFrame {
         
         // Klassen Liste füllen
         KlassenListModel klassenList = new KlassenListModel(klassen);
-        lst_class.setModel(klassenList);
+        lst_klassen.setModel(klassenList);
         
         // Lehrer Liste füllen
         LehrerListModel lehrerList = new LehrerListModel(lehrer);
-        lst_teacher.setModel(lehrerList);
+        lst_lehrer.setModel(lehrerList);
         
         // Fächer Liste füllen
         FachListModel faecherList = new FachListModel(faecher);
@@ -82,32 +82,32 @@ public class UebersichtGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         lbl_window_title = new javax.swing.JLabel();
-        btn_close = new javax.swing.JButton();
+        btn_programm_beenden = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
         tab_sections = new javax.swing.JTabbedPane();
         tab_teacher = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lst_teacher = new javax.swing.JList();
-        btn_teacher_show = new javax.swing.JButton();
-        btn_teacher_edit = new javax.swing.JButton();
-        btn_teacher_new = new javax.swing.JButton();
+        lst_lehrer = new javax.swing.JList();
+        btn_lehrer_stundenplan_anzeigen = new javax.swing.JButton();
+        btn_lehrer_bearbeiten = new javax.swing.JButton();
+        btn_lehrer_anlegen = new javax.swing.JButton();
         tab_classes = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lst_class = new javax.swing.JList();
-        btn_class_show = new javax.swing.JButton();
-        btn_class_edit = new javax.swing.JButton();
-        btn_class_new = new javax.swing.JButton();
+        lst_klassen = new javax.swing.JList();
+        btn_klassen_stundenplan_anzeigen = new javax.swing.JButton();
+        btn_klasse_bearbeiten = new javax.swing.JButton();
+        btn_klasse_anlegen = new javax.swing.JButton();
         tab_subjects = new javax.swing.JPanel();
-        btn_fach_new = new javax.swing.JButton();
+        btn_fach_anlegen = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         lst_faecher = new javax.swing.JList();
-        btn_fach_edit = new javax.swing.JButton();
+        btn_fach_bearbeiten = new javax.swing.JButton();
         Activities = new javax.swing.JPanel();
-        btn_action_new = new javax.swing.JButton();
-        btn_action_reset = new javax.swing.JButton();
+        btn_aktivitaet_anlegen = new javax.swing.JButton();
+        btn_aktivitaet_zuruecksetzen = new javax.swing.JButton();
         tab_splan = new javax.swing.JPanel();
-        btn_splan_current = new javax.swing.JButton();
-        btn_splan_new = new javax.swing.JButton();
+        btn_aktuellen_stundenplan_anzeigen = new javax.swing.JButton();
+        btn_stundenplan_anlegen = new javax.swing.JButton();
         btn_splan_prev = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -118,64 +118,65 @@ public class UebersichtGUI extends javax.swing.JFrame {
         menu_ueber = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Stundenplanverwaltungsoberfläche");
 
         lbl_window_title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_window_title.setText("Stundenplanverwaltungsoberfläche des Ludwig-Erhard Berufkollegs Münster");
 
-        btn_close.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_close.setText("Programm beenden");
-        btn_close.addActionListener(new java.awt.event.ActionListener() {
+        btn_programm_beenden.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_programm_beenden.setText("Programm beenden");
+        btn_programm_beenden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_closeActionPerformed(evt);
+                btn_programm_beendenActionPerformed(evt);
             }
         });
 
         tab_sections.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        lst_teacher.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lst_teacher.setModel(new javax.swing.AbstractListModel() {
+        lst_lehrer.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lst_lehrer.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Lehrer 1", "Lehrer 2", "Lehrer 3", "Lehrer 4", "Lehrer 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        lst_teacher.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lst_teacher.setMaximumSize(new java.awt.Dimension(43, 90));
-        lst_teacher.setMinimumSize(new java.awt.Dimension(43, 90));
-        lst_teacher.setPreferredSize(new java.awt.Dimension(43, 90));
-        lst_teacher.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        lst_lehrer.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lst_lehrer.setMaximumSize(new java.awt.Dimension(43, 90));
+        lst_lehrer.setMinimumSize(new java.awt.Dimension(43, 90));
+        lst_lehrer.setPreferredSize(new java.awt.Dimension(43, 90));
+        lst_lehrer.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                lst_teacherValueChanged(evt);
+                lst_lehrerValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(lst_teacher);
+        jScrollPane1.setViewportView(lst_lehrer);
 
-        btn_teacher_show.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_teacher_show.setText("Stundenplan anzeigen");
-        btn_teacher_show.setMaximumSize(new java.awt.Dimension(180, 40));
-        btn_teacher_show.setMinimumSize(new java.awt.Dimension(180, 40));
-        btn_teacher_show.setPreferredSize(new java.awt.Dimension(180, 40));
-        btn_teacher_show.addActionListener(new java.awt.event.ActionListener() {
+        btn_lehrer_stundenplan_anzeigen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_lehrer_stundenplan_anzeigen.setText("Stundenplan anzeigen");
+        btn_lehrer_stundenplan_anzeigen.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_stundenplan_anzeigen.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_stundenplan_anzeigen.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_stundenplan_anzeigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_teacher_showActionPerformed(evt);
+                btn_lehrer_stundenplan_anzeigenActionPerformed(evt);
             }
         });
 
-        btn_teacher_edit.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_teacher_edit.setText("Lehrer bearbeiten");
-        btn_teacher_edit.setMaximumSize(new java.awt.Dimension(180, 40));
-        btn_teacher_edit.setMinimumSize(new java.awt.Dimension(180, 40));
-        btn_teacher_edit.setPreferredSize(new java.awt.Dimension(180, 40));
-        btn_teacher_edit.addActionListener(new java.awt.event.ActionListener() {
+        btn_lehrer_bearbeiten.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_lehrer_bearbeiten.setText("Lehrer bearbeiten");
+        btn_lehrer_bearbeiten.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_bearbeiten.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_bearbeiten.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_bearbeiten.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_teacher_editActionPerformed(evt);
+                btn_lehrer_bearbeitenActionPerformed(evt);
             }
         });
 
-        btn_teacher_new.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_teacher_new.setText("Neue Lehrer anlegen");
-        btn_teacher_new.setMaximumSize(new java.awt.Dimension(180, 40));
-        btn_teacher_new.setMinimumSize(new java.awt.Dimension(180, 40));
-        btn_teacher_new.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_anlegen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_lehrer_anlegen.setText("Neue Lehrer anlegen");
+        btn_lehrer_anlegen.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_anlegen.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_anlegen.setPreferredSize(new java.awt.Dimension(180, 40));
 
         javax.swing.GroupLayout tab_teacherLayout = new javax.swing.GroupLayout(tab_teacher);
         tab_teacher.setLayout(tab_teacherLayout);
@@ -186,9 +187,9 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(tab_teacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_teacher_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_teacher_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_teacher_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_lehrer_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_lehrer_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_lehrer_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(323, Short.MAX_VALUE))
         );
         tab_teacherLayout.setVerticalGroup(
@@ -197,11 +198,11 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(tab_teacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tab_teacherLayout.createSequentialGroup()
-                        .addComponent(btn_teacher_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_lehrer_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_teacher_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_lehrer_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_teacher_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_lehrer_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                 .addContainerGap())
@@ -209,45 +210,45 @@ public class UebersichtGUI extends javax.swing.JFrame {
 
         tab_sections.addTab("Lehrer", tab_teacher);
 
-        lst_class.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lst_class.setModel(new javax.swing.AbstractListModel() {
+        lst_klassen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lst_klassen.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Klasse 1", "Klasse 2", "Klasse 3", "Klasse 4", "Klasse 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        lst_class.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane2.setViewportView(lst_class);
+        lst_klassen.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(lst_klassen);
 
-        btn_class_show.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_class_show.setText("Stundenplan anzeigen");
-        btn_class_show.setMaximumSize(new java.awt.Dimension(180, 40));
-        btn_class_show.setMinimumSize(new java.awt.Dimension(180, 40));
-        btn_class_show.setPreferredSize(new java.awt.Dimension(180, 40));
-        btn_class_show.addActionListener(new java.awt.event.ActionListener() {
+        btn_klassen_stundenplan_anzeigen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_klassen_stundenplan_anzeigen.setText("Stundenplan anzeigen");
+        btn_klassen_stundenplan_anzeigen.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_klassen_stundenplan_anzeigen.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_klassen_stundenplan_anzeigen.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_klassen_stundenplan_anzeigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_class_showActionPerformed(evt);
+                btn_klassen_stundenplan_anzeigenActionPerformed(evt);
             }
         });
 
-        btn_class_edit.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_class_edit.setText("Klasse bearbeiten");
-        btn_class_edit.setMaximumSize(new java.awt.Dimension(180, 40));
-        btn_class_edit.setMinimumSize(new java.awt.Dimension(180, 40));
-        btn_class_edit.setPreferredSize(new java.awt.Dimension(180, 40));
-        btn_class_edit.addActionListener(new java.awt.event.ActionListener() {
+        btn_klasse_bearbeiten.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_klasse_bearbeiten.setText("Klasse bearbeiten");
+        btn_klasse_bearbeiten.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_klasse_bearbeiten.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_klasse_bearbeiten.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_klasse_bearbeiten.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_class_editActionPerformed(evt);
+                btn_klasse_bearbeitenActionPerformed(evt);
             }
         });
 
-        btn_class_new.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_class_new.setText("Neue Klasse anlegen");
-        btn_class_new.setMaximumSize(new java.awt.Dimension(180, 40));
-        btn_class_new.setMinimumSize(new java.awt.Dimension(180, 40));
-        btn_class_new.setPreferredSize(new java.awt.Dimension(180, 40));
-        btn_class_new.addActionListener(new java.awt.event.ActionListener() {
+        btn_klasse_anlegen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_klasse_anlegen.setText("Neue Klasse anlegen");
+        btn_klasse_anlegen.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_klasse_anlegen.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_klasse_anlegen.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_klasse_anlegen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_class_newActionPerformed(evt);
+                btn_klasse_anlegenActionPerformed(evt);
             }
         });
 
@@ -260,9 +261,9 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(tab_classesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_class_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_class_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_class_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_klassen_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_klasse_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_klasse_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(323, Short.MAX_VALUE))
         );
         tab_classesLayout.setVerticalGroup(
@@ -271,11 +272,11 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(tab_classesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tab_classesLayout.createSequentialGroup()
-                        .addComponent(btn_class_show, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_klassen_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_class_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_klasse_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_class_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_klasse_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                 .addContainerGap())
@@ -283,11 +284,13 @@ public class UebersichtGUI extends javax.swing.JFrame {
 
         tab_sections.addTab("Klassen", tab_classes);
 
-        btn_fach_new.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_fach_new.setText("Neues Fach");
-        btn_fach_new.setMaximumSize(new java.awt.Dimension(180, 40));
-        btn_fach_new.setMinimumSize(new java.awt.Dimension(180, 40));
-        btn_fach_new.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_fach_anlegen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_fach_anlegen.setText("Neues Fach");
+        btn_fach_anlegen.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_fach_anlegen.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_fach_anlegen.setPreferredSize(new java.awt.Dimension(180, 40));
+
+        jScrollPane3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         lst_faecher.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lst_faecher.setModel(new javax.swing.AbstractListModel() {
@@ -307,14 +310,14 @@ public class UebersichtGUI extends javax.swing.JFrame {
         jScrollPane3.setViewportView(lst_faecher);
         lst_faecher.getAccessibleContext().setAccessibleName("Liste Fächer");
 
-        btn_fach_edit.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_fach_edit.setText("Fach bearbeiten");
-        btn_fach_edit.setMaximumSize(new java.awt.Dimension(180, 40));
-        btn_fach_edit.setMinimumSize(new java.awt.Dimension(180, 40));
-        btn_fach_edit.setPreferredSize(new java.awt.Dimension(180, 40));
-        btn_fach_edit.addActionListener(new java.awt.event.ActionListener() {
+        btn_fach_bearbeiten.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_fach_bearbeiten.setText("Fach bearbeiten");
+        btn_fach_bearbeiten.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_fach_bearbeiten.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_fach_bearbeiten.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_fach_bearbeiten.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_fach_editActionPerformed(evt);
+                btn_fach_bearbeitenActionPerformed(evt);
             }
         });
 
@@ -324,11 +327,11 @@ public class UebersichtGUI extends javax.swing.JFrame {
             tab_subjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tab_subjectsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(tab_subjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_fach_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_fach_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_fach_bearbeiten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_fach_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(321, Short.MAX_VALUE))
         );
         tab_subjectsLayout.setVerticalGroup(
@@ -338,26 +341,26 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addGroup(tab_subjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                     .addGroup(tab_subjectsLayout.createSequentialGroup()
-                        .addComponent(btn_fach_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_fach_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21)
-                        .addComponent(btn_fach_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_fach_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         tab_sections.addTab("Fächer", tab_subjects);
 
-        btn_action_new.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_action_new.setText("Neue Aktivität");
-        btn_action_new.setMaximumSize(new java.awt.Dimension(200, 30));
-        btn_action_new.setMinimumSize(new java.awt.Dimension(200, 30));
-        btn_action_new.setPreferredSize(new java.awt.Dimension(220, 50));
+        btn_aktivitaet_anlegen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_aktivitaet_anlegen.setText("Neue Aktivität");
+        btn_aktivitaet_anlegen.setMaximumSize(new java.awt.Dimension(200, 30));
+        btn_aktivitaet_anlegen.setMinimumSize(new java.awt.Dimension(200, 30));
+        btn_aktivitaet_anlegen.setPreferredSize(new java.awt.Dimension(220, 50));
 
-        btn_action_reset.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_action_reset.setText("Aktivitäten zurücksetzen");
-        btn_action_reset.setMaximumSize(new java.awt.Dimension(200, 30));
-        btn_action_reset.setMinimumSize(new java.awt.Dimension(200, 30));
-        btn_action_reset.setPreferredSize(new java.awt.Dimension(220, 50));
+        btn_aktivitaet_zuruecksetzen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_aktivitaet_zuruecksetzen.setText("Aktivitäten zurücksetzen");
+        btn_aktivitaet_zuruecksetzen.setMaximumSize(new java.awt.Dimension(200, 30));
+        btn_aktivitaet_zuruecksetzen.setMinimumSize(new java.awt.Dimension(200, 30));
+        btn_aktivitaet_zuruecksetzen.setPreferredSize(new java.awt.Dimension(220, 50));
 
         javax.swing.GroupLayout ActivitiesLayout = new javax.swing.GroupLayout(Activities);
         Activities.setLayout(ActivitiesLayout);
@@ -365,9 +368,9 @@ public class UebersichtGUI extends javax.swing.JFrame {
             ActivitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ActivitiesLayout.createSequentialGroup()
                 .addGap(120, 120, 120)
-                .addComponent(btn_action_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_aktivitaet_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_action_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_aktivitaet_zuruecksetzen, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(153, Short.MAX_VALUE))
         );
         ActivitiesLayout.setVerticalGroup(
@@ -375,24 +378,24 @@ public class UebersichtGUI extends javax.swing.JFrame {
             .addGroup(ActivitiesLayout.createSequentialGroup()
                 .addGap(98, 98, 98)
                 .addGroup(ActivitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_action_new, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_action_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_aktivitaet_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_aktivitaet_zuruecksetzen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(126, Short.MAX_VALUE))
         );
 
         tab_sections.addTab("Aktivitäten", Activities);
 
-        btn_splan_current.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_splan_current.setText("Aktuelle Stundenpläne ansehen");
-        btn_splan_current.setMaximumSize(new java.awt.Dimension(200, 30));
-        btn_splan_current.setMinimumSize(new java.awt.Dimension(200, 30));
-        btn_splan_current.setPreferredSize(new java.awt.Dimension(220, 50));
+        btn_aktuellen_stundenplan_anzeigen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_aktuellen_stundenplan_anzeigen.setText("Aktuelle Stundenpläne ansehen");
+        btn_aktuellen_stundenplan_anzeigen.setMaximumSize(new java.awt.Dimension(200, 30));
+        btn_aktuellen_stundenplan_anzeigen.setMinimumSize(new java.awt.Dimension(200, 30));
+        btn_aktuellen_stundenplan_anzeigen.setPreferredSize(new java.awt.Dimension(220, 50));
 
-        btn_splan_new.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_splan_new.setText("Neuen Stundenplan anlegen");
-        btn_splan_new.setMaximumSize(new java.awt.Dimension(200, 30));
-        btn_splan_new.setMinimumSize(new java.awt.Dimension(200, 30));
-        btn_splan_new.setPreferredSize(new java.awt.Dimension(220, 50));
+        btn_stundenplan_anlegen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_stundenplan_anlegen.setText("Neuen Stundenplan anlegen");
+        btn_stundenplan_anlegen.setMaximumSize(new java.awt.Dimension(200, 30));
+        btn_stundenplan_anlegen.setMinimumSize(new java.awt.Dimension(200, 30));
+        btn_stundenplan_anlegen.setPreferredSize(new java.awt.Dimension(220, 50));
 
         btn_splan_prev.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btn_splan_prev.setText("Stundenplan ansehen");
@@ -421,8 +424,8 @@ public class UebersichtGUI extends javax.swing.JFrame {
             .addGroup(tab_splanLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(tab_splanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_splan_current, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_splan_new, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_aktuellen_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_stundenplan_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 288, Short.MAX_VALUE)
                 .addGroup(tab_splanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane4)
@@ -439,9 +442,9 @@ public class UebersichtGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(tab_splanLayout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(btn_splan_current, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_aktuellen_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_splan_new, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_stundenplan_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(btn_splan_prev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -490,7 +493,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btn_close)
+                        .addComponent(btn_programm_beenden)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_window_title, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -507,37 +510,37 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_close)
+                .addComponent(btn_programm_beenden)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_class_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_class_newActionPerformed
+    private void btn_klasse_anlegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klasse_anlegenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_class_newActionPerformed
+    }//GEN-LAST:event_btn_klasse_anlegenActionPerformed
 
     private void btn_splan_prevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_splan_prevActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_splan_prevActionPerformed
 
-    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
+    private void btn_programm_beendenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_programm_beendenActionPerformed
         String message = "Wollen Sie die Stundenplanverwaltungsoberfläche wirklich beenden?";
         String title = "Sind Sie sich sicher?";
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION){
           System.exit(0);
         }
-    }//GEN-LAST:event_btn_closeActionPerformed
+    }//GEN-LAST:event_btn_programm_beendenActionPerformed
 
     private void menu_ueberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_ueberActionPerformed
-        String message = "Die Stundenplanverwaltungsoberfläche für das Ludwig-Erhard Berufskolleg, Münster" +"\n\n"+
+        String nachricht = "Die Stundenplanverwaltungsoberfläche für das Ludwig-Erhard Berufskolleg, Münster" +"\n\n"+
                         "Diese Software wurde während einer Gruppenarbeit erstellt" +"\n"+
                                 "von Gruppe E der Klasse ITFO3 2019";
-        String title = "Stundenplanverwaltungsoberfläche";
+        String fenstertitel = "Stundenplanverwaltungsoberfläche";
         // Info Panel
-        JOptionPane.showMessageDialog(null, message, title,JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, nachricht, fenstertitel,JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_menu_ueberActionPerformed
 
     private void menu_dateiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_dateiActionPerformed
@@ -555,43 +558,43 @@ public class UebersichtGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menu_closeActionPerformed
 
-    private void lst_teacherValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_teacherValueChanged
+    private void lst_lehrerValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_lehrerValueChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_lst_teacherValueChanged
+    }//GEN-LAST:event_lst_lehrerValueChanged
 
-    private void btn_teacher_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacher_editActionPerformed
+    private void btn_lehrer_bearbeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_bearbeitenActionPerformed
         /* Gewählten Lehrer aus der Liste herausfinden */
-        String auswahl = (String) lst_teacher.getSelectedValue(); 
+        String auswahl = (String) lst_lehrer.getSelectedValue(); 
 //        System.out.println("gewählter Lehrer:" + auswahl + " ");
         /* Neue GUI mit dem ausgewählten Lehrer aufrufen */
         new LehrerEditGUI(auswahl).setVisible(true);
-    }//GEN-LAST:event_btn_teacher_editActionPerformed
+    }//GEN-LAST:event_btn_lehrer_bearbeitenActionPerformed
 
-    private void btn_teacher_showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_teacher_showActionPerformed
+    private void btn_lehrer_stundenplan_anzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_stundenplan_anzeigenActionPerformed
         /* Gewählten Lehrer aus der Liste herausfinden */
-        String auswahl = (String) lst_teacher.getSelectedValue(); 
+        String auswahl = (String) lst_lehrer.getSelectedValue(); 
         System.out.println("L-Stundenplan für:" + auswahl + " ");
-    }//GEN-LAST:event_btn_teacher_showActionPerformed
+    }//GEN-LAST:event_btn_lehrer_stundenplan_anzeigenActionPerformed
 
-    private void btn_class_showActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_class_showActionPerformed
+    private void btn_klassen_stundenplan_anzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klassen_stundenplan_anzeigenActionPerformed
         /* Gewählte Klasse aus der Liste herausfinden */
-        String auswahl = (String) lst_class.getSelectedValue(); 
+        String auswahl = (String) lst_klassen.getSelectedValue(); 
         System.out.println("K-Stundenplan für:" + auswahl + " ");
-    }//GEN-LAST:event_btn_class_showActionPerformed
+    }//GEN-LAST:event_btn_klassen_stundenplan_anzeigenActionPerformed
 
-    private void btn_class_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_class_editActionPerformed
+    private void btn_klasse_bearbeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klasse_bearbeitenActionPerformed
         /* Gewählte Klasse aus der Liste herausfinden */
-        String auswahl = (String) lst_class.getSelectedValue(); 
+        String auswahl = (String) lst_klassen.getSelectedValue(); 
         System.out.println("gewählte Klasse:" + auswahl + " ");
-    }//GEN-LAST:event_btn_class_editActionPerformed
+    }//GEN-LAST:event_btn_klasse_bearbeitenActionPerformed
 
     private void lst_faecherValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_faecherValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_lst_faecherValueChanged
 
-    private void btn_fach_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fach_editActionPerformed
+    private void btn_fach_bearbeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fach_bearbeitenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_fach_editActionPerformed
+    }//GEN-LAST:event_btn_fach_bearbeitenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -611,20 +614,20 @@ public class UebersichtGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Activities;
-    private javax.swing.JButton btn_action_new;
-    private javax.swing.JButton btn_action_reset;
-    private javax.swing.JButton btn_class_edit;
-    private javax.swing.JButton btn_class_new;
-    private javax.swing.JButton btn_class_show;
-    private javax.swing.JButton btn_close;
-    private javax.swing.JButton btn_fach_edit;
-    private javax.swing.JButton btn_fach_new;
-    private javax.swing.JButton btn_splan_current;
-    private javax.swing.JButton btn_splan_new;
+    private javax.swing.JButton btn_aktivitaet_anlegen;
+    private javax.swing.JButton btn_aktivitaet_zuruecksetzen;
+    private javax.swing.JButton btn_aktuellen_stundenplan_anzeigen;
+    private javax.swing.JButton btn_fach_anlegen;
+    private javax.swing.JButton btn_fach_bearbeiten;
+    private javax.swing.JButton btn_klasse_anlegen;
+    private javax.swing.JButton btn_klasse_bearbeiten;
+    private javax.swing.JButton btn_klassen_stundenplan_anzeigen;
+    private javax.swing.JButton btn_lehrer_anlegen;
+    private javax.swing.JButton btn_lehrer_bearbeiten;
+    private javax.swing.JButton btn_lehrer_stundenplan_anzeigen;
+    private javax.swing.JButton btn_programm_beenden;
     private javax.swing.JButton btn_splan_prev;
-    private javax.swing.JButton btn_teacher_edit;
-    private javax.swing.JButton btn_teacher_new;
-    private javax.swing.JButton btn_teacher_show;
+    private javax.swing.JButton btn_stundenplan_anlegen;
     private javax.swing.JList jList1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -633,9 +636,9 @@ public class UebersichtGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel lbl_window_title;
-    private javax.swing.JList lst_class;
     private javax.swing.JList lst_faecher;
-    private javax.swing.JList lst_teacher;
+    private javax.swing.JList lst_klassen;
+    private javax.swing.JList lst_lehrer;
     private javax.swing.JMenuItem menu_close;
     private javax.swing.JMenu menu_datei;
     private javax.swing.JMenu menu_hilfe;
