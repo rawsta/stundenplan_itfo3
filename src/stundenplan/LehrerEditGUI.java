@@ -47,8 +47,8 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         String l_name = tempLehrer.getName();
         String l_short = tempLehrer.getKuerzel();
                 
-        txt_teacher_name.setText(l_name);
-        txt_teacher_short.setText(l_short);
+        txt_lehrer_name.setText(l_name);
+        txt_lehrer_kuerzel.setText(l_short);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,13 +61,13 @@ public class LehrerEditGUI extends javax.swing.JFrame {
 
         lbl_teacher_edit = new javax.swing.JLabel();
         lbl_lehrer_edit_name = new javax.swing.JLabel();
-        txt_teacher_name = new javax.swing.JTextField();
-        txt_teacher_short = new javax.swing.JTextField();
+        txt_lehrer_name = new javax.swing.JTextField();
+        txt_lehrer_kuerzel = new javax.swing.JTextField();
         lbl_lehrer_edit_short = new javax.swing.JLabel();
-        btn_teacher_save = new javax.swing.JButton();
-        btn_teacher_save1 = new javax.swing.JButton();
+        btn_lehrer_abbrechen = new javax.swing.JButton();
+        btn_lehrer_speichern = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<String>();
+        lst_lehrer_faecher = new javax.swing.JList<String>();
         jLabel1 = new javax.swing.JLabel();
         tgl_mo_1 = new javax.swing.JToggleButton();
         lbl_verfuegbarkeit = new javax.swing.JLabel();
@@ -81,6 +81,8 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lehrer bearbeiten");
         setPreferredSize(new java.awt.Dimension(410, 310));
 
         lbl_teacher_edit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -89,34 +91,34 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         lbl_lehrer_edit_name.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lbl_lehrer_edit_name.setText("Name");
 
-        txt_teacher_name.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txt_teacher_name.setPreferredSize(new java.awt.Dimension(90, 30));
+        txt_lehrer_name.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txt_lehrer_name.setPreferredSize(new java.awt.Dimension(90, 30));
 
-        txt_teacher_short.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txt_teacher_short.setPreferredSize(new java.awt.Dimension(90, 30));
+        txt_lehrer_kuerzel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txt_lehrer_kuerzel.setPreferredSize(new java.awt.Dimension(90, 30));
 
         lbl_lehrer_edit_short.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lbl_lehrer_edit_short.setText("Kürzel");
 
-        btn_teacher_save.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        btn_teacher_save.setText("Abbrechen");
-        btn_teacher_save.setMaximumSize(new java.awt.Dimension(80, 30));
-        btn_teacher_save.setMinimumSize(new java.awt.Dimension(80, 30));
-        btn_teacher_save.setPreferredSize(new java.awt.Dimension(80, 30));
+        btn_lehrer_abbrechen.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_lehrer_abbrechen.setText("Abbrechen");
+        btn_lehrer_abbrechen.setMaximumSize(new java.awt.Dimension(80, 30));
+        btn_lehrer_abbrechen.setMinimumSize(new java.awt.Dimension(80, 30));
+        btn_lehrer_abbrechen.setPreferredSize(new java.awt.Dimension(80, 30));
 
-        btn_teacher_save1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_teacher_save1.setText("Speichern");
-        btn_teacher_save1.setMaximumSize(new java.awt.Dimension(90, 30));
-        btn_teacher_save1.setMinimumSize(new java.awt.Dimension(90, 30));
-        btn_teacher_save1.setPreferredSize(new java.awt.Dimension(90, 30));
+        btn_lehrer_speichern.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_lehrer_speichern.setText("Speichern");
+        btn_lehrer_speichern.setMaximumSize(new java.awt.Dimension(90, 30));
+        btn_lehrer_speichern.setMinimumSize(new java.awt.Dimension(90, 30));
+        btn_lehrer_speichern.setPreferredSize(new java.awt.Dimension(90, 30));
 
-        jList1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        lst_lehrer_faecher.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lst_lehrer_faecher.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Fach 1", "Fach 2", "Fach 3", "Fach 4", "Fach 5", "Fach 6" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(lst_lehrer_faecher);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel1.setText("Fächer");
@@ -221,9 +223,9 @@ public class LehrerEditGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_teacher_save, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_lehrer_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btn_teacher_save1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btn_lehrer_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lbl_teacher_edit)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,8 +233,8 @@ public class LehrerEditGUI extends javax.swing.JFrame {
                                     .addComponent(lbl_lehrer_edit_short, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_teacher_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txt_teacher_short, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txt_lehrer_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txt_lehrer_kuerzel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(24, 24, 24)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -253,12 +255,12 @@ public class LehrerEditGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_lehrer_edit_name)
-                            .addComponent(txt_teacher_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_lehrer_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_lehrer_edit_short)
-                            .addComponent(txt_teacher_short, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_lehrer_kuerzel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_verfuegbarkeit)
@@ -278,8 +280,8 @@ public class LehrerEditGUI extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_teacher_save, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_teacher_save1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_lehrer_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_lehrer_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -332,10 +334,9 @@ public class LehrerEditGUI extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_teacher_save;
-    private javax.swing.JButton btn_teacher_save1;
+    private javax.swing.JButton btn_lehrer_abbrechen;
+    private javax.swing.JButton btn_lehrer_speichern;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -345,13 +346,14 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_montag;
     private javax.swing.JLabel lbl_teacher_edit;
     private javax.swing.JLabel lbl_verfuegbarkeit;
+    private javax.swing.JList<String> lst_lehrer_faecher;
     private javax.swing.JToggleButton tgl_do_1;
     private javax.swing.JToggleButton tgl_do_2;
     private javax.swing.JToggleButton tgl_do_3;
     private javax.swing.JToggleButton tgl_mo_1;
     private javax.swing.JToggleButton tgl_mo_2;
     private javax.swing.JToggleButton tgl_mo_3;
-    private javax.swing.JTextField txt_teacher_name;
-    private javax.swing.JTextField txt_teacher_short;
+    private javax.swing.JTextField txt_lehrer_kuerzel;
+    private javax.swing.JTextField txt_lehrer_name;
     // End of variables declaration//GEN-END:variables
 }
