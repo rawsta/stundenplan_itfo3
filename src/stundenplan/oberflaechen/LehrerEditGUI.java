@@ -16,10 +16,10 @@ import stundenplan.datenbank.DatenbankFactory;
 public class LehrerEditGUI extends javax.swing.JFrame {
     
     // Datenbank verbinden
-    private IConnection connect = null;
+    private IConnection verbinde = null;
 
     /**
-     * Creates new form LehrerEdit
+     * Neue LehrerEditGUI laden
      */
     public LehrerEditGUI() {
         initComponents();
@@ -33,29 +33,32 @@ public class LehrerEditGUI extends javax.swing.JFrame {
      */
     public LehrerEditGUI(String auswahl) {
         initComponents();
-        setLocationRelativeTo(this);
-        this.setSize(418, 350);
+        setLocationRelativeTo(this); // Fenster zentrieren
+        this.setSize(418, 350); // Fenster auf definierte Größe setzen
         
+        // temporären Lehrer anlegen
         Lehrer tempLehrer = null;
         
         try {
-            connect = DatenbankFactory.getIConnection();
-            tempLehrer = connect.getSelectedLehrer(auswahl);
+            verbinde = DatenbankFactory.getIConnection();
+            tempLehrer = verbinde.getSelectedLehrer(auswahl);
         } catch (Exception e) {
             System.out.println(e);
         } finally {
-            if (connect != null) {
-                connect.schliesseVerbindung();
+            if (verbinde != null) {
+                verbinde.schliesseVerbindung();
             }
         }
         initComponents();
         setLocationRelativeTo(this); // Zentriert das Fenster
         
-        String l_name = tempLehrer.getName();
-        String l_short = tempLehrer.getKuerzel();
+        // Name und Kürzel des Lehrers auslesen
+        String lehrer_name = tempLehrer.getName();
+        String lehrer_kuerzel = tempLehrer.getKuerzel();
                 
-        txt_lehrer_name.setText(l_name);
-        txt_lehrer_kuerzel.setText(l_short);
+        // Textfelder mit gelesenen Daten befüllen
+        txt_lehrer_name.setText(lehrer_name);
+        txt_lehrer_kuerzel.setText(lehrer_kuerzel);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,7 +77,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         btn_lehrer_abbrechen = new javax.swing.JButton();
         btn_lehrer_speichern = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lst_lehrer_faecher = new javax.swing.JList<String>();
+        lst_lehrer_faecher = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         tgl_mo_1 = new javax.swing.JToggleButton();
         lbl_verfuegbarkeit = new javax.swing.JLabel();
@@ -112,6 +115,11 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         btn_lehrer_abbrechen.setMaximumSize(new java.awt.Dimension(80, 30));
         btn_lehrer_abbrechen.setMinimumSize(new java.awt.Dimension(80, 30));
         btn_lehrer_abbrechen.setPreferredSize(new java.awt.Dimension(80, 30));
+        btn_lehrer_abbrechen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_lehrer_abbrechenActionPerformed(evt);
+            }
+        });
 
         btn_lehrer_speichern.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btn_lehrer_speichern.setText("Speichern");
@@ -120,10 +128,10 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         btn_lehrer_speichern.setPreferredSize(new java.awt.Dimension(90, 30));
 
         lst_lehrer_faecher.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lst_lehrer_faecher.setModel(new javax.swing.AbstractListModel() {
+        lst_lehrer_faecher.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Fach 1", "Fach 2", "Fach 3", "Fach 4", "Fach 5", "Fach 6" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(lst_lehrer_faecher);
 
@@ -207,46 +215,46 @@ public class LehrerEditGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lbl_donnerstag)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lbl_montag)
-                                .addGap(21, 21, 21)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tgl_do_1)
-                            .addComponent(tgl_mo_1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tgl_do_2)
-                            .addComponent(tgl_mo_2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tgl_do_3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tgl_mo_3, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_lehrer_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_lehrer_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_lehrer_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_lehrer_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbl_lehrer_edit_name, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl_lehrer_edit_short, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_lehrer_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_lehrer_kuerzel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_teacher_edit)
+                            .addComponent(lbl_verfuegbarkeit)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_lehrer_edit_name, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbl_lehrer_edit_short, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_lehrer_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txt_lehrer_kuerzel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbl_verfuegbarkeit))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(lbl_donnerstag)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(lbl_montag)
+                                        .addGap(21, 21, 21)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tgl_do_1)
+                                    .addComponent(tgl_mo_1))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tgl_do_2)
+                                    .addComponent(tgl_mo_2))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tgl_do_3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tgl_mo_3, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -336,8 +344,12 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tgl_do_3ItemStateChanged
 
     private void tgl_mo_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgl_mo_1ActionPerformed
-        // TODO Evtl die Verfügbarkeit in einem Array speichern und für die verfügbarkeit in den Blöcken die jeweillige position nehmen
+        // TODO Evtl die Verfügbarkeit in einem mehrdimensionalem Array speichern und für die verfügbarkeit in den Blöcken die jeweillige position nehmen
     }//GEN-LAST:event_tgl_mo_1ActionPerformed
+
+    private void btn_lehrer_abbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_abbrechenActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_lehrer_abbrechenActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
