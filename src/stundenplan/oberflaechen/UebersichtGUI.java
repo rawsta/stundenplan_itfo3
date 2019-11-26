@@ -5,7 +5,6 @@
  */
 package stundenplan.oberflaechen;
 
-import stundenplan.oberflaechen.LehrerEditGUI;
 import stundenplan.datenbank.IConnection;
 import stundenplan.datenbank.DatenbankFactory;
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
             System.out.println(e);
         } finally {
             if (connect != null) {
-                connect.closeConnection();
+                connect.schliesseVerbindung();
             }
         }
         // GUI initialisieren
@@ -549,11 +548,11 @@ public class UebersichtGUI extends javax.swing.JFrame {
 
     private void menu_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_closeActionPerformed
         /* Strings für die Meldung befüllen */
-        String message = "Wollen Sie die Stundenplanverwaltungsoberfläche wirklich beenden?";
-        String title = "Sind Sie sich sicher?";
+        String fensternachricht = "Wollen Sie die Stundenplanverwaltungsoberfläche wirklich beenden?";
+        String fenstertitel = "Sind Sie sich sicher?";
         /* Schließen Disalog aufrufen und Antwort verarbeiten */
-        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION){
+        int beendendialog = JOptionPane.showConfirmDialog(null, fensternachricht, fenstertitel, JOptionPane.YES_NO_OPTION);
+        if (beendendialog == JOptionPane.YES_OPTION){
           System.exit(0);
         }
     }//GEN-LAST:event_menu_closeActionPerformed
@@ -565,7 +564,6 @@ public class UebersichtGUI extends javax.swing.JFrame {
     private void btn_lehrer_bearbeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_bearbeitenActionPerformed
         /* Gewählten Lehrer aus der Liste herausfinden */
         String auswahl = (String) lst_lehrer.getSelectedValue(); 
-//        System.out.println("gewählter Lehrer:" + auswahl + " ");
         /* Neue GUI mit dem ausgewählten Lehrer aufrufen */
         new LehrerEditGUI(auswahl).setVisible(true);
     }//GEN-LAST:event_btn_lehrer_bearbeitenActionPerformed

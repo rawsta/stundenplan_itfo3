@@ -45,7 +45,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
             System.out.println(e);
         } finally {
             if (connect != null) {
-                connect.closeConnection();
+                connect.schliesseVerbindung();
             }
         }
         initComponents();

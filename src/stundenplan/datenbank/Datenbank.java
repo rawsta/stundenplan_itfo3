@@ -17,7 +17,7 @@ import stundenplan.Lehrer;
  */
 public class Datenbank implements IConnection{
     
-    private Connection connect;
+    private Connection verbinde;
     private Statement statement;
 
     /**
@@ -26,9 +26,9 @@ public class Datenbank implements IConnection{
      */
     public Datenbank() {
         super();
-        this.connect = null;
+        this.verbinde = null;
         this.statement = null;
-        this.openConnection();
+        this.oeffneVerbindung();
     }
 
     /**
@@ -36,16 +36,16 @@ public class Datenbank implements IConnection{
      * 
      */
     @Override
-    public final void openConnection() {
+    public final void oeffneVerbindung() {
         try {
             // falls die Verbinung NULL oder geschlossen ist, wird sie aufgebaut
-            if (this.connect == null || this.connect.isClosed()) {
+            if (this.verbinde == null || this.verbinde.isClosed()) {
                 // über den DriverManager wird die Verbindung zur DB im Stammverzeichnis aufgabaut
-                this.connect = DriverManager.getConnection("jdbc:sqlite:stundenplan.db");
+                this.verbinde = DriverManager.getConnection("jdbc:sqlite:stundenplan.db");
                 System.out.println("Datenbank gefunden.");
             }
             if (this.statement == null || this.statement.isClosed()) {
-                this.statement = this.connect.createStatement();
+                this.statement = this.verbinde.createStatement();
             }
         } catch (SQLException e) {
             System.out.println("Programm konnte sich nicht mit der Datenbank verbinden");
@@ -57,13 +57,13 @@ public class Datenbank implements IConnection{
      * Verbindung wieder schliessen
      */
     @Override
-    public void closeConnection() {
+    public void schliesseVerbindung() {
         try {
             if (this.statement != null) {
                     this.statement.close();
             }
-            if (this.connect != null) {
-                    this.connect.close();
+            if (this.verbinde != null) {
+                    this.verbinde.close();
             }
             System.out.println("Datenbank wieder geschlossen");
         } catch (SQLException e) {
@@ -79,8 +79,7 @@ public class Datenbank implements IConnection{
      * Klassen aus der Datenbank auslesen
      * table Klasse: K_ID, Kuerzel
      * 
-     * @return ArrayList<Klasse>
-     * @throws SQLException when 
+     * @return ArrayList 
      */
     @Override
     public ArrayList<Klasse> holeKlasse() {
@@ -108,7 +107,7 @@ public class Datenbank implements IConnection{
     @Override
     public void neueKlasse(Klasse klasse) {
         try {
-            PreparedStatement prep = this.connect.prepareStatement(
+            PreparedStatement prep = this.verbinde.prepareStatement(
                             "INSERT INTO Klasse (K_ID, Kuerzel) VALUES (?, ?)");
             prep.setInt(1, klasse.getId());
             prep.setString(2, klasse.getName());
@@ -132,7 +131,7 @@ public class Datenbank implements IConnection{
     @Override
     public void updateKlasse(String title, Klasse klasse) {
         try {
-            PreparedStatement prep = this.connect.prepareStatement(
+            PreparedStatement prep = this.verbinde.prepareStatement(
                             "UPDATE Klasse SET K_ID = ?, Kuerzel = ? WHERE title = ?");
             prep.setInt(1, klasse.getId());
             prep.setString(2, klasse.getName());
@@ -202,7 +201,7 @@ public class Datenbank implements IConnection{
     @Override
     public void neuerLehrer(Lehrer lehrer) {
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement(
+            PreparedStatement preparedStatement = this.verbinde.prepareStatement(
                             "INSERT INTO Lehrer (L_ID, Kuerzel, Name) VALUES (?, ?, ?)");
             preparedStatement.setInt(1, lehrer.getId());
             preparedStatement.setString(2, lehrer.getKuerzel());
@@ -228,7 +227,7 @@ public class Datenbank implements IConnection{
         Lehrer selectedLehrer = null;
         
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement(
+            PreparedStatement preparedStatement = this.verbinde.prepareStatement(
                             "SELECT L_ID, Kuerzel, Name FROM Lehrer WHERE Kuerzel = ? ");
             preparedStatement.setString(1, kuerzel);
             ResultSet results = preparedStatement.executeQuery();
@@ -252,7 +251,7 @@ public class Datenbank implements IConnection{
     @Override
     public void updateLehrer(String kuerzel, Lehrer lehrer) {
         try {
-            PreparedStatement prep = this.connect.prepareStatement(
+            PreparedStatement prep = this.verbinde.prepareStatement(
                             "UPDATE Lehrer SET L_ID = ?, Kuerzel = ?, Name = ? WHERE title = ?");
             prep.setInt(1, lehrer.getId());
             prep.setString(2, lehrer.getKuerzel());
@@ -327,7 +326,7 @@ public class Datenbank implements IConnection{
     @Override
     public void neuesFach(Fach fach) {
         try {
-            PreparedStatement prep = this.connect.prepareStatement(
+            PreparedStatement prep = this.verbinde.prepareStatement(
                             "INSERT INTO Fach (F_ID, Kuerzel, Name) VALUES (?, ?, ?)");
             prep.setInt(1, fach.getId());
             prep.setString(2, fach.getKuerzel());
@@ -353,7 +352,7 @@ public class Datenbank implements IConnection{
         Fach selectedFach = null;
         
         try {
-            PreparedStatement prep = this.connect.prepareStatement( 
+            PreparedStatement prep = this.verbinde.prepareStatement( 
                     "SELECT F_ID, Kuerzel, Name FROM Fach WHERE Kuerzel = ?");
             prep.setString(1, kuerzel);
             ResultSet results = prep.executeQuery();
@@ -377,7 +376,7 @@ public class Datenbank implements IConnection{
     @Override
     public void updateFach(String kuerzel, Fach fach) {
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement(
+            PreparedStatement preparedStatement = this.verbinde.prepareStatement(
                             "UPDATE Fach SET F_ID = ?, Kuerzel = ?, Name = ? WHERE title = ?");
             preparedStatement.setInt(1, fach.getId());
             preparedStatement.setString(2, fach.getKuerzel());
