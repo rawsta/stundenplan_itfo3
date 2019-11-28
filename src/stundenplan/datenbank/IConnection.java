@@ -20,12 +20,12 @@ public interface IConnection {
    /**
     * Datenbank öffnen
     */
-   public void openConnection();
+   public void oeffneVerbindung();
 
    /**
     * Datenbank schliessen
     */
-   public void closeConnection();
+   public void schliesseVerbindung();
     
     
     /* ------------------------- Klassen ------------------------- */

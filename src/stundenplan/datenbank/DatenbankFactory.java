@@ -27,7 +27,7 @@ public class DatenbankFactory {
      * @return IConnection
      */
     public static IConnection getIConnection() {
-        SQLCON.openConnection();
+        SQLCON.oeffneVerbindung();
         return DatenbankFactory.SQLCON;
 }
     
