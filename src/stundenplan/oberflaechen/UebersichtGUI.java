@@ -38,7 +38,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
      */
     public UebersichtGUI() {
         try {
-            verbinde = DatenbankFactory.getIConnection();
+            verbinde = DatenbankFabrik.getIConnection();
             klassen = verbinde.holeKlassen();
             lehrer = verbinde.holeLehrer();
             faecher = verbinde.holeFaecher();
