@@ -9,7 +9,6 @@ import javafx.util.Pair;
 
 /**
  * Die "Aktivität"-Klasse
- * @author ellinghannah
  */
 public class Aktivitaet {
     private Klasse klasse;
@@ -54,7 +53,5 @@ public class Aktivitaet {
     public void setFach(Fach fach) {
         this.fach = fach;
     }
-    
-    
-    
+
 }

@@ -35,7 +35,7 @@ public interface IConnection {
     * 
     * @return Liste der Klassen
     */
-   public List<Klasse> holeKlasse();
+   public List<Klasse> holeKlassen();
 
    /**
     * Klasse in DB schreiben
@@ -110,7 +110,7 @@ public interface IConnection {
     * 
     * @return Liste der Fächer
     */
-   public List<Fach> holeFach();
+   public List<Fach> holeFaecher();
    
    /**
     * Hole Fach aus Datenbank

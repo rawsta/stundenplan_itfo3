@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
  * Die "Klasse"-Klasse
- * @author ellinghannah
  */
 public class Klasse {
     private int id;

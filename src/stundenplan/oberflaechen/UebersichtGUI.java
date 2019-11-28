@@ -40,9 +40,9 @@ public class UebersichtGUI extends javax.swing.JFrame {
     public UebersichtGUI() {
         try {
             connect = DatenbankFactory.getIConnection();
-            klassen = connect.holeKlasse();
+            klassen = connect.holeKlassen();
             lehrer = connect.holeLehrer();
-            faecher = connect.holeFach();
+            faecher = connect.holeFaecher();
             
         } catch (Exception e) {
             //e.printStackTrace();
