@@ -18,12 +18,12 @@ import stundenplan.Lehrer;
 import stundenplan.LehrerListModel;
 
 /**
- * Die zentrale GUI von der alle Interaktion ausgeht. 
- * 
+ * Die zentrale GUI von der alle Interaktion ausgeht.
+ *
  * @author fielesebastian
  */
 public class UebersichtGUI extends javax.swing.JFrame {
-    
+
     // Datenbank verbinden
     private IConnection verbinde = null;
     // Liste der Klassen
@@ -38,11 +38,11 @@ public class UebersichtGUI extends javax.swing.JFrame {
      */
     public UebersichtGUI() {
         try {
-            verbinde = DatenbankFabrik.getIConnection();
-            klassen = verbinde.holeKlasse();
+            verbinde = DatenbankFactory.getIConnection();
+            klassen = verbinde.holeKlassen();
             lehrer = verbinde.holeLehrer();
-            faecher = verbinde.holeFach();
-            
+            faecher = verbinde.holeFaecher();
+
         } catch (Exception e) {
             //e.printStackTrace();
             System.out.println(e);
@@ -51,23 +51,23 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 verbinde.schliesseVerbindung();
             }
         }
-         
+
         initComponents();
         // Zentriert das Fenster
-        setLocationRelativeTo(this); 
-       
+        setLocationRelativeTo(this);
+
         // Klassen Liste füllen
         KlassenListModel klassenList = new KlassenListModel(klassen);
         lst_klassen.setModel(klassenList);
-        
+
         // Lehrer Liste füllen
         LehrerListModel lehrerList = new LehrerListModel(lehrer);
         lst_lehrer.setModel(lehrerList);
-        
+
         // Fächer Liste füllen
         FachListModel faecherList = new FachListModel(faecher);
         lst_faecher.setModel(faecherList);
-        
+
     }
 
     /**
@@ -579,26 +579,26 @@ public class UebersichtGUI extends javax.swing.JFrame {
 
     private void btn_lehrer_bearbeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_bearbeitenActionPerformed
         /* Gewählten Lehrer aus der Liste herausfinden */
-        String auswahl = (String) lst_lehrer.getSelectedValue(); 
+        String auswahl = (String) lst_lehrer.getSelectedValue();
         /* Neue GUI mit dem ausgewählten Lehrer aufrufen */
         new LehrerEditGUI(auswahl).setVisible(true);
     }//GEN-LAST:event_btn_lehrer_bearbeitenActionPerformed
 
     private void btn_lehrer_stundenplan_anzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_stundenplan_anzeigenActionPerformed
         /* Gewählten Lehrer aus der Liste herausfinden */
-        String auswahl = (String) lst_lehrer.getSelectedValue(); 
+        String auswahl = (String) lst_lehrer.getSelectedValue();
         System.out.println("L-Stundenplan für:" + auswahl + " ");
     }//GEN-LAST:event_btn_lehrer_stundenplan_anzeigenActionPerformed
 
     private void btn_klassen_stundenplan_anzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klassen_stundenplan_anzeigenActionPerformed
         /* Gewählte Klasse aus der Liste herausfinden */
-        String auswahl = (String) lst_klassen.getSelectedValue(); 
+        String auswahl = (String) lst_klassen.getSelectedValue();
         System.out.println("K-Stundenplan für:" + auswahl + " ");
     }//GEN-LAST:event_btn_klassen_stundenplan_anzeigenActionPerformed
 
     private void btn_klasse_bearbeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klasse_bearbeitenActionPerformed
         /* Gewählte Klasse aus der Liste herausfinden */
-        String auswahl = (String) lst_klassen.getSelectedValue(); 
+        String auswahl = (String) lst_klassen.getSelectedValue();
         System.out.println("gewählte Klasse:" + auswahl + " ");
     }//GEN-LAST:event_btn_klasse_bearbeitenActionPerformed
 
