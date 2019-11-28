@@ -7,11 +7,12 @@ package stundenplan.oberflaechen;
 
 import stundenplan.Lehrer;
 import stundenplan.datenbank.IConnection;
-import stundenplan.datenbank.DatenbankFactory;
+import stundenplan.datenbank.DatenbankFabrik;
 
 /**
- *
- * @author rawsta
+ * Die LehrerEditGUI Klasse
+ * Es kann das Formular jeweils mit oder ohne ausgewähltem Lehrer aufgerufen werden.
+ * @author fielesebastian
  */
 public class LehrerEditGUI extends javax.swing.JFrame {
     
@@ -23,7 +24,10 @@ public class LehrerEditGUI extends javax.swing.JFrame {
      */
     public LehrerEditGUI() {
         initComponents();
-        setLocationRelativeTo(this); // Zentriert das Fenster
+        // Zentriert das Fenster
+        setLocationRelativeTo(this);
+        // Fensterüberschrift neu setzen
+        lbl_lehrer_ueberschrift.setText("Lehrer anlegen");
     }
     
     /**
@@ -33,14 +37,17 @@ public class LehrerEditGUI extends javax.swing.JFrame {
      */
     public LehrerEditGUI(String auswahl) {
         initComponents();
-        setLocationRelativeTo(this); // Fenster zentrieren
-        this.setSize(418, 350); // Fenster auf definierte Größe setzen
+        // Fenster zentrieren
+        setLocationRelativeTo(this);
+        // Fenster auf definierte Größe setzen
+        this.setSize(418, 350);
         
         // temporären Lehrer anlegen
         Lehrer tempLehrer = null;
         
+        // Datenbank nach dem ausgewählten Lehrer abfragen
         try {
-            verbinde = DatenbankFactory.getIConnection();
+            verbinde = DatenbankFabrik.getIConnection();
             tempLehrer = verbinde.getSelectedLehrer(auswahl);
         } catch (Exception e) {
             System.out.println(e);
@@ -49,9 +56,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
                 verbinde.schliesseVerbindung();
             }
         }
-        initComponents();
-        setLocationRelativeTo(this); // Zentriert das Fenster
-        
+                
         // Name und Kürzel des Lehrers auslesen
         String lehrer_name = tempLehrer.getName();
         String lehrer_kuerzel = tempLehrer.getKuerzel();
@@ -69,7 +74,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbl_teacher_edit = new javax.swing.JLabel();
+        lbl_lehrer_ueberschrift = new javax.swing.JLabel();
         lbl_lehrer_edit_name = new javax.swing.JLabel();
         txt_lehrer_name = new javax.swing.JTextField();
         txt_lehrer_kuerzel = new javax.swing.JTextField();
@@ -95,8 +100,8 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         setTitle("Lehrer bearbeiten");
         setPreferredSize(new java.awt.Dimension(410, 310));
 
-        lbl_teacher_edit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_teacher_edit.setText("Lehrer bearbeiten");
+        lbl_lehrer_ueberschrift.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl_lehrer_ueberschrift.setText("Lehrer bearbeiten");
 
         lbl_lehrer_edit_name.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lbl_lehrer_edit_name.setText("Name");
@@ -233,7 +238,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
                         .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_teacher_edit)
+                            .addComponent(lbl_lehrer_ueberschrift)
                             .addComponent(lbl_verfuegbarkeit)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
@@ -262,7 +267,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_teacher_edit)
+                .addComponent(lbl_lehrer_ueberschrift)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
@@ -302,6 +307,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tgl_mo_1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_mo_1ItemStateChanged
+        // Wenn ausgewählt, wird die Beschriftung ersetzt
         if (tgl_mo_1.isSelected()) 
             tgl_mo_1.setText("BELEGT");  
         else  
@@ -348,6 +354,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tgl_mo_1ActionPerformed
 
     private void btn_lehrer_abbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_abbrechenActionPerformed
+        // Fenster schliessen
         this.setVisible(false);
     }//GEN-LAST:event_btn_lehrer_abbrechenActionPerformed
 
@@ -362,8 +369,8 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_donnerstag;
     private javax.swing.JLabel lbl_lehrer_edit_name;
     private javax.swing.JLabel lbl_lehrer_edit_short;
+    private javax.swing.JLabel lbl_lehrer_ueberschrift;
     private javax.swing.JLabel lbl_montag;
-    private javax.swing.JLabel lbl_teacher_edit;
     private javax.swing.JLabel lbl_verfuegbarkeit;
     private javax.swing.JList<String> lst_lehrer_faecher;
     private javax.swing.JToggleButton tgl_do_1;

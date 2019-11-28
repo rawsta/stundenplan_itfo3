@@ -1,7 +1,7 @@
 /*
  * In dieser Klasse wird die Verbindung und die Abfragen der Datenbank verwaltet.
- * Es wird IConnection als Interfaced implementiert um die Abfragen allgemein verfügbar zu machen. 
- * TODO: Beschreibung ausbauen...
+ * Es wird IConnection als Interface implementiert um die Abfragen allgemein verfügbar zu machen. 
+ * 
  */
 package stundenplan.datenbank;
 

@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/Aktivitaet.java</file>
-            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/Unterrichtseinheit.java</file>
-            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/DatabaseFactory.java</file>
+            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/KlassenListModel.java</file>
+            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/oberflaechen/UebersichtGUI.java</file>
             <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/Klasse.java</file>
-            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/IConnection.java</file>
-            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/Lehrer.java</file>
-            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/LehrerEditGUI.java</file>
-            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/Database.java</file>
+            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/oberflaechen/LehrerEditGUI.java</file>
+            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/datenbank/IConnection.java</file>
+            <file>file:/C:/Users/rawsta/Documents/NetBeansProjects/stundenplan_itfo3/src/stundenplan/datenbank/Datenbank.java</file>
         </group>
     </open-files>
 </project-private>

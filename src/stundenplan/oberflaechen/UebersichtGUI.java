@@ -6,7 +6,7 @@
 package stundenplan.oberflaechen;
 
 import stundenplan.datenbank.IConnection;
-import stundenplan.datenbank.DatenbankFactory;
+import stundenplan.datenbank.DatenbankFabrik;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -38,7 +38,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
      */
     public UebersichtGUI() {
         try {
-            verbinde = DatenbankFactory.getIConnection();
+            verbinde = DatenbankFabrik.getIConnection();
             klassen = verbinde.holeKlasse();
             lehrer = verbinde.holeLehrer();
             faecher = verbinde.holeFach();
@@ -51,11 +51,11 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 verbinde.schliesseVerbindung();
             }
         }
-        // GUI initialisieren
+         
         initComponents();
-        setLocationRelativeTo(this); // Zentriert das Fenster
+        // Zentriert das Fenster
+        setLocationRelativeTo(this); 
        
-        
         // Klassen Liste füllen
         KlassenListModel klassenList = new KlassenListModel(klassen);
         lst_klassen.setModel(klassenList);
@@ -67,7 +67,6 @@ public class UebersichtGUI extends javax.swing.JFrame {
         // Fächer Liste füllen
         FachListModel faecherList = new FachListModel(faecher);
         lst_faecher.setModel(faecherList);
-        
         
     }
 

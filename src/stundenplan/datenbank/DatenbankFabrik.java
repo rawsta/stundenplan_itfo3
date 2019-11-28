@@ -1,17 +1,15 @@
-/*
+/**
+ * Mit der Fabrikmethode stehen einfach Instanzen des Datenbank Objekts zur Verfügung.
  * Fabrikmethode (https://de.wikipedia.org/wiki/Fabrikmethode).
- * 
  * 
  */
 package stundenplan.datenbank;
 
-import stundenplan.datenbank.Datenbank;
-
 /**
- * Database Factory
+ * DatenbankFabrik
  * @author rawsta
  */
-public class DatenbankFactory {
+public class DatenbankFabrik {
  
     /**
      * Singleton Instanz von IConnection 
@@ -28,7 +26,7 @@ public class DatenbankFactory {
      */
     public static IConnection getIConnection() {
         SQLCON.oeffneVerbindung();
-        return DatenbankFactory.SQLCON;
+        return DatenbankFabrik.SQLCON;
 }
     
 }

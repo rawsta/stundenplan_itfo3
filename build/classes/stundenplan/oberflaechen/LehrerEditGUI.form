@@ -53,7 +53,7 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbl_teacher_edit" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_lehrer_ueberschrift" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl_verfuegbarkeit" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
@@ -94,7 +94,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lbl_teacher_edit" min="-2" max="-2" attributes="0"/>
+              <Component id="lbl_lehrer_ueberschrift" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" pref="5" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
@@ -142,7 +142,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lbl_teacher_edit">
+    <Component class="javax.swing.JLabel" name="lbl_lehrer_ueberschrift">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
