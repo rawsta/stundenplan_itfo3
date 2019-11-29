@@ -82,5 +82,9 @@ public class Lehrer {
         this.stunden = stunden;
     }
     
-    
+    @Override
+    public String toString() {
+        return this.kuerzel;
+    }
+        
 }

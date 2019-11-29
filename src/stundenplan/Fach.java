@@ -52,6 +52,10 @@ public class Fach {
     public void setKuerzel(String kuerzel) {
         this.kuerzel = kuerzel;
     }
-
+    
+    @Override
+    public String toString() {
+        return this.name;
+    }
     
 }

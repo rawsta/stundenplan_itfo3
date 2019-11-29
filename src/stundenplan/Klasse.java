@@ -61,5 +61,9 @@ public class Klasse {
         this.lehrerList = lehrerList;
     }
     
+    @Override
+    public String toString() {
+        return this.name;
+    }
     
 }

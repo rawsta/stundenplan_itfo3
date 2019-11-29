@@ -53,5 +53,11 @@ public class Aktivitaet {
     public void setFach(Fach fach) {
         this.fach = fach;
     }
+    
+    @Override
+    public String toString() {
+        String sLehrer = lehreinheit.getValue() != null ? String.format("%s / %s", lehreinheit.getKey().toString(), lehreinheit.getValue().toString()) : lehreinheit.getKey().toString();
+        return String.format("%s %s %s", sLehrer, klasse, fach);
+    }
 
 }
