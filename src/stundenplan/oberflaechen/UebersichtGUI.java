@@ -238,6 +238,11 @@ public class UebersichtGUI extends javax.swing.JFrame {
         btn_lehrer_anlegen.setMaximumSize(new java.awt.Dimension(180, 40));
         btn_lehrer_anlegen.setMinimumSize(new java.awt.Dimension(180, 40));
         btn_lehrer_anlegen.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_anlegen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_lehrer_anlegenActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tab_teacherLayout = new javax.swing.GroupLayout(tab_teacher);
         tab_teacher.setLayout(tab_teacherLayout);
@@ -613,6 +618,10 @@ public class UebersichtGUI extends javax.swing.JFrame {
     private void lst_aktivitaetenValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_aktivitaetenValueChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_lst_aktivitaetenValueChanged
+
+    private void btn_lehrer_anlegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_anlegenActionPerformed
+        new LehrerEditGUI().setVisible(true);
+    }//GEN-LAST:event_btn_lehrer_anlegenActionPerformed
 
     /**
      * @param args the command line arguments
