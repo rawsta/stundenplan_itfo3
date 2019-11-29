@@ -5,6 +5,7 @@
  */
 package stundenplan.oberflaechen;
 
+import javax.swing.JToggleButton;
 import stundenplan.Lehrer;
 import stundenplan.datenbank.IConnection;
 import stundenplan.datenbank.DatenbankFabrik;
@@ -18,14 +19,13 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     
     // Datenbank verbinden
     private IConnection verbinde = null;
+    private Lehrer lehrer;
 
     /**
      * Neue LehrerEditGUI laden
      */
     public LehrerEditGUI() {
-        initComponents();
-        // Zentriert das Fenster
-        setLocationRelativeTo(this);
+        init();
         // Fensterüberschrift neu setzen
         lbl_lehrer_ueberschrift.setText("Lehrer anlegen");
     }
@@ -36,19 +36,19 @@ public class LehrerEditGUI extends javax.swing.JFrame {
      * @param auswahl 
      */
     public LehrerEditGUI(String auswahl) {
-        initComponents();
-        // Fenster zentrieren
-        setLocationRelativeTo(this);
-        // Fenster auf definierte Größe setzen
-        this.setSize(418, 350);
-        
-        // temporären Lehrer anlegen
-        Lehrer tempLehrer = null;
+        init();
         
         // Datenbank nach dem ausgewählten Lehrer abfragen
         try {
             verbinde = DatenbankFabrik.getIConnection();
-            tempLehrer = verbinde.getSelectedLehrer(auswahl);
+            lehrer = verbinde.getSelectedLehrer(auswahl);
+            // Name und Kürzel des Lehrers auslesen
+            String lehrer_name = lehrer.getName();
+            String lehrer_kuerzel = lehrer.getKuerzel();
+
+            // Textfelder mit gelesenen Daten befüllen
+            txt_lehrer_name.setText(lehrer_name);
+            txt_lehrer_kuerzel.setText(lehrer_kuerzel);
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -56,14 +56,19 @@ public class LehrerEditGUI extends javax.swing.JFrame {
                 verbinde.schliesseVerbindung();
             }
         }
-                
-        // Name und Kürzel des Lehrers auslesen
-        String lehrer_name = tempLehrer.getName();
-        String lehrer_kuerzel = tempLehrer.getKuerzel();
-                
-        // Textfelder mit gelesenen Daten befüllen
-        txt_lehrer_name.setText(lehrer_name);
-        txt_lehrer_kuerzel.setText(lehrer_kuerzel);
+    }
+    
+    private void init() {
+        initComponents();
+        // Zentriert das Fenster
+        setLocationRelativeTo(this);
+        // Fenster auf definierte Größe setzen
+        this.setSize(418, 350);
+    }
+    
+    private void toggleVerfuegbarButton(JToggleButton button) {
+        // Wenn ausgewählt, wird die Beschriftung ersetzt
+        button.setText(button.isSelected() ? "BELEGT" : "Verfügbar");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -307,46 +312,27 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tgl_mo_1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_mo_1ItemStateChanged
-        // Wenn ausgewählt, wird die Beschriftung ersetzt
-        if (tgl_mo_1.isSelected()) 
-            tgl_mo_1.setText("BELEGT");  
-        else  
-            tgl_mo_1.setText("Verfügbar");  
+        toggleVerfuegbarButton(tgl_mo_1);
     }//GEN-LAST:event_tgl_mo_1ItemStateChanged
 
     private void tgl_mo_2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_mo_2ItemStateChanged
-        if (tgl_mo_2.isSelected()) 
-            tgl_mo_2.setText("BELEGT");  
-        else  
-            tgl_mo_2.setText("Verfügbar");  
+        toggleVerfuegbarButton(tgl_mo_2);
     }//GEN-LAST:event_tgl_mo_2ItemStateChanged
 
     private void tgl_mo_3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_mo_3ItemStateChanged
-        if (tgl_mo_3.isSelected()) 
-            tgl_mo_3.setText("BELEGT");  
-        else  
-            tgl_mo_3.setText("Verfügbar");  
+        toggleVerfuegbarButton(tgl_mo_3);
     }//GEN-LAST:event_tgl_mo_3ItemStateChanged
 
     private void tgl_do_1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_do_1ItemStateChanged
-        if (tgl_do_1.isSelected()) 
-            tgl_do_1.setText("BELEGT");  
-        else  
-            tgl_do_1.setText("Verfügbar");  
+        toggleVerfuegbarButton(tgl_do_1);
     }//GEN-LAST:event_tgl_do_1ItemStateChanged
 
     private void tgl_do_2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_do_2ItemStateChanged
-        if (tgl_do_2.isSelected()) 
-            tgl_do_2.setText("BELEGT");  
-        else  
-            tgl_do_2.setText("Verfügbar");  
+        toggleVerfuegbarButton(tgl_do_2);
     }//GEN-LAST:event_tgl_do_2ItemStateChanged
 
     private void tgl_do_3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tgl_do_3ItemStateChanged
-        if (tgl_do_3.isSelected()) 
-            tgl_do_3.setText("BELEGT");  
-        else  
-            tgl_do_3.setText("Verfügbar");  
+        toggleVerfuegbarButton(tgl_do_3); 
     }//GEN-LAST:event_tgl_do_3ItemStateChanged
 
     private void tgl_mo_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgl_mo_1ActionPerformed
