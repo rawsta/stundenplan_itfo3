@@ -25,7 +25,7 @@ import stundenplan.LehrerListModel;
 public class UebersichtGUI extends javax.swing.JFrame {
 
     // Datenbank verbinden
-    private IConnection verbinde = null;
+    private IConnection dbVerbindung = null;
     // Liste der Klassen
     private List<Klasse> klassen = new ArrayList<>();
     // Liste der Lehrer
@@ -37,20 +37,11 @@ public class UebersichtGUI extends javax.swing.JFrame {
      * Hier werden die Daten geholt und die eigentliche GUI aufgebaut.
      */
     public UebersichtGUI() {
-        try {
-            verbinde = DatenbankFabrik.getIConnection();
-            klassen = verbinde.holeKlassen();
-            lehrer = verbinde.holeLehrer();
-            faecher = verbinde.holeFaecher();
-
-        } catch (Exception e) {
-            //e.printStackTrace();
-            System.out.println(e);
-        } finally {
-            if (verbinde != null) {
-                verbinde.schliesseVerbindung();
-            }
-        }
+        
+        dbVerbindung = DatenbankFabrik.getIConnection();
+        klassen = dbVerbindung.holeKlassen();
+        lehrer = dbVerbindung.holeLehrer();
+        faecher = dbVerbindung.holeFaecher();      
 
         initComponents();
         // Zentriert das Fenster
@@ -68,6 +59,14 @@ public class UebersichtGUI extends javax.swing.JFrame {
         FachListModel faecherList = new FachListModel(faecher);
         lst_faecher.setModel(faecherList);
 
+    }
+
+    private void lehrerNeuLaden() {
+        lst_lehrer.setModel(new LehrerListModel(dbVerbindung.holeLehrer()));
+    }
+    
+    private void lehrerLoeschen(String name) {
+        dbVerbindung.loescheLehrer(name);
     }
 
     /**
@@ -93,6 +92,8 @@ public class UebersichtGUI extends javax.swing.JFrame {
         btn_lehrer_stundenplan_anzeigen = new javax.swing.JButton();
         btn_lehrer_bearbeiten = new javax.swing.JButton();
         btn_lehrer_anlegen = new javax.swing.JButton();
+        btn_lehrer_neu_laden = new javax.swing.JButton();
+        btn_lehrer_loeschen = new javax.swing.JButton();
         tab_classes = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lst_klassen = new javax.swing.JList();
@@ -169,7 +170,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addGroup(tab_stundenplanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_aktuelle_stundenplaene_anzeigen, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                     .addComponent(btn_stundenplan_anlegen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addGroup(tab_stundenplanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane4)
                     .addComponent(btn_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -244,6 +245,29 @@ public class UebersichtGUI extends javax.swing.JFrame {
             }
         });
 
+        btn_lehrer_neu_laden.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_lehrer_neu_laden.setText("aktualisieren");
+        btn_lehrer_neu_laden.setActionCommand("lehrerNeuLaden");
+        btn_lehrer_neu_laden.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_neu_laden.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_neu_laden.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_neu_laden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_lehrer_neu_ladenActionPerformed(evt);
+            }
+        });
+
+        btn_lehrer_loeschen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_lehrer_loeschen.setText("Lehrer löschen");
+        btn_lehrer_loeschen.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_loeschen.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_loeschen.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_lehrer_loeschen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_lehrer_loeschenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout tab_teacherLayout = new javax.swing.GroupLayout(tab_teacher);
         tab_teacher.setLayout(tab_teacherLayout);
         tab_teacherLayout.setHorizontalGroup(
@@ -254,23 +278,34 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(tab_teacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_lehrer_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_lehrer_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_lehrer_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_lehrer_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(108, Short.MAX_VALUE))
+                    .addGroup(tab_teacherLayout.createSequentialGroup()
+                        .addComponent(btn_lehrer_loeschen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_lehrer_neu_laden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         tab_teacherLayout.setVerticalGroup(
             tab_teacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab_teacherLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tab_teacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                     .addGroup(tab_teacherLayout.createSequentialGroup()
                         .addComponent(btn_lehrer_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_lehrer_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_lehrer_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(tab_teacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(tab_teacherLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btn_lehrer_neu_laden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(tab_teacherLayout.createSequentialGroup()
+                                .addComponent(btn_lehrer_loeschen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
 
@@ -333,7 +368,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
                     .addComponent(btn_klassen_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_klasse_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_klasse_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
         tab_classesLayout.setVerticalGroup(
             tab_classesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -401,7 +436,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addGroup(tab_faecherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_fach_bearbeiten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_fach_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
         tab_faecherLayout.setVerticalGroup(
             tab_faecherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -461,7 +496,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addGroup(tab_aktivitaetenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_aktivitaet_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_aktivitaet_zuruecksetzen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
         tab_aktivitaetenLayout.setVerticalGroup(
             tab_aktivitaetenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -623,6 +658,14 @@ public class UebersichtGUI extends javax.swing.JFrame {
         new LehrerEditGUI().setVisible(true);
     }//GEN-LAST:event_btn_lehrer_anlegenActionPerformed
 
+    private void btn_lehrer_neu_ladenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_neu_ladenActionPerformed
+        lehrerNeuLaden();
+    }//GEN-LAST:event_btn_lehrer_neu_ladenActionPerformed
+
+    private void btn_lehrer_loeschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_loeschenActionPerformed
+        lehrerLoeschen((String) lst_lehrer.getSelectedValue());
+    }//GEN-LAST:event_btn_lehrer_loeschenActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -650,6 +693,8 @@ public class UebersichtGUI extends javax.swing.JFrame {
     private javax.swing.JButton btn_klassen_stundenplan_anzeigen;
     private javax.swing.JButton btn_lehrer_anlegen;
     private javax.swing.JButton btn_lehrer_bearbeiten;
+    private javax.swing.JButton btn_lehrer_loeschen;
+    private javax.swing.JButton btn_lehrer_neu_laden;
     private javax.swing.JButton btn_lehrer_stundenplan_anzeigen;
     private javax.swing.JButton btn_programm_beenden;
     private javax.swing.JButton btn_stundenplan_anlegen;

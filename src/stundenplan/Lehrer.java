@@ -5,6 +5,7 @@
  */
 package stundenplan;
 
+import java.time.DayOfWeek;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class Lehrer {
     private List<Klasse> klassen;
     private Fach[] faecher;
     private Unterrichtseinheit[] stunden;
+    private Boolean[][] verfuegbarkeit; // [montag/donnerstag][0-2]
 
     /**
      * Der Konstruktor
@@ -81,7 +83,15 @@ public class Lehrer {
     public void setStunden(Unterrichtseinheit[] stunden) {
         this.stunden = stunden;
     }
-    
+
+    public void setVerfuegbarkeit(Boolean[][] verfuegbarkeit) {
+        this.verfuegbarkeit = verfuegbarkeit;
+    }
+
+    public Boolean[][] getVerfuegbarkeit() {
+        return verfuegbarkeit;
+    }
+
     @Override
     public String toString() {
         return this.kuerzel;

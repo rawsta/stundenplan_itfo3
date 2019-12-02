@@ -7,8 +7,8 @@ package stundenplan.oberflaechen;
 
 import javax.swing.JToggleButton;
 import stundenplan.Lehrer;
-import stundenplan.datenbank.IConnection;
 import stundenplan.datenbank.DatenbankFabrik;
+import stundenplan.datenbank.IConnection;
 
 /**
  * Die LehrerEditGUI Klasse
@@ -40,21 +40,19 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         
         // Datenbank nach dem ausgewählten Lehrer abfragen
         try {
-            verbinde = DatenbankFabrik.getIConnection();
             lehrer = verbinde.getSelectedLehrer(auswahl);
-            // Name und Kürzel des Lehrers auslesen
-            String lehrer_name = lehrer.getName();
-            String lehrer_kuerzel = lehrer.getKuerzel();
 
             // Textfelder mit gelesenen Daten befüllen
-            txt_lehrer_name.setText(lehrer_name);
-            txt_lehrer_kuerzel.setText(lehrer_kuerzel);
+            txt_lehrer_name.setText(lehrer.getName());
+            txt_lehrer_kuerzel.setText(lehrer.getKuerzel());
+            tgl_mo_1.setSelected(!lehrer.getVerfuegbarkeit()[0][0]);
+            tgl_mo_2.setSelected(!lehrer.getVerfuegbarkeit()[0][1]);
+            tgl_mo_3.setSelected(!lehrer.getVerfuegbarkeit()[0][2]);
+            tgl_do_1.setSelected(!lehrer.getVerfuegbarkeit()[1][0]);
+            tgl_do_2.setSelected(!lehrer.getVerfuegbarkeit()[1][1]);
+            tgl_do_3.setSelected(!lehrer.getVerfuegbarkeit()[1][2]);
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-            if (verbinde != null) {
-                verbinde.schliesseVerbindung();
-            }
         }
     }
     
@@ -64,11 +62,47 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         // Fenster auf definierte Größe setzen
         this.setSize(418, 350);
+        this.verbinde = DatenbankFabrik.getIConnection();
     }
     
     private void toggleVerfuegbarButton(JToggleButton button) {
         // Wenn ausgewählt, wird die Beschriftung ersetzt
         button.setText(button.isSelected() ? "BELEGT" : "Verfügbar");
+    }
+
+    private void setFaecher() {
+        // muss noch, je nachdem wie die Faecher angegeben / ausgewählt werden
+    }
+
+    private void setVerfuegbarkeit() {
+        lehrer.setVerfuegbarkeit(getVerfuegbarkeit());
+    }
+
+    private Boolean[][] getVerfuegbarkeit() {
+        Boolean[][] verfuegbarkeit = new Boolean[2][3];
+        verfuegbarkeit[0][0] = !tgl_mo_1.isSelected();
+        verfuegbarkeit[0][1] = !tgl_mo_2.isSelected();
+        verfuegbarkeit[0][2] = !tgl_mo_3.isSelected();
+        verfuegbarkeit[1][0] = !tgl_do_1.isSelected();
+        verfuegbarkeit[1][1] = !tgl_do_2.isSelected();
+        verfuegbarkeit[1][2] = !tgl_do_3.isSelected();
+        return verfuegbarkeit;
+    }
+
+     private String getLehrerKuerzel() {
+        return txt_lehrer_kuerzel.getText();
+     }
+
+     private String getLehrerName() {
+        return txt_lehrer_name.getText();
+     }
+
+    private void setLehrerKuerzel() {
+        lehrer.setKuerzel(txt_lehrer_kuerzel.getText());
+    }
+
+    private void setLehrerName() {
+        lehrer.setName(txt_lehrer_name.getText());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,7 +121,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         btn_lehrer_abbrechen = new javax.swing.JButton();
         btn_lehrer_speichern = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lst_lehrer_faecher = new javax.swing.JList<String>();
+        lst_lehrer_faecher = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         tgl_mo_1 = new javax.swing.JToggleButton();
         lbl_verfuegbarkeit = new javax.swing.JLabel();
@@ -136,13 +170,13 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         btn_lehrer_speichern.setMaximumSize(new java.awt.Dimension(90, 30));
         btn_lehrer_speichern.setMinimumSize(new java.awt.Dimension(90, 30));
         btn_lehrer_speichern.setPreferredSize(new java.awt.Dimension(90, 30));
+        btn_lehrer_speichern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_lehrer_speichernActionPerformed(evt);
+            }
+        });
 
         lst_lehrer_faecher.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lst_lehrer_faecher.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Fach 1", "Fach 2", "Fach 3", "Fach 4", "Fach 5", "Fach 6" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(lst_lehrer_faecher);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -240,7 +274,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_lehrer_ueberschrift)
@@ -343,6 +377,16 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         // Fenster schliessen
         this.setVisible(false);
     }//GEN-LAST:event_btn_lehrer_abbrechenActionPerformed
+
+    private void btn_lehrer_speichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_speichernActionPerformed
+        if (lehrer != null) {
+            verbinde.oeffneVerbindung();
+            this.verbinde.updateLehrer(lehrer.getId(), getLehrerKuerzel(), getLehrerName(), getVerfuegbarkeit());
+        } else {
+            this.verbinde.neuerLehrer(getLehrerKuerzel(), getLehrerName(), getVerfuegbarkeit());
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_lehrer_speichernActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

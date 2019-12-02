@@ -28,7 +28,7 @@ public class Datenbank implements IConnection{
         super();
         this.verbinde = null;
         this.statement = null;
-        this.oeffneVerbindung();
+        // this.oeffneVerbindung();
     }
 
     /**
@@ -68,6 +68,7 @@ public class Datenbank implements IConnection{
             System.out.println("Datenbank wieder geschlossen");
         } catch (SQLException e) {
             System.out.print("Datenbank konnte nicht korrekt geschlossen werden");
+            System.out.println(e);
             throw new RuntimeException(e);
         }
     }
@@ -84,16 +85,19 @@ public class Datenbank implements IConnection{
      */
     @Override
     public ArrayList<Klasse> holeKlassen() {
+        oeffneVerbindung();
         ArrayList<Klasse> klassen = new ArrayList<>();
         try (ResultSet resultSet = this.statement.executeQuery(
                 "SELECT K_ID, Kuerzel FROM Klasse")) {
             // ArrayList in Objekt umwandeln
             while (resultSet.next()) {
-                    klassen.add(convertRowToKlasse(resultSet));
+                klassen.add(convertRowToKlasse(resultSet));
             }
         } catch (SQLException e) {
                 System.out.println("Fehler beim Auslesen der Klassen");
                 throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
         return klassen;
     }
@@ -106,6 +110,7 @@ public class Datenbank implements IConnection{
      */
     @Override
     public void neueKlasse(Klasse klasse) {
+        oeffneVerbindung();
         try (PreparedStatement prep = this.verbinde.prepareStatement(
                 "INSERT INTO Klasse (K_ID, Kuerzel) VALUES (?, ?)")) {
             prep.setInt(1, klasse.getId());
@@ -116,8 +121,9 @@ public class Datenbank implements IConnection{
         } catch (SQLException e) {
             System.out.println("Kann die Klasse nicht einfügen");
             throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
-
     }
     
      /**
@@ -150,6 +156,7 @@ public class Datenbank implements IConnection{
      */
     @Override
     public void updateKlasse(String title, Klasse klasse) {
+        oeffneVerbindung();
         try (PreparedStatement prep = this.verbinde.prepareStatement(
                 "UPDATE Klasse SET K_ID = ?, Kuerzel = ? WHERE title = ?")) {
             prep.setInt(1, klasse.getId());
@@ -161,8 +168,9 @@ public class Datenbank implements IConnection{
         } catch (SQLException e) {
             System.out.println("Kann die Klasse nicht aktualisieren");
             throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
-
     }
     
     /**
@@ -196,9 +204,10 @@ public class Datenbank implements IConnection{
      */
     @Override
     public ArrayList<Lehrer> holeLehrer() {
+        oeffneVerbindung();
         ArrayList<Lehrer> lehrer = new ArrayList<>();
         try (ResultSet results = this.statement.executeQuery(
-                "SELECT L_ID, Name, Kuerzel FROM Lehrer")) {
+                "SELECT L_ID, Name, Kuerzel, Mo_1, Mo_2, Mo_3, Do_1, Do_2, Do_3 FROM Lehrer ORDER BY Name ASC")) {
             // ArrayList in Objekt umwandeln
             while (results.next()) {
                 lehrer.add(convertRowToLehrer(results));
@@ -206,28 +215,37 @@ public class Datenbank implements IConnection{
         } catch (SQLException e) {
                 System.out.println("Fehler beim Auslesen der Lehrer");
                 throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
         return lehrer;
     }
 
     /**
      * Neue Lehrer anlegen
-     * 
-     * @param lehrer
+     *
      * @throws RuntimeException
      */
     @Override
-    public void neuerLehrer(Lehrer lehrer) {
+    public void neuerLehrer(String kuerzel, String name, Boolean[][] verfuegbarkeit) {
+        oeffneVerbindung();
         try (PreparedStatement preparedStatement = this.verbinde.prepareStatement(
-                "INSERT INTO Lehrer (L_ID, Kuerzel, Name) VALUES (?, ?, ?)")) {
-            preparedStatement.setInt(1, lehrer.getId());
-            preparedStatement.setString(2, lehrer.getKuerzel());
-            preparedStatement.setString(3, lehrer.getName());
+                "INSERT INTO Lehrer (Kuerzel, Name, Mo_1, Mo_2, Mo_3, Do_1, Do_2, Do_3) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+            preparedStatement.setString(1, kuerzel);
+            preparedStatement.setString(2, name);
+            preparedStatement.setInt(3, verfuegbarkeit[0][0] ? 1 : 0);
+            preparedStatement.setInt(4, verfuegbarkeit[0][1] ? 1 : 0);
+            preparedStatement.setInt(5, verfuegbarkeit[0][2] ? 1 : 0);
+            preparedStatement.setInt(6, verfuegbarkeit[1][0] ? 1 : 0);
+            preparedStatement.setInt(7, verfuegbarkeit[1][1] ? 1 : 0);
+            preparedStatement.setInt(8, verfuegbarkeit[1][2] ? 1 : 0);
             
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Kann den Lehrer nicht einfügen");
             throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
     }
 
@@ -240,39 +258,61 @@ public class Datenbank implements IConnection{
      */
     @Override
     public Lehrer getSelectedLehrer(String name) {
+        oeffneVerbindung();
         try (PreparedStatement preparedStatement =
                      this.verbinde.prepareStatement(
-                             "SELECT L_ID, Name, Kuerzel FROM Lehrer WHERE Name = ? ")) {
+                             "SELECT L_ID, Name, Kuerzel, Mo_1, Mo_2, Mo_3, Do_1, Do_2, Do_3 FROM Lehrer WHERE Name = ? ")) {
             preparedStatement.setString(1, name);
             ResultSet results = preparedStatement.executeQuery();
             return convertRowToLehrer(results);
         } catch (SQLException e) {
             System.out.println("Kann den gewählten Lehrer nicht finden");
             throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
     }
     
     /**
      * Lehrer aktualisieren 
-     * 
-     * @param kuerzel
-     * @param lehrer
+     *
      * @throws RuntimeException
      */
     @Override
-    public void updateLehrer(String kuerzel, Lehrer lehrer) {
+    public void updateLehrer(int id, String kuerzel, String name, Boolean[][] verfuegbarkeit) {
+        oeffneVerbindung();
         try (PreparedStatement preparedStatement = this.verbinde.prepareStatement(
-                "UPDATE Lehrer SET L_ID = ?, Kuerzel = ?, Name = ? WHERE title = ?")) {
-            preparedStatement.setInt(1, lehrer.getId());
-            preparedStatement.setString(2, lehrer.getKuerzel());
-            preparedStatement.setObject(3, lehrer.getName());
-            preparedStatement.setString(4, kuerzel);
+                "UPDATE Lehrer SET Kuerzel = ?, Name = ?, Mo_1 = ?, Mo_2 = ?, Mo_3 = ?, Do_1 = ?, Do_2 = ?, Do_3 = ? WHERE L_ID = ?")) {
+            preparedStatement.setString(1, kuerzel);
+            preparedStatement.setString(2, name);
+            preparedStatement.setInt(3, verfuegbarkeit[0][0] ? 1 : 0);
+            preparedStatement.setInt(4, verfuegbarkeit[0][1] ? 1 : 0);
+            preparedStatement.setInt(5, verfuegbarkeit[0][2] ? 1 : 0);
+            preparedStatement.setInt(6, verfuegbarkeit[1][0] ? 1 : 0);
+            preparedStatement.setInt(7, verfuegbarkeit[1][1] ? 1 : 0);
+            preparedStatement.setInt(8, verfuegbarkeit[1][2] ? 1 : 0);
+            preparedStatement.setInt(9, id);
 
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println("Kann den Lehrer nicht aktualisieren");
             throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
+        }
+    }
+    
+    @Override
+    public void loescheLehrer(String name) {
+        oeffneVerbindung();
+        try (PreparedStatement preparedStatement = this.verbinde.prepareStatement(
+                "DELETE FROM Lehrer WHERE name=?"
+        )) {
+            preparedStatement.setString(1, name);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Kann den Lehrer nicht löschen");
         }
     }
 
@@ -289,8 +329,16 @@ public class Datenbank implements IConnection{
             int l_id = results.getInt("L_ID");
             String kuerzel = results.getString("Kuerzel");
             String name = results.getString("Name");
-
-            return new Lehrer(l_id, name, kuerzel);
+            Boolean[][] verfuegbarkeit = new Boolean[2][3];
+            verfuegbarkeit[0][0] = results.getInt("Mo_1") == 1;
+            verfuegbarkeit[0][1] = results.getInt("Mo_2") == 1;
+            verfuegbarkeit[0][2] = results.getInt("Mo_3") == 1;
+            verfuegbarkeit[1][0] = results.getInt("Do_1") == 1;
+            verfuegbarkeit[1][1] = results.getInt("Do_2") == 1;
+            verfuegbarkeit[1][2] = results.getInt("Do_3") == 1;
+            Lehrer tempLehrer = new Lehrer(l_id, name, kuerzel);
+            tempLehrer.setVerfuegbarkeit(verfuegbarkeit);
+            return tempLehrer;
         } catch (SQLException e) {
             System.out.println("Kann den Lehrer nicht aufbauen");
             throw new RuntimeException(e);
@@ -308,6 +356,7 @@ public class Datenbank implements IConnection{
      */
     @Override
     public ArrayList<Fach> holeFaecher() {
+        oeffneVerbindung();
         ArrayList<Fach> faecher = new ArrayList<>();
         try (ResultSet results = this.statement.executeQuery(
                 "SELECT F_ID, Kuerzel, Name FROM Fach")) {
@@ -319,6 +368,8 @@ public class Datenbank implements IConnection{
         } catch (SQLException e) {
                 System.out.println("Fehler beim Auslesen der Lehrer");
                 throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
     }
 
@@ -331,6 +382,7 @@ public class Datenbank implements IConnection{
      */
     @Override
     public void neuesFach(Fach fach) {
+        oeffneVerbindung();
         try (PreparedStatement preparedStatement = this.verbinde.prepareStatement(
                 "INSERT INTO Fach (F_ID, Kuerzel, Name) VALUES (?, ?, ?)")) {
             preparedStatement.setInt(1, fach.getId());
@@ -342,6 +394,8 @@ public class Datenbank implements IConnection{
         } catch (SQLException e) {
             System.out.println("Kann den Lehrer nicht einfügen");
             throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
     }
 
@@ -354,6 +408,7 @@ public class Datenbank implements IConnection{
      */
     @Override
     public Fach getSelectedFach(String kuerzel) {
+        oeffneVerbindung();
         try (PreparedStatement prep = this.verbinde.prepareStatement(
                 "SELECT F_ID, Kuerzel, Name FROM Fach WHERE Kuerzel = ?")) {
             prep.setString(1, kuerzel);
@@ -363,6 +418,8 @@ public class Datenbank implements IConnection{
         } catch (SQLException e) {
             System.out.println("Das Fach konnte nicht gefunden werden");
             throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
     }
     
@@ -375,6 +432,7 @@ public class Datenbank implements IConnection{
      */
     @Override
     public void updateFach(String kuerzel, Fach fach) {
+        oeffneVerbindung();
         try (PreparedStatement preparedStatement = this.verbinde.prepareStatement(
                 "UPDATE Fach Kuerzel = ?, Name = ? WHERE F_ID = ?")) {
             preparedStatement.setString(1, fach.getKuerzel());
@@ -385,6 +443,8 @@ public class Datenbank implements IConnection{
         } catch (SQLException e) {
             System.out.println("Das Fach konnte nicht aktualisiert werden");
             throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
     }
 
