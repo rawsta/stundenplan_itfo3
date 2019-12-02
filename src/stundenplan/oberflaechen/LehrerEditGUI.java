@@ -87,7 +87,7 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         btn_lehrer_abbrechen = new javax.swing.JButton();
         btn_lehrer_speichern = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lst_lehrer_faecher = new javax.swing.JList<>();
+        lst_lehrer_faecher = new javax.swing.JList<String>();
         jLabel1 = new javax.swing.JLabel();
         tgl_mo_1 = new javax.swing.JToggleButton();
         lbl_verfuegbarkeit = new javax.swing.JLabel();
@@ -138,10 +138,10 @@ public class LehrerEditGUI extends javax.swing.JFrame {
         btn_lehrer_speichern.setPreferredSize(new java.awt.Dimension(90, 30));
 
         lst_lehrer_faecher.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lst_lehrer_faecher.setModel(new javax.swing.AbstractListModel<String>() {
+        lst_lehrer_faecher.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Fach 1", "Fach 2", "Fach 3", "Fach 4", "Fach 5", "Fach 6" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(lst_lehrer_faecher);
 

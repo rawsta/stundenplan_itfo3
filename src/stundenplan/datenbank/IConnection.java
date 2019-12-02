@@ -43,6 +43,14 @@ public interface IConnection {
     * @param klasse
     */
    public void neueKlasse(Klasse klasse);
+   
+   /**
+    * Hole Klasse aus Datenbank
+    * 
+    * @param auswahl
+    * @return Liste der Klasse
+    */
+   public Klasse getSelectedKlasse(String auswahl);
 
    /**
     * Klasse aktualisieren

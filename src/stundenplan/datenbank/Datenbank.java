@@ -119,6 +119,27 @@ public class Datenbank implements IConnection{
         }
 
     }
+    
+     /**
+     * ausgewählten Klasse laden 
+     * 
+     * @param auswahl
+     * @return selectedKlasse
+     * @throws RuntimeException
+     */
+    @Override
+    public Klasse getSelectedKlasse(String auswahl) {
+        try (PreparedStatement preparedStatement =
+                     this.verbinde.prepareStatement(
+                             "SELECT K_ID, Kuerzel FROM Klasse WHERE Kuerzel = ? ")) {
+            preparedStatement.setString(1, auswahl);
+            ResultSet results = preparedStatement.executeQuery();
+            return convertRowToKlasse(results);
+        } catch (SQLException e) {
+            System.out.println("Kann die gewählte Klsse nicht finden");
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Klasse aktualisieren
