@@ -33,15 +33,15 @@ public class KlasseEditGUI extends javax.swing.JFrame {
     /**
      * LehrerEditGUI mit dem ausgewähltem Lehrer laden
      * 
-     * @param auswahl 
+     * @param name
      */
-    public KlasseEditGUI(String auswahl) {
+    public KlasseEditGUI(String name) {
         init();
         
         // Datenbank nach dem ausgewählten Lehrer abfragen
         try {
             verbinde = DatenbankFabrik.getIConnection();
-            klasse = verbinde.getSelectedKlasse(auswahl);
+            klasse = verbinde.getSelectedKlasse(name);
             // Kürzel der Klasse auslesen
             String klasse_kuerzel = klasse.getName();
 

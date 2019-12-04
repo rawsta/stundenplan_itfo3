@@ -5,7 +5,6 @@
  */
 package stundenplan.oberflaechen;
 
-import stundenplan.datenbank.IConnection;
 import stundenplan.datenbank.DatenbankFabrik;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ import stundenplan.Klasse;
 import stundenplan.KlassenListModel;
 import stundenplan.Lehrer;
 import stundenplan.LehrerListModel;
+import stundenplan.datenbank.IConnection;
 
 /**
  * Die zentrale GUI von der alle Interaktion ausgeht.
@@ -71,6 +71,42 @@ public class UebersichtGUI extends javax.swing.JFrame {
     // Lehrer löschen
     private void lehrerLoeschen(String name) {
         dbVerbindung.loescheLehrer(name);
+    }
+
+    /**
+     * Wenn eine Auswahl in der Lehrerliste getroffen wurde, wird dieser Lehrer 
+     * zurückgegeben. Andernfall erscheint ein Dialog mit der Meldung, bitte
+     * einen Lehrer auszuwählen.
+     *
+     * @return Lehrer | null
+     */
+    private Lehrer getSelectedLehrerOrErrorDialog() {
+        if(lst_lehrer.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Bitte wählen Sie einen Lehrer aus der Liste.",
+                    "Kein Lehrer ausgewählt!",JOptionPane.ERROR_MESSAGE);
+        } else {
+            return (Lehrer) lst_lehrer.getSelectedValue();
+        }
+        return null;
+    }
+    
+    /**
+     * Wenn eine Auswahl in der Klassenliste getroffen wurde, wird diese Klasse
+     * zurückgegeben. Andernfall erscheint ein Dialog mit der Meldung, bitte
+     * eine Klasse auszuwählen.
+     *
+     * @return Klasse | null
+     */
+    private Klasse getSelectedKlasseOrDialog() {
+        if(lst_klassen.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Bitte wählen Sie eine Klasse aus der Liste.",
+                    "Keine Klasse ausgewählt!",JOptionPane.ERROR_MESSAGE);
+        } else {
+            return (Klasse) lst_klassen.getSelectedValue();
+        }
+        return null;
     }
 
     /**
@@ -622,65 +658,37 @@ public class UebersichtGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_lst_lehrerValueChanged
 
     private void btn_lehrer_bearbeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_bearbeitenActionPerformed
-        /* Gewählten Lehrer aus der Liste herausfinden */
-        String auswahl = (String) lst_lehrer.getSelectedValue();
-        
-        // Falls Abfrage leer ist, Meldung zeigen
-        if(lst_lehrer.isSelectionEmpty()) {
-            // Info Panel
-            String nachricht = "Bitte wählen Sie einen Lehrer aus der Liste.";
-            String fenstertitel = "Kein Lehrer ausgewählt!";
-            JOptionPane.showMessageDialog(null, nachricht, fenstertitel,JOptionPane.ERROR_MESSAGE);
-        } else {
-            /* Neue GUI mit dem ausgewählten Lehrer aufrufen */
-            new LehrerEditGUI(auswahl).setVisible(true);
+        Lehrer selectedLehrer = getSelectedLehrerOrErrorDialog();
+        if (selectedLehrer != null) {
+            // Neue GUI mit dem ausgewählten Lehrer aufrufen
+            new LehrerEditGUI(selectedLehrer.getName()).setVisible(true);
         }
     }//GEN-LAST:event_btn_lehrer_bearbeitenActionPerformed
 
     private void btn_lehrer_stundenplan_anzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_stundenplan_anzeigenActionPerformed
-        /* Gewählten Lehrer aus der Liste herausfinden */
-        String auswahl = (String) lst_lehrer.getSelectedValue();
-        // Falls Abfrage leer ist, Meldung zeigen
-        if(lst_lehrer.isSelectionEmpty()) {
-            // Info Panel
-            String nachricht = "Bitte wählen Sie einen Lehrer aus der Liste.";
-            String fenstertitel = "Kein Lehrer ausgewählt!";
-            JOptionPane.showMessageDialog(null, nachricht, fenstertitel,JOptionPane.ERROR_MESSAGE);
-        } else {
+        Lehrer selectedLehrer = getSelectedLehrerOrErrorDialog();
+        if (selectedLehrer != null) {
             // TODO: statt print, richtiger Code
-            System.out.println("L-Stundenplan für:" + auswahl + " ");
+            System.out.println("L-Stundenplan für:" + selectedLehrer + " ");
         }
     }//GEN-LAST:event_btn_lehrer_stundenplan_anzeigenActionPerformed
 
     private void btn_klassen_stundenplan_anzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klassen_stundenplan_anzeigenActionPerformed
-        /* Gewählte Klasse aus der Liste herausfinden */
-        String auswahl = (String) lst_klassen.getSelectedValue();
-        // Falls Abfrage leer ist, Meldung zeigen
-        if(lst_klassen.isSelectionEmpty()) {
-            // Info Panel
-            String nachricht = "Bitte wählen Sie eine Klasse aus der Liste.";
-            String fenstertitel = "Keine Klasse ausgewählt!";
-            JOptionPane.showMessageDialog(null, nachricht, fenstertitel,JOptionPane.ERROR_MESSAGE);
-        } else {
+        Klasse selectedKlasse = getSelectedKlasseOrDialog();
+        if (selectedKlasse != null) {
             // TODO: statt print, richtiger Code
-            System.out.println("Klassen-Stundenplan für:" + auswahl + " ");
+            System.out.println("Klassen-Stundenplan für:" + selectedKlasse + " ");
         }
     }//GEN-LAST:event_btn_klassen_stundenplan_anzeigenActionPerformed
 
     private void btn_klasse_bearbeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klasse_bearbeitenActionPerformed
-        /* Gewählte Klasse aus der Liste herausfinden */ 
-        String auswahl = (String) lst_klassen.getSelectedValue();
-        // Falls Abfrage leer ist, Meldung zeigen
-        if(lst_klassen.isSelectionEmpty()) {
-            // Info Panel
-            String nachricht = "Bitte wählen Sie eine Klasse aus der Liste.";
-            String fenstertitel = "Keine Klasse ausgewählt!";
-            JOptionPane.showMessageDialog(null, nachricht, fenstertitel,JOptionPane.ERROR_MESSAGE);
-        } else {
+        Klasse selectedKlasse = getSelectedKlasseOrDialog();
+        if (selectedKlasse != null) {
             // TODO: statt print, richtiger Code
-            System.out.println("L-Stundenplan für:" + auswahl + " ");
+            System.out.println("L-Stundenplan für:" + selectedKlasse + " ");
         }
-        System.out.println("gewählte Klasse:" + auswahl + " ");
+        
+        System.out.println("gewählte Klasse:" + selectedKlasse + " ");
     }//GEN-LAST:event_btn_klasse_bearbeitenActionPerformed
 
     private void lst_faecherValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_faecherValueChanged

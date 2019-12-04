@@ -33,14 +33,14 @@ public class LehrerEditGUI extends javax.swing.JFrame {
     /**
      * LehrerEditGUI mit dem ausgewähltem Lehrer laden
      * 
-     * @param auswahl 
+     * @param name
      */
-    public LehrerEditGUI(String auswahl) {
+    public LehrerEditGUI(String name) {
         init();
         
         // Datenbank nach dem ausgewählten Lehrer abfragen
         try {
-            lehrer = verbinde.getSelectedLehrer(auswahl);
+            lehrer = verbinde.getSelectedLehrer(name);
 
             // Textfelder mit gelesenen Daten befüllen
             txt_lehrer_name.setText(lehrer.getName());
