@@ -47,10 +47,10 @@ public interface IConnection {
    /**
     * Hole Klasse aus Datenbank
     * 
-    * @param auswahl
+    * @param kuerzel
     * @return Liste der Klasse
     */
-   public Klasse getSelectedKlasse(String auswahl);
+   public Klasse getSelectedKlasse(String kuerzel);
 
    /**
     * Klasse aktualisieren

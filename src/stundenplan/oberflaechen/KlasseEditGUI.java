@@ -35,23 +35,18 @@ public class KlasseEditGUI extends javax.swing.JFrame {
      * 
      * @param name
      */
-    public KlasseEditGUI(String name) {
+    public KlasseEditGUI(String kuerzel) {
         init();
         
         // Datenbank nach der ausgewählten Klasse abfragen
         try {
-            verbinde = DatenbankFabrik.getIConnection();
-            klasse = verbinde.getSelectedKlasse(name);
+            klasse = verbinde.getSelectedKlasse(kuerzel);
             // Kürzel der Klasse auslesen
             String klasse_kuerzel = klasse.getKuerzel();
 
             txt_klasse_kuerzel.setText(klasse_kuerzel);
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-            if (verbinde != null) {
-                verbinde.schliesseVerbindung();
-            }
         }
     }
     
@@ -59,6 +54,9 @@ public class KlasseEditGUI extends javax.swing.JFrame {
         initComponents();
         // Zentriert das Fenster
         setLocationRelativeTo(this);
+        // Fenster auf definierte Größe setzen
+        this.setSize(418, 350);
+        verbinde = DatenbankFabrik.getIConnection();
     }
     
     /**

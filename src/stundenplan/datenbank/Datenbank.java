@@ -129,21 +129,24 @@ public class Datenbank implements IConnection{
      /**
      * ausgewählten Klasse laden 
      * 
-     * @param auswahl
+     * @param kuerzel
      * @return selectedKlasse
      * @throws RuntimeException
      */
     @Override
-    public Klasse getSelectedKlasse(String auswahl) {
+    public Klasse getSelectedKlasse(String kuerzel) {
+        oeffneVerbindung();
         try (PreparedStatement preparedStatement =
                      this.verbinde.prepareStatement(
-                             "SELECT K_ID, Kuerzel FROM Klasse WHERE Kuerzel = ? ")) {
-            preparedStatement.setString(1, auswahl);
+                             "SELECT K_ID, Kuerzel FROM Klasse WHERE Kuerzel = ?")) {
+            preparedStatement.setString(1, kuerzel);
             ResultSet results = preparedStatement.executeQuery();
             return convertRowToKlasse(results);
         } catch (SQLException e) {
-            System.out.println("Kann die gewählte Klsse nicht finden");
+            System.out.println("Kann die gewählte Klasse nicht finden");
             throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
         }
     }
 
