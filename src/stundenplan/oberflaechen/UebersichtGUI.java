@@ -5,6 +5,8 @@
  */
 package stundenplan.oberflaechen;
 
+import stundenplan.Aktivitaet;
+import stundenplan.AktivitaetListModel;
 import stundenplan.datenbank.DatenbankFabrik;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +29,12 @@ public class UebersichtGUI extends javax.swing.JFrame {
     // Datenbank verbinden
     private IConnection dbVerbindung = null;
     // Liste der Klassen
-    private List<Klasse> klassen = new ArrayList<>();
+    private List<Klasse> klassen;
     // Liste der Lehrer
-    private List<Lehrer> lehrer = new ArrayList<>();
+    private List<Lehrer> lehrer;
     // Liste der Fächer
-    private List<Fach> faecher = new ArrayList<>();
+    private List<Fach> faecher;
+    private List<Aktivitaet> aktivitaeten;
 
     /**
      * Hier werden die Daten geholt und die eigentliche GUI aufgebaut.
@@ -44,6 +47,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
         klassen = dbVerbindung.holeKlassen();
         lehrer = dbVerbindung.holeLehrer();
         faecher = dbVerbindung.holeFaecher();
+        aktivitaeten = dbVerbindung.holeAktivitaeten();
 
         initComponents();
         // Zentriert das Fenster
@@ -60,6 +64,9 @@ public class UebersichtGUI extends javax.swing.JFrame {
         // Fächer Liste füllen
         FachListModel faecherList = new FachListModel(faecher);
         lst_faecher.setModel(faecherList);
+
+        AktivitaetListModel aktivitaetenList = new AktivitaetListModel(aktivitaeten);
+        lst_aktivitaeten.setModel(aktivitaetenList);
 
     }
 

@@ -7,6 +7,9 @@ package stundenplan.datenbank;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
+import javafx.util.Pair;
+import stundenplan.Aktivitaet;
 import stundenplan.Fach;
 import stundenplan.Klasse;
 import stundenplan.Lehrer;
@@ -472,5 +475,57 @@ public class Datenbank implements IConnection{
             throw new RuntimeException(e);
         }
     }
-    
+
+    @Override
+    public List<Aktivitaet> holeAktivitaeten() {
+        oeffneVerbindung();
+        ArrayList<Aktivitaet> aktivitaeten = new ArrayList<>();
+
+        try (ResultSet resultSet = statement.executeQuery(
+                "select KFL_ID, k.k_id, f.f_id, l.l_id, k.kuerzel as klassenkuerzel, l.name as lehrername, l.kuerzel as lehrerkuerzel, f.name as fachname, f.kuerzel as fachkuerzel from Aktivitaet a join Klasse k on a.k_id = k.K_ID join Lehrer_Fach lf on a.fl_ID = lf.LF_ID join Lehrer l on lf.L_ID = l.L_ID join Fach f on lf.f_id = f.F_ID")) {
+
+            // ArrayList in Objekt umwandeln
+            while (resultSet.next()) {
+                aktivitaeten.add(convertRowToAktivitaet(resultSet));
+            }
+            // TODO die Liste durchgehen und nach einem Lehrerpaar suchen und die beiden Aktivitäten dann zusammenführen
+            return aktivitaeten;
+        } catch (SQLException e) {
+            System.out.println("Fehler beim Auslesen der Lehrer");
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Konvertiert TableRow zu Fach
+     *
+     * @param results
+     * @return tempFach
+     * @throws RuntimeException
+     */
+    @Override
+    public Aktivitaet convertRowToAktivitaet(ResultSet results) {
+        try {
+            int kfl_id = results.getInt("KFL_ID");
+            int k_id = results.getInt("K_ID");
+            int f_id = results.getInt("F_ID");
+            int l_id = results.getInt("L_ID");
+            String klassenkuerzel = results.getString("klassenkuerzel");
+            String lehrername = results.getString("lehrername");
+            String lehrerkuerzel = results.getString("lehrerkuerzel");
+            String fachname = results.getString("fachname");
+            String fachkuerzel = results.getString("fachkuerzel");
+
+            Klasse klasse = getSelectedKlasse(klassenkuerzel);
+            Lehrer lehrer = getSelectedLehrer(lehrername);
+            Fach fach = getSelectedFach(fachkuerzel);
+
+
+            return new Aktivitaet(klasse, new Pair(lehrer, null), fach);
+
+        } catch (SQLException e) {
+            System.out.println("Kann das Fach nicht aufbauen");
+            throw new RuntimeException(e);
+        }
+    }
 }

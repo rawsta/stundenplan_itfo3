@@ -7,6 +7,8 @@ package stundenplan.datenbank;
 
 import java.sql.ResultSet;
 import java.util.List;
+
+import stundenplan.Aktivitaet;
 import stundenplan.Fach;
 import stundenplan.Klasse;
 import stundenplan.Lehrer;
@@ -156,5 +158,9 @@ public interface IConnection {
     * @return Fach object
     */
    public Fach convertRowToFach(ResultSet results);
+
+   public List<Aktivitaet> holeAktivitaeten();
+
+   public Aktivitaet convertRowToAktivitaet(ResultSet resultSet);
    
 }
