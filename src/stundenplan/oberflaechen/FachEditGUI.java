@@ -82,7 +82,7 @@ public class FachEditGUI extends javax.swing.JFrame {
         txt_fach_name = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Klasse bearbeiten");
+        setTitle("Fach bearbeiten");
 
         lbl_klasse_ueberschrift.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_klasse_ueberschrift.setText("Fach bearbeiten");
