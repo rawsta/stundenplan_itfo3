@@ -108,6 +108,24 @@ public class UebersichtGUI extends javax.swing.JFrame {
         }
         return null;
     }
+    
+    /**
+     * Wenn eine Auswahl in der Fachliste getroffen wurde, wird dieses Fach
+     * zurückgegeben. Andernfalls erscheint ein Dialog mit der Meldung, bitte
+     * eine Fach auszuwählen.
+     *
+     * @return Fach | null
+     */
+    private Fach getSelectedFachOrDialog() {
+        if(lst_faecher.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Bitte wählen Sie ein Fach aus der Liste.",
+                    "Kein Fach ausgewählt!",JOptionPane.ERROR_MESSAGE);
+        } else {
+            return (Fach) lst_faecher.getSelectedValue();
+        }
+        return null;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -615,7 +633,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_klasse_anlegenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klasse_anlegenActionPerformed
-        // TODO add your handling wizardry here:
+        new KlasseEditGUI().setVisible(true);
     }//GEN-LAST:event_btn_klasse_anlegenActionPerformed
 
     private void btn_stundenplan_anzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_stundenplan_anzeigenActionPerformed
@@ -686,16 +704,18 @@ public class UebersichtGUI extends javax.swing.JFrame {
         if (selectedKlasse != null) {
             // TODO: statt print, richtiger Code
             new KlasseEditGUI(selectedKlasse.getKuerzel()).setVisible(true);
-//            System.out.println("gewählte Klasse:" + selectedKlasse + " ");
         }
     }//GEN-LAST:event_btn_klasse_bearbeitenActionPerformed
 
     private void lst_faecherValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_faecherValueChanged
-        // TODO add your handling code here:
+        // TODO add your magic here:
     }//GEN-LAST:event_lst_faecherValueChanged
 
     private void btn_fach_bearbeitenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fach_bearbeitenActionPerformed
-        // TODO add your handling code here:
+        Fach selectedFach = getSelectedFachOrDialog();
+        if (selectedFach != null) {
+            new FachEditGUI(selectedFach.getName()).setVisible(true);
+        }
     }//GEN-LAST:event_btn_fach_bearbeitenActionPerformed
 
     private void lst_aktivitaetenValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_aktivitaetenValueChanged

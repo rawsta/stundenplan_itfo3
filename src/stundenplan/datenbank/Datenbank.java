@@ -402,16 +402,16 @@ public class Datenbank implements IConnection{
     /**
      * ausgewählten Fach laden
      * 
-     * @param kuerzel
+     * @param name
      * @return selectedFach
      * @throws RuntimeException
      */
     @Override
-    public Fach getSelectedFach(String kuerzel) {
+    public Fach getSelectedFach(String name) {
         oeffneVerbindung();
         try (PreparedStatement prep = this.verbinde.prepareStatement(
-                "SELECT F_ID, Kuerzel, Name FROM Fach WHERE Kuerzel = ?")) {
-            prep.setString(1, kuerzel);
+                "SELECT F_ID, Kuerzel, Name FROM Fach WHERE Name = ?")) {
+            prep.setString(1, name);
             ResultSet results = prep.executeQuery();
             return convertRowToFach(results);
 
@@ -459,8 +459,8 @@ public class Datenbank implements IConnection{
     public Fach convertRowToFach(ResultSet results) {
         try {
             int f_id = results.getInt("F_ID");
-            String name = results.getString("Name");
             String kuerzel = results.getString("Kuerzel");
+            String name = results.getString("Name");
 
             return new Fach(f_id, name, kuerzel);
 

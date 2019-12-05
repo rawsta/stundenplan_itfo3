@@ -30,21 +30,23 @@ public class FachEditGUI extends javax.swing.JFrame {
     }
     
     /**
-     * FachEditGUI mit dem ausgewähltem Lehrer laden
+     * FachEditGUI mit dem ausgewähltem Fach laden
      * 
      * @param name
      */
     public FachEditGUI(String name) {
         init();
         
-        // Datenbank nach dem ausgewählten Lehrer abfragen
+        // Datenbank nach dem ausgewählten Fach abfragen
         try {
             verbinde = DatenbankFabrik.getIConnection();
             fach = verbinde.getSelectedFach(name);
-            // Kürzel der Klasse auslesen
-            String klasse_kuerzel = fach.getName();
+            // Kürzel und Name des Fachs auslesen
+            String fach_name = fach.getName();
+            String fach_kuerzel = fach.getName();
 
-            txt_klasse_kuerzel.setText(klasse_kuerzel);
+            txt_fach_name.setText(fach_name);
+            txt_fach_kuerzel.setText(fach_kuerzel);
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -70,63 +72,77 @@ public class FachEditGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         lbl_klasse_ueberschrift = new javax.swing.JLabel();
-        txt_klasse_kuerzel = new javax.swing.JTextField();
-        lbl_klasse_edit_kuerzel = new javax.swing.JLabel();
-        btn_klasse_abbrechen = new javax.swing.JButton();
-        btn_klasse_speichern = new javax.swing.JButton();
+        txt_fach_kuerzel = new javax.swing.JTextField();
+        lbl_fach_edit_kuerzel = new javax.swing.JLabel();
+        btn_fach_abbrechen = new javax.swing.JButton();
+        btn_fach_speichern = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        lbl_fach_edit_name = new javax.swing.JLabel();
+        txt_fach_name = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Klasse bearbeiten");
 
         lbl_klasse_ueberschrift.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_klasse_ueberschrift.setText("Klasse bearbeiten");
+        lbl_klasse_ueberschrift.setText("Fach bearbeiten");
 
-        txt_klasse_kuerzel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txt_klasse_kuerzel.setPreferredSize(new java.awt.Dimension(90, 30));
+        txt_fach_kuerzel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txt_fach_kuerzel.setPreferredSize(new java.awt.Dimension(90, 30));
 
-        lbl_klasse_edit_kuerzel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lbl_klasse_edit_kuerzel.setText("Kürzel");
+        lbl_fach_edit_kuerzel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lbl_fach_edit_kuerzel.setText("Kürzel");
 
-        btn_klasse_abbrechen.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        btn_klasse_abbrechen.setText("Abbrechen");
-        btn_klasse_abbrechen.setMaximumSize(new java.awt.Dimension(80, 30));
-        btn_klasse_abbrechen.setMinimumSize(new java.awt.Dimension(80, 30));
-        btn_klasse_abbrechen.setPreferredSize(new java.awt.Dimension(80, 30));
-        btn_klasse_abbrechen.addActionListener(new java.awt.event.ActionListener() {
+        btn_fach_abbrechen.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btn_fach_abbrechen.setText("Abbrechen");
+        btn_fach_abbrechen.setMaximumSize(new java.awt.Dimension(80, 30));
+        btn_fach_abbrechen.setMinimumSize(new java.awt.Dimension(80, 30));
+        btn_fach_abbrechen.setPreferredSize(new java.awt.Dimension(80, 30));
+        btn_fach_abbrechen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_klasse_abbrechenActionPerformed(evt);
+                btn_fach_abbrechenActionPerformed(evt);
             }
         });
 
-        btn_klasse_speichern.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btn_klasse_speichern.setText("Speichern");
-        btn_klasse_speichern.setMaximumSize(new java.awt.Dimension(90, 30));
-        btn_klasse_speichern.setMinimumSize(new java.awt.Dimension(90, 30));
-        btn_klasse_speichern.setPreferredSize(new java.awt.Dimension(90, 30));
+        btn_fach_speichern.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_fach_speichern.setText("Speichern");
+        btn_fach_speichern.setMaximumSize(new java.awt.Dimension(90, 30));
+        btn_fach_speichern.setMinimumSize(new java.awt.Dimension(90, 30));
+        btn_fach_speichern.setPreferredSize(new java.awt.Dimension(90, 30));
+
+        lbl_fach_edit_name.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lbl_fach_edit_name.setText("Name");
+
+        txt_fach_name.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txt_fach_name.setPreferredSize(new java.awt.Dimension(90, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(btn_klasse_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_fach_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_klasse_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btn_fach_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lbl_klasse_edit_kuerzel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txt_klasse_kuerzel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(lbl_klasse_ueberschrift))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(lbl_klasse_ueberschrift)
+                                    .addGap(94, 94, 94))
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl_fach_edit_kuerzel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_fach_kuerzel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl_fach_edit_name)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_fach_name, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -137,33 +153,39 @@ public class FachEditGUI extends javax.swing.JFrame {
                 .addComponent(lbl_klasse_ueberschrift)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_klasse_edit_kuerzel)
-                    .addComponent(txt_klasse_kuerzel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_fach_edit_name)
+                    .addComponent(txt_fach_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_klasse_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_klasse_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbl_fach_edit_kuerzel)
+                    .addComponent(txt_fach_kuerzel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_fach_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_fach_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_klasse_abbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klasse_abbrechenActionPerformed
+    private void btn_fach_abbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fach_abbrechenActionPerformed
         // Fenster schliessen
         this.setVisible(false);
-    }//GEN-LAST:event_btn_klasse_abbrechenActionPerformed
+    }//GEN-LAST:event_btn_fach_abbrechenActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_klasse_abbrechen;
-    private javax.swing.JButton btn_klasse_speichern;
+    private javax.swing.JButton btn_fach_abbrechen;
+    private javax.swing.JButton btn_fach_speichern;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lbl_klasse_edit_kuerzel;
+    private javax.swing.JLabel lbl_fach_edit_kuerzel;
+    private javax.swing.JLabel lbl_fach_edit_name;
     private javax.swing.JLabel lbl_klasse_ueberschrift;
-    private javax.swing.JTextField txt_klasse_kuerzel;
+    private javax.swing.JTextField txt_fach_kuerzel;
+    private javax.swing.JTextField txt_fach_name;
     // End of variables declaration//GEN-END:variables
 }
