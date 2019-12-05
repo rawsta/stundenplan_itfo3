@@ -31,7 +31,6 @@ public class Datenbank implements IConnection{
         super();
         this.verbinde = null;
         this.statement = null;
-        // this.oeffneVerbindung();
     }
 
     /**
@@ -58,6 +57,7 @@ public class Datenbank implements IConnection{
 
     /**
      * Verbindung wieder schliessen
+     * 
      */
     @Override
     public void schliesseVerbindung() {
@@ -309,6 +309,11 @@ public class Datenbank implements IConnection{
         }
     }
     
+    /**
+     * ausgewählten Lehrer löschen
+     * 
+     * @param name 
+     */
     @Override
     public void loescheLehrer(String name) {
         oeffneVerbindung();
@@ -475,14 +480,22 @@ public class Datenbank implements IConnection{
             throw new RuntimeException(e);
         }
     }
+    
+    /* ------------------------- Aktivitaeten ------------------------- */
 
+    /**
+     * Faecher aus der Datenbank auslesen
+     * tables: F_ID, Name, Kuerzel
+     * 
+     * @return 
+     */
     @Override
     public List<Aktivitaet> holeAktivitaeten() {
         oeffneVerbindung();
         ArrayList<Aktivitaet> aktivitaeten = new ArrayList<>();
 
         try (ResultSet resultSet = statement.executeQuery(
-                "select KFL_ID, k.k_id, f.f_id, l.l_id, k.kuerzel as klassenkuerzel, l.name as lehrername, l.kuerzel as lehrerkuerzel, f.name as fachname, f.kuerzel as fachkuerzel from Aktivitaet a join Klasse k on a.k_id = k.K_ID join Lehrer_Fach lf on a.fl_ID = lf.LF_ID join Lehrer l on lf.L_ID = l.L_ID join Fach f on lf.f_id = f.F_ID")) {
+                "SELECT KFL_ID, k.k_id, f.f_id, l.l_id, k.kuerzel AS klassenkuerzel, l.name AS lehrername, l.kuerzel AS lehrerkuerzel, f.name AS fachname, f.kuerzel AS fachkuerzel from Aktivitaet a JOIN Klasse k ON a.k_id = k.K_ID JOIN Lehrer_Fach lf ON a.fl_ID = lf.LF_ID JOIN Lehrer l ON lf.L_ID = l.L_ID JOIN Fach f ON lf.f_id = f.F_ID")) {
 
             // ArrayList in Objekt umwandeln
             while (resultSet.next()) {
@@ -491,16 +504,16 @@ public class Datenbank implements IConnection{
             // TODO die Liste durchgehen und nach einem Lehrerpaar suchen und die beiden Aktivitäten dann zusammenführen
             return aktivitaeten;
         } catch (SQLException e) {
-            System.out.println("Fehler beim Auslesen der Lehrer");
+            System.out.println("Fehler beim Auslesen der Aktivitäten");
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * Konvertiert TableRow zu Fach
+     * Konvertiert TableRow zu Aktivität
      *
      * @param results
-     * @return tempFach
+     * @return Aktivitaet
      * @throws RuntimeException
      */
     @Override
@@ -524,7 +537,7 @@ public class Datenbank implements IConnection{
             return new Aktivitaet(klasse, new Pair(lehrer, null), fach);
 
         } catch (SQLException e) {
-            System.out.println("Kann das Fach nicht aufbauen");
+            System.out.println("Kann die Aktivität nicht aufbauen");
             throw new RuntimeException(e);
         }
     }
