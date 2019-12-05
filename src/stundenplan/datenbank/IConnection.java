@@ -90,13 +90,19 @@ public interface IConnection {
    /**
     * Lehrer in DB schreiben
     *
+     * @param kuerzel
+     * @param name
+     * @param verfuegbarkeit
     */
    public void neuerLehrer(String kuerzel, String name, Boolean[][] verfuegbarkeit);
 
    /**
     * Lehrer aktualisieren
     *
-    * @param
+     * @param id
+     * @param kuerzel
+     * @param name
+     * @param verfuegbarkeit
     */
    public void updateLehrer(int id, String kuerzel, String name, Boolean[][] verfuegbarkeit);
    

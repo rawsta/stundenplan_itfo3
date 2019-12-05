@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Klasse {
     private int id;
-    private String name;
+    private String kuerzel;
     private Unterrichtseinheit[] unterricht;
     private List<Lehrer> lehrerList;
 
@@ -20,11 +20,11 @@ public class Klasse {
      * Der Konstruktor
      * 
      * @param id
-     * @param name 
+     * @param kuerzel 
      */
-    public Klasse(int id, String name) {
+    public Klasse(int id, String kuerzel) {
         this.id = id;
-        this.name = name;
+        this.kuerzel = kuerzel;
     }    
 
     /* ----------- Getter & Setter ----------- */
@@ -37,12 +37,12 @@ public class Klasse {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getKuerzel() {
+        return kuerzel;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setKuerzel(String kuerzel) {
+        this.kuerzel = kuerzel;
     }
 
     public Unterrichtseinheit[] getUnterricht() {
@@ -63,7 +63,7 @@ public class Klasse {
     
     @Override
     public String toString() {
-        return this.name;
+        return this.kuerzel;
     }
     
 }

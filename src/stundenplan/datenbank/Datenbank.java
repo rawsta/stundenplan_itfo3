@@ -114,7 +114,7 @@ public class Datenbank implements IConnection{
         try (PreparedStatement prep = this.verbinde.prepareStatement(
                 "INSERT INTO Klasse (K_ID, Kuerzel) VALUES (?, ?)")) {
             prep.setInt(1, klasse.getId());
-            prep.setString(2, klasse.getName());
+            prep.setString(2, klasse.getKuerzel());
             
             prep.executeUpdate();
 
@@ -160,7 +160,7 @@ public class Datenbank implements IConnection{
         try (PreparedStatement prep = this.verbinde.prepareStatement(
                 "UPDATE Klasse SET K_ID = ?, Kuerzel = ? WHERE title = ?")) {
             prep.setInt(1, klasse.getId());
-            prep.setString(2, klasse.getName());
+            prep.setString(2, klasse.getKuerzel());
             prep.setString(3, title);
 
             prep.executeUpdate();

@@ -43,7 +43,7 @@ public class KlasseEditGUI extends javax.swing.JFrame {
             verbinde = DatenbankFabrik.getIConnection();
             klasse = verbinde.getSelectedKlasse(auswahl);
             // Kürzel der Klasse auslesen
-            String klasse_kuerzel = klasse.getName();
+            String klasse_kuerzel = klasse.getKuerzel();
 
             txt_klasse_kuerzel.setText(klasse_kuerzel);
         } catch (Exception e) {

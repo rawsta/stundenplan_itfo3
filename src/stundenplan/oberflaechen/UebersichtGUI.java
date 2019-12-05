@@ -678,9 +678,8 @@ public class UebersichtGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, nachricht, fenstertitel,JOptionPane.ERROR_MESSAGE);
         } else {
             // TODO: statt print, richtiger Code
-            System.out.println("L-Stundenplan für:" + auswahl + " ");
+            System.out.println("gewählte Klasse:" + auswahl + " ");
         }
-        System.out.println("gewählte Klasse:" + auswahl + " ");
     }//GEN-LAST:event_btn_klasse_bearbeitenActionPerformed
 
     private void lst_faecherValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lst_faecherValueChanged
