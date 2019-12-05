@@ -24,23 +24,17 @@ public class StundenplanGUI extends javax.swing.JFrame {
     
     private Aktivitaet[][] aktivitaeten;
 
-    /**
-     * Creates new form Stundenplan_anlegen
-     */
-    public StundenplanGUI() {
-        
-    }
-
     public StundenplanGUI(Klasse klasse) {
         init();
-        lbl_besitzer.setText(klasse.getName());
+        lbl_besitzer.setText(klasse.getKuerzel());
     }
     
     public StundenplanGUI(Lehrer lehrer) {
         init();
         lbl_besitzer.setText(lehrer.getKuerzel());
     }
-    
+
+    // TODO keine default Aktivitäten, sondern die "echten"
     private void init() {
         initComponents();
         TableModel stunden = new DefaultTableModel(3,2) {
@@ -71,7 +65,7 @@ public class StundenplanGUI extends javax.swing.JFrame {
         tbl_stundenplan.setCellSelectionEnabled(true);
         tbl_stundenplan.setFocusable(true);
 
-        tbl_stundenplan.setTransferHandler(new AktivitaetTransferHandler(null));
+        tbl_stundenplan.setTransferHandler(new AktivitaetTransferHandler());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -225,11 +219,6 @@ public class StundenplanGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_abbrechen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lbl_stundenplan)
@@ -241,12 +230,20 @@ public class StundenplanGUI extends javax.swing.JFrame {
                             .addComponent(lbl_uhrzeit_drei))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_abbrechen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,14 +251,13 @@ public class StundenplanGUI extends javax.swing.JFrame {
                             .addComponent(lbl_besitzer, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addGap(67, 67, 67)
                         .addComponent(lbl_uhrzeit_eins)
-                        .addGap(88, 88, 88)
+                        .addGap(62, 62, 62)
                         .addComponent(lbl_uhrzeit_zwei)
-                        .addGap(101, 101, 101)
-                        .addComponent(lbl_uhrzeit_drei))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_uhrzeit_drei)
+                        .addGap(50, 50, 50)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -276,7 +272,7 @@ public class StundenplanGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_speichernActionPerformed
 
     private void btn_abbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_abbrechenActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_btn_abbrechenActionPerformed
 
 

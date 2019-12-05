@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package stundenplan;
 
 import javax.swing.TransferHandler;
@@ -10,7 +5,6 @@ import javax.swing.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.event.InputEvent;
 import java.io.IOException;
 
 /**
@@ -19,9 +13,12 @@ import java.io.IOException;
  */
 public class AktivitaetTransferHandler extends TransferHandler{
     private String mimeType = DataFlavor.javaJVMLocalObjectMimeType + ";class=stundenplan.Aktivitaet";
-    private DataFlavor abbildungFlavor;
-    private JTextArea ausgabe;
+    private DataFlavor aktivitaetFlavor;
 
+    /**
+     * Eine eigene Implementation der JTable, um die gerade ausgewählte, d.h. die Stunde, die zum Ablegen gewählt ist,
+     * als String zurückzubekommen
+     */
     private static class JTableAdapter {
         private JTable table;
 
@@ -29,6 +26,13 @@ public class AktivitaetTransferHandler extends TransferHandler{
             this.table = table;
         }
 
+        /**
+         * In Zukunft muss die Methode wahrscheinlich neu geschrieben werden, oder könnte auch gemeinsam mit dem Adapter
+         * ganz wegfallen, da man keinen String gebrauchen kann, sondern mit den echten Klassen (Unterrichtseinheit
+         * vermutlich) arbeiten muss.
+         *
+         * @return in Worten, welche Stunde ausgewählt wurde.
+         */
         public String getStunde() {
             int row = table.getSelectedRow();
             int column = table.getSelectedColumn();
@@ -49,44 +53,52 @@ public class AktivitaetTransferHandler extends TransferHandler{
         }
     }
 
-    AktivitaetTransferHandler(JTextArea ausgabe) {
+    public AktivitaetTransferHandler() {
         try {
-            abbildungFlavor = new DataFlavor(mimeType);
+            aktivitaetFlavor = new DataFlavor(mimeType);
         } catch (ClassNotFoundException e) {
 
         }
-        this.ausgabe = ausgabe;
     }
 
+    // TODO den Algorithmus "anschmeißen", d.h. eine neue Regel erstellen und diese zu den anderen Regeln hinzufügen. Mit dieser Sammlung an Regeln den Algorithmus neu aktivieren.
+    /**
+     * Diese Methode entscheidet, was passiert, wenn ein Inhalt der einen Tabellenzelle in eine andere gezogen wird. In
+     * diesem Fall wird ein Infodialog gezeigt, in dem steht, wie in Zukunft die Regel aussieht, die erstellt wird. Mit
+     * dieser wird der Algorithmus neu gestartet. Außerdem wird der Zelleninhalt der gedroppten Zelle auf den der alten
+     * Zelle gesetzt.
+     *
+     * @param comp die Tabellenkomponente:
+     * @param t aktivitaet
+     * @return ob es geklappt hat. Da dies durch Implementation bedingt ist, sollte dies immer true sein
+     */
     @Override
     public boolean importData(JComponent comp, Transferable t) {
-        if (hasAbbildungFlavor(t.getTransferDataFlavors())) {
+        if (hasAktivitaetFlavor(t.getTransferDataFlavors())) {
             try {
-                Aktivitaet abb = (Aktivitaet)t.getTransferData(abbildungFlavor);
+                Aktivitaet aktivitaet = (Aktivitaet)t.getTransferData(aktivitaetFlavor);
                 int row = ((JTable)comp).getSelectedRow();
                 int column = ((JTable)comp).getSelectedColumn();
-                ((JTable) comp).setValueAt(abb, row, column);
+                ((JTable) comp).setValueAt(aktivitaet, row, column);
 
-
-
-                ausgabe.append("Jetzt würde die Berechnung angeschmissen werden.\n Regel: " + abb + " möchte nach " + new JTableAdapter(((JTable)comp)).getStunde() + " umgelegt werden.\n");
-
-
+                JOptionPane.showMessageDialog(null,
+                        "Jetzt würde die Berechnung angeschmissen werden.\nRegel: " + aktivitaet + " möchte nach " + new JTableAdapter(((JTable)comp)).getStunde() + " umgelegt werden.\n");
                 return true;
             } catch (UnsupportedFlavorException | IOException e) {
+                return false;
             }
         }
         return false;
     }
 
 
-    private boolean hasAbbildungFlavor(DataFlavor[] flavors) {
-        if (abbildungFlavor == null) {
+    private boolean hasAktivitaetFlavor(DataFlavor[] flavors) {
+        if (aktivitaetFlavor == null) {
             return false;
         }
 
-        for (int i = 0; i < flavors.length; i++) {
-            if (abbildungFlavor.equals(flavors[i])) {
+        for (DataFlavor flavor : flavors) {
+            if (aktivitaetFlavor.equals(flavor)) {
                 return true;
             }
         }
@@ -95,7 +107,7 @@ public class AktivitaetTransferHandler extends TransferHandler{
 
     @Override
     public boolean canImport(JComponent c, DataFlavor[] flavors) {
-        return hasAbbildungFlavor(flavors);
+        return hasAktivitaetFlavor(flavors);
     }
 
     @Override

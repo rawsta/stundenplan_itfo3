@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package stundenplan;
 
 import java.awt.datatransfer.DataFlavor;
@@ -10,22 +5,25 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 
 /**
+ * Mit dieser Klasse wird sichergestellt, dass in der Tabelle nicht Strings, sondern quasi die Klasse Aktivitaet
+ * gespeichert wird. In der Oberfläche wird natürlich die Rückgabe der toString()-Methode der Klasse angezeigt. Dies
+ * bietet den Vorteil, auch intern (Algorithmus, Regeln, Prioritäten) mit Objekten arbeiten zu können und nicht mit
+ * Strings.
  *
  * @author hannah.elling
  */
 public class AktivitaetTransferable implements Transferable{
-    private Aktivitaet abbildung;
+    private Aktivitaet aktivitaet;
     private DataFlavor[] flavors;
 
-    AktivitaetTransferable(Aktivitaet abb) {
-        this.abbildung = abb;
+    AktivitaetTransferable(Aktivitaet aktivitaet) {
+        this.aktivitaet = aktivitaet;
         try {
             flavors = new DataFlavor[] {
                     new DataFlavor(DataFlavor.javaJVMLocalObjectMimeType + ";class=stundenplan.Aktivitaet"),
-                    DataFlavor.stringFlavor
             };
         } catch (ClassNotFoundException e) {
-            flavors = new DataFlavor[] {DataFlavor.stringFlavor};
+            flavors = new DataFlavor[] {};
         }
     }
     @Override
@@ -36,22 +34,14 @@ public class AktivitaetTransferable implements Transferable{
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
         for (DataFlavor dataFlavor : getTransferDataFlavors()) {
-            if (dataFlavor.equals(flavor)) {
-                return true;
-            }
+            if (dataFlavor.equals(flavor)) return true;
         }
         return false;
     }
 
     @Override
     public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
-        if (isDataFlavorSupported(flavor)) {
-            if (flavor == DataFlavor.stringFlavor) {
-                return abbildung.toString();
-            } else {
-                return abbildung;
-            }
-        }
+        if (isDataFlavorSupported(flavor)) return aktivitaet;
         throw new UnsupportedFlavorException(flavor);
     }
 }

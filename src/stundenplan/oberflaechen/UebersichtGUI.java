@@ -171,12 +171,14 @@ public class UebersichtGUI extends javax.swing.JFrame {
 
         btn_aktuelle_stundenplaene_anzeigen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btn_aktuelle_stundenplaene_anzeigen.setText("Aktuelle Stundenpläne ansehen");
+        btn_aktuelle_stundenplaene_anzeigen.setEnabled(false);
         btn_aktuelle_stundenplaene_anzeigen.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_aktuelle_stundenplaene_anzeigen.setMinimumSize(new java.awt.Dimension(200, 30));
         btn_aktuelle_stundenplaene_anzeigen.setPreferredSize(new java.awt.Dimension(220, 50));
 
         btn_stundenplan_anlegen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btn_stundenplan_anlegen.setText("Neuen Stundenplan anlegen");
+        btn_stundenplan_anlegen.setEnabled(false);
         btn_stundenplan_anlegen.setMaximumSize(new java.awt.Dimension(200, 30));
         btn_stundenplan_anlegen.setMinimumSize(new java.awt.Dimension(200, 30));
         btn_stundenplan_anlegen.setPreferredSize(new java.awt.Dimension(220, 50));
@@ -669,15 +671,13 @@ public class UebersichtGUI extends javax.swing.JFrame {
         Lehrer selectedLehrer = getSelectedLehrerOrErrorDialog();
         if (selectedLehrer != null) {
             new StundenplanGUI(selectedLehrer).setVisible(true);
-            System.out.println("L-Stundenplan für:" + selectedLehrer + " ");
         }
     }//GEN-LAST:event_btn_lehrer_stundenplan_anzeigenActionPerformed
 
     private void btn_klassen_stundenplan_anzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klassen_stundenplan_anzeigenActionPerformed
         Klasse selectedKlasse = getSelectedKlasseOrDialog();
         if (selectedKlasse != null) {
-            // TODO: statt print, richtiger Code
-            System.out.println("Klassen-Stundenplan für:" + selectedKlasse + " ");
+            new StundenplanGUI(selectedKlasse).setVisible(true);
         }
     }//GEN-LAST:event_btn_klassen_stundenplan_anzeigenActionPerformed
 
