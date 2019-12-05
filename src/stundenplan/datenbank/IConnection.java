@@ -82,10 +82,10 @@ public interface IConnection {
    /**
     * Hole Lehrer aus Datenbank
     * 
-    * @param auswahl
+    * @param name
     * @return Liste der Lehrer
     */
-   public Lehrer getSelectedLehrer(String auswahl);
+   public Lehrer getSelectedLehrer(String name);
 
    /**
     * Lehrer in DB schreiben
