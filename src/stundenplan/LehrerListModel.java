@@ -45,10 +45,7 @@ public class LehrerListModel extends AbstractListModel {
      */
     @Override
     public Object getElementAt(int index) {
-        
-        Lehrer tempLehrer = lehrer.get(index);
-        
-        return tempLehrer.getName();
+        return index >= lehrer.size() ? null : lehrer.get(index);
     }
     
 }

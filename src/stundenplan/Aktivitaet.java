@@ -56,7 +56,7 @@ public class Aktivitaet {
     
     @Override
     public String toString() {
-        String sLehrer = lehreinheit.getValue() != null ? String.format("%s / %s", lehreinheit.getKey().toString(), lehreinheit.getValue().toString()) : lehreinheit.getKey().toString();
+        String sLehrer = lehreinheit.getValue() != null ? String.format("%s / %s", lehreinheit.getKey().getKuerzel(), lehreinheit.getValue().getKuerzel()) : lehreinheit.getKey().toString();
         return String.format("%s %s %s", sLehrer, klasse, fach);
     }
 

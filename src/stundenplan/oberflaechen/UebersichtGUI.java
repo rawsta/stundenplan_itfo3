@@ -668,7 +668,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
     private void btn_lehrer_stundenplan_anzeigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_stundenplan_anzeigenActionPerformed
         Lehrer selectedLehrer = getSelectedLehrerOrErrorDialog();
         if (selectedLehrer != null) {
-            // TODO: statt print, richtiger Code
+            new StundenplanGUI(selectedLehrer).setVisible(true);
             System.out.println("L-Stundenplan für:" + selectedLehrer + " ");
         }
     }//GEN-LAST:event_btn_lehrer_stundenplan_anzeigenActionPerformed
