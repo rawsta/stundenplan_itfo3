@@ -372,7 +372,7 @@ public class Datenbank implements IConnection{
             }
             return faecher;
         } catch (SQLException e) {
-                System.out.println("Fehler beim Auslesen der Lehrer");
+                System.out.println("Fehler beim Auslesen der Fächer");
                 throw new RuntimeException(e);
         } finally {
             schliesseVerbindung();
@@ -398,7 +398,7 @@ public class Datenbank implements IConnection{
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Kann den Lehrer nicht einfügen");
+            System.out.println("Kann das Fach nicht einfügen");
             throw new RuntimeException(e);
         } finally {
             schliesseVerbindung();
