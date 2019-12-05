@@ -685,7 +685,8 @@ public class UebersichtGUI extends javax.swing.JFrame {
         Klasse selectedKlasse = getSelectedKlasseOrDialog();
         if (selectedKlasse != null) {
             // TODO: statt print, richtiger Code
-            System.out.println("gewählte Klasse:" + auswahl + " ");
+            new KlasseEditGUI(selectedKlasse.getKuerzel()).setVisible(true);
+//            System.out.println("gewählte Klasse:" + selectedKlasse + " ");
         }
     }//GEN-LAST:event_btn_klasse_bearbeitenActionPerformed
 
