@@ -5,45 +5,44 @@
  */
 package stundenplan.oberflaechen;
 
-
-import stundenplan.Klasse;
+import stundenplan.Fach;
 import stundenplan.datenbank.IConnection;
 import stundenplan.datenbank.DatenbankFabrik;
 
 /**
- * Die KlasseEditGUI Klasse
+ * Die FachEditGUI Klasse
  * Es kann das Formular jeweils mit oder ohne ausgewähltem Lehrer aufgerufen werden.
  * @author fielesebastian
  */
-public class KlasseEditGUI extends javax.swing.JFrame {
+public class FachEditGUI extends javax.swing.JFrame {
     
     // Datenbank verbinden
     private IConnection verbinde = null;
-    private Klasse klasse;
+    private Fach fach;
 
     /**
-     * Neue KlasseEditGUI laden
+     * Neue FachEditGUI laden
      */
-    public KlasseEditGUI() {
+    public FachEditGUI() {
         init();
         // Fensterüberschrift neu setzen
-        lbl_klasse_ueberschrift.setText("Klasse anlegen");
+        lbl_klasse_ueberschrift.setText("Fach anlegen");
     }
     
     /**
-     * KlasseEditGUI mit dem ausgewählter Klasse laden
+     * FachEditGUI mit dem ausgewähltem Lehrer laden
      * 
      * @param name
      */
-    public KlasseEditGUI(String name) {
+    public FachEditGUI(String name) {
         init();
         
-        // Datenbank nach der ausgewählten Klasse abfragen
+        // Datenbank nach dem ausgewählten Lehrer abfragen
         try {
             verbinde = DatenbankFabrik.getIConnection();
-            klasse = verbinde.getSelectedKlasse(name);
+            fach = verbinde.getSelectedFach(name);
             // Kürzel der Klasse auslesen
-            String klasse_kuerzel = klasse.getKuerzel();
+            String klasse_kuerzel = fach.getName();
 
             txt_klasse_kuerzel.setText(klasse_kuerzel);
         } catch (Exception e) {
@@ -117,8 +116,7 @@ public class KlasseEditGUI extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(btn_klasse_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_klasse_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(btn_klasse_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +127,8 @@ public class KlasseEditGUI extends javax.swing.JFrame {
                                     .addComponent(txt_klasse_kuerzel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(lbl_klasse_ueberschrift))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
