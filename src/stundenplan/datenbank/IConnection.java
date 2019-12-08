@@ -12,6 +12,7 @@ import stundenplan.Aktivitaet;
 import stundenplan.Fach;
 import stundenplan.Klasse;
 import stundenplan.Lehrer;
+import stundenplan.AktivitaetTriplet;
 
 /**
  * Interface Klasse für die Datenbank
@@ -165,6 +166,6 @@ public interface IConnection {
    
    public void loescheAlleAktivitaeten();
 
-   public Aktivitaet convertRowToAktivitaet(ResultSet resultSet);
+   public AktivitaetTriplet convertRowToTripletAktivitaet(ResultSet resultSet);
    
 }

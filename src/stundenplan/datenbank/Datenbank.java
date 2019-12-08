@@ -13,6 +13,7 @@ import stundenplan.Aktivitaet;
 import stundenplan.Fach;
 import stundenplan.Klasse;
 import stundenplan.Lehrer;
+import stundenplan.AktivitaetTriplet;
 
 /**
  * Datenbank Klasse
@@ -97,8 +98,8 @@ public class Datenbank implements IConnection{
                 klassen.add(convertRowToKlasse(resultSet));
             }
         } catch (SQLException e) {
-                System.out.println("Fehler beim Auslesen der Klassen");
-                throw new RuntimeException(e);
+            System.out.println("Fehler beim Auslesen der Klassen");
+            throw new RuntimeException(e);
         } finally {
             schliesseVerbindung();
         }
@@ -117,9 +118,7 @@ public class Datenbank implements IConnection{
         try (PreparedStatement prep = this.verbinde.prepareStatement(
                 "INSERT INTO Klasse (Kuerzel) VALUES (?)")) {
             prep.setString(1, kuerzel);
-            
             prep.executeUpdate();
-
         } catch (SQLException e) {
             System.out.println("Kann die Klasse nicht einfügen");
             throw new RuntimeException(e);
@@ -498,15 +497,23 @@ public class Datenbank implements IConnection{
     @Override
     public List<Aktivitaet> holeAktivitaeten() {
         oeffneVerbindung();
-        ArrayList<Aktivitaet> aktivitaeten = new ArrayList<>();
-
+        List<AktivitaetTriplet> aktivitaetenTriples = new ArrayList<>();
+        List<Aktivitaet> aktivitaeten = new ArrayList<>();
+        
         try (ResultSet resultSet = statement.executeQuery(
-                "SELECT KFL_ID, k.k_id, f.f_id, l.l_id, k.kuerzel AS klassenkuerzel, l.name AS lehrername, l.kuerzel AS lehrerkuerzel, f.name AS fachname, f.kuerzel AS fachkuerzel from Aktivitaet a JOIN Klasse k ON a.k_id = k.K_ID JOIN Lehrer_Fach lf ON a.fl_ID = lf.LF_ID JOIN Lehrer l ON lf.L_ID = l.L_ID JOIN Fach f ON lf.f_id = f.F_ID")) {
-
+                "SELECT KFL_ID, k.k_id, f.f_id, l.l_id, k.kuerzel AS klassenkuerzel, l.name AS lehrername, " +
+                        "l.kuerzel AS lehrerkuerzel, f.name AS fachname, f.kuerzel AS fachkuerzel from Aktivitaet a " +
+                        "JOIN Klasse k ON a.k_id = k.K_ID JOIN Lehrer_Fach lf ON a.fl_ID = lf.LF_ID JOIN Lehrer l ON " +
+                        "lf.L_ID = l.L_ID JOIN Fach f ON lf.f_id = f.F_ID")) {
             // ArrayList in Objekt umwandeln
             while (resultSet.next()) {
-                aktivitaeten.add(convertRowToAktivitaet(resultSet));
+                aktivitaetenTriples.add(convertRowToTripletAktivitaet(resultSet));
             }
+            aktivitaetenTriples.forEach(aktivitaetTriplet -> {
+                aktivitaeten.add(new Aktivitaet(getSelectedKlasse(aktivitaetTriplet.getKlasse()),
+                        new Pair<>(getSelectedLehrer(aktivitaetTriplet.getLehrer()), null),
+                        getSelectedFach(aktivitaetTriplet.getFach())));
+            });
             // TODO die Liste durchgehen und nach einem Lehrerpaar suchen und die beiden Aktivitäten dann zusammenführen
             return aktivitaeten;
         } catch (SQLException e) {
@@ -532,29 +539,17 @@ public class Datenbank implements IConnection{
      * Konvertiert TableRow zu Aktivität
      *
      * @param results
-     * @return Aktivitaet
+     * @return AktivitaetTriplet<LehrerId, KlassenId, FachId>
      * @throws RuntimeException
      */
     @Override
-    public Aktivitaet convertRowToAktivitaet(ResultSet results) {
+    public AktivitaetTriplet convertRowToTripletAktivitaet(ResultSet results) {
         try {
             int kfl_id = results.getInt("KFL_ID");
-            int k_id = results.getInt("K_ID");
-            int f_id = results.getInt("F_ID");
-            int l_id = results.getInt("L_ID");
             String klassenkuerzel = results.getString("klassenkuerzel");
             String lehrername = results.getString("lehrername");
-            String lehrerkuerzel = results.getString("lehrerkuerzel");
             String fachname = results.getString("fachname");
-            String fachkuerzel = results.getString("fachkuerzel");
-
-            Klasse klasse = getSelectedKlasse(klassenkuerzel);
-            Lehrer lehrer = getSelectedLehrer(lehrername);
-            Fach fach = getSelectedFach(fachname);
-
-
-            return new Aktivitaet(klasse, new Pair(lehrer, null), fach);
-
+            return new AktivitaetTriplet(kfl_id, lehrername, klassenkuerzel, fachname);
         } catch (SQLException e) {
             System.out.println("Kann die Aktivität nicht aufbauen");
             throw new RuntimeException(e);
