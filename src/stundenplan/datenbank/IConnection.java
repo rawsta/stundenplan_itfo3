@@ -61,6 +61,8 @@ public interface IConnection {
     * @param kuerzel
     */
    public void updateKlasse(int id, String kuerzel);
+   
+   public void loescheKlasse(int id);
 
 
    /**

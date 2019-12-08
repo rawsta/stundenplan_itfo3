@@ -8,7 +8,6 @@ package stundenplan.oberflaechen;
 import stundenplan.Aktivitaet;
 import stundenplan.AktivitaetListModel;
 import stundenplan.datenbank.DatenbankFabrik;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import stundenplan.Fach;
@@ -165,6 +164,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
         btn_klassen_stundenplan_anzeigen = new javax.swing.JButton();
         btn_klasse_bearbeiten = new javax.swing.JButton();
         btn_klasse_anlegen = new javax.swing.JButton();
+        btn_klasse_loeschen = new javax.swing.JButton();
         tab_faecher = new javax.swing.JPanel();
         btn_fach_anlegen = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -423,6 +423,17 @@ public class UebersichtGUI extends javax.swing.JFrame {
             }
         });
 
+        btn_klasse_loeschen.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btn_klasse_loeschen.setText("Klasse löschen");
+        btn_klasse_loeschen.setMaximumSize(new java.awt.Dimension(180, 40));
+        btn_klasse_loeschen.setMinimumSize(new java.awt.Dimension(180, 40));
+        btn_klasse_loeschen.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_klasse_loeschen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_klasse_loeschenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout tab_classesLayout = new javax.swing.GroupLayout(tab_classes);
         tab_classes.setLayout(tab_classesLayout);
         tab_classesLayout.setHorizontalGroup(
@@ -434,8 +445,9 @@ public class UebersichtGUI extends javax.swing.JFrame {
                 .addGroup(tab_classesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_klassen_stundenplan_anzeigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_klasse_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_klasse_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(196, Short.MAX_VALUE))
+                    .addComponent(btn_klasse_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_klasse_loeschen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         tab_classesLayout.setVerticalGroup(
             tab_classesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -448,7 +460,9 @@ public class UebersichtGUI extends javax.swing.JFrame {
                         .addComponent(btn_klasse_bearbeiten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_klasse_anlegen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_klasse_loeschen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 14, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -765,6 +779,15 @@ public class UebersichtGUI extends javax.swing.JFrame {
         this.lst_aktivitaeten.setModel(new AktivitaetListModel(this.aktivitaeten));
     }//GEN-LAST:event_btn_aktivitaet_zuruecksetzenActionPerformed
 
+    private void btn_klasse_loeschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klasse_loeschenActionPerformed
+        Klasse klasse = getSelectedKlasseOrDialog();
+        if (klasse != null) {
+            dbVerbindung.loescheKlasse(klasse.getId());
+            this.klassen.clear();
+            this.lst_klassen.setModel(new KlassenListModel(this.klassen));
+        }
+    }//GEN-LAST:event_btn_klasse_loeschenActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -789,6 +812,7 @@ public class UebersichtGUI extends javax.swing.JFrame {
     private javax.swing.JButton btn_fach_bearbeiten;
     private javax.swing.JButton btn_klasse_anlegen;
     private javax.swing.JButton btn_klasse_bearbeiten;
+    private javax.swing.JButton btn_klasse_loeschen;
     private javax.swing.JButton btn_klassen_stundenplan_anzeigen;
     private javax.swing.JButton btn_lehrer_anlegen;
     private javax.swing.JButton btn_lehrer_bearbeiten;

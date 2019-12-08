@@ -151,6 +151,18 @@ public class Datenbank implements IConnection{
         }
     }
 
+    @Override
+    public void loescheKlasse(int id) {
+        oeffneVerbindung();
+        try (PreparedStatement preparedStatement = verbinde.prepareStatement("Delete from Klasse where k_id =?")){
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Kann die gewählte Klasse nicht löschen");
+            throw new RuntimeException(e);
+        }
+    }
+    
     /**
      * Klasse aktualisieren
      * 
