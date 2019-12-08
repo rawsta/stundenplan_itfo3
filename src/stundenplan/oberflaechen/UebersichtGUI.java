@@ -748,10 +748,12 @@ public class UebersichtGUI extends javax.swing.JFrame {
             /* Strings für die Meldung befüllen */
             String fensternachricht = "Wollen Sie den  ausgewählten Lehrer wirklich löschen?";
             String fenstertitel = "Sind Sie sich sicher?";
-            /* Schließen Disalog aufrufen und Antwort verarbeiten */
+            /* Schließen Dialog aufrufen und Antwort verarbeiten */
             int loeschenDialog = JOptionPane.showConfirmDialog(null, fensternachricht, fenstertitel, JOptionPane.YES_NO_OPTION);
-            if (loeschenDialog == JOptionPane.YES_OPTION){
-                lehrerLoeschen((String) lst_lehrer.getSelectedValue());
+            if (loeschenDialog == JOptionPane.YES_OPTION){             
+                lehrerLoeschen(lehrer.getName());
+                this.lehrer = dbVerbindung.holeLehrer();
+                this.lst_lehrer.setModel(new LehrerListModel(this.lehrer));
             }
         }
         
