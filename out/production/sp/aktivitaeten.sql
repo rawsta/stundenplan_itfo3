@@ -1,0 +1,9 @@
+INSERT INTO "main"."Aktivitaet" ("KFL_ID", "K_ID", "FL_ID") VALUES ('1', '1', '1');
+INSERT INTO "main"."Aktivitaet" ("KFL_ID", "K_ID", "FL_ID") VALUES ('2', '1', '2');
+INSERT INTO "main"."Aktivitaet" ("KFL_ID", "K_ID", "FL_ID") VALUES ('3', '1', '3');
+INSERT INTO "main"."Aktivitaet" ("KFL_ID", "K_ID", "FL_ID") VALUES ('4', '1', '4');
+INSERT INTO "main"."Aktivitaet" ("KFL_ID", "K_ID", "FL_ID") VALUES ('5', '2', '4');
+INSERT INTO "main"."Aktivitaet" ("KFL_ID", "K_ID", "FL_ID") VALUES ('6', '2', '5');
+INSERT INTO "main"."Aktivitaet" ("KFL_ID", "K_ID", "FL_ID") VALUES ('7', '1', '5');
+INSERT INTO "main"."Aktivitaet" ("KFL_ID", "K_ID", "FL_ID") VALUES ('8', '1', '7');
+INSERT INTO "main"."Aktivitaet" ("KFL_ID", "K_ID", "FL_ID") VALUES ('9', '1', '6');
