@@ -738,14 +738,18 @@ public class UebersichtGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_lehrer_neu_ladenActionPerformed
 
     private void btn_lehrer_loeschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lehrer_loeschenActionPerformed
-         /* Strings für die Meldung befüllen */
-        String fensternachricht = "Wollen Sie den  ausgewählten Lehrer wirklich löschen?";
-        String fenstertitel = "Sind Sie sich sicher?";
-        /* Schließen Disalog aufrufen und Antwort verarbeiten */
-        int loeschenDialog = JOptionPane.showConfirmDialog(null, fensternachricht, fenstertitel, JOptionPane.YES_NO_OPTION);
-        if (loeschenDialog == JOptionPane.YES_OPTION){
-            lehrerLoeschen((String) lst_lehrer.getSelectedValue());
+        Lehrer lehrer = getSelectedLehrerOrErrorDialog();
+        if (lehrer != null) {
+            /* Strings für die Meldung befüllen */
+            String fensternachricht = "Wollen Sie den  ausgewählten Lehrer wirklich löschen?";
+            String fenstertitel = "Sind Sie sich sicher?";
+            /* Schließen Disalog aufrufen und Antwort verarbeiten */
+            int loeschenDialog = JOptionPane.showConfirmDialog(null, fensternachricht, fenstertitel, JOptionPane.YES_NO_OPTION);
+            if (loeschenDialog == JOptionPane.YES_OPTION){
+                lehrerLoeschen((String) lst_lehrer.getSelectedValue());
+            }
         }
+        
     }//GEN-LAST:event_btn_lehrer_loeschenActionPerformed
 
     /**
