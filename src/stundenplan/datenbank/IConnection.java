@@ -160,6 +160,8 @@ public interface IConnection {
    public Fach convertRowToFach(ResultSet results);
 
    public List<Aktivitaet> holeAktivitaeten();
+   
+   public void loescheAlleAktivitaeten();
 
    public Aktivitaet convertRowToAktivitaet(ResultSet resultSet);
    

@@ -532,6 +532,11 @@ public class UebersichtGUI extends javax.swing.JFrame {
         btn_aktivitaet_zuruecksetzen.setMaximumSize(new java.awt.Dimension(180, 40));
         btn_aktivitaet_zuruecksetzen.setMinimumSize(new java.awt.Dimension(180, 40));
         btn_aktivitaet_zuruecksetzen.setPreferredSize(new java.awt.Dimension(180, 40));
+        btn_aktivitaet_zuruecksetzen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_aktivitaet_zuruecksetzenActionPerformed(evt);
+            }
+        });
 
         jScrollPane5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
@@ -751,6 +756,12 @@ public class UebersichtGUI extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btn_lehrer_loeschenActionPerformed
+
+    private void btn_aktivitaet_zuruecksetzenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aktivitaet_zuruecksetzenActionPerformed
+        dbVerbindung.loescheAlleAktivitaeten();
+        this.aktivitaeten.clear();
+        this.lst_aktivitaeten.setModel(new AktivitaetListModel(this.aktivitaeten));
+    }//GEN-LAST:event_btn_aktivitaet_zuruecksetzenActionPerformed
 
     /**
      * @param args the command line arguments

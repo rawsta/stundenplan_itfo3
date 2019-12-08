@@ -502,6 +502,19 @@ public class Datenbank implements IConnection{
             throw new RuntimeException(e);
         }
     }
+    
+    @Override
+    public void loescheAlleAktivitaeten() {
+        oeffneVerbindung();
+        try {
+            statement.executeUpdate("Delete from Aktivitaet");
+        } catch (SQLException e) {
+            System.out.println("Fehler während des Löschens aller Aktivitäten");
+            throw new RuntimeException(e);
+        } finally {
+            schliesseVerbindung();
+        }
+    }
 
     /**
      * Konvertiert TableRow zu Aktivität
