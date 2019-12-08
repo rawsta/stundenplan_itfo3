@@ -6,6 +6,7 @@
 package stundenplan.oberflaechen;
 
 
+import javax.swing.JOptionPane;
 import stundenplan.Klasse;
 import stundenplan.datenbank.IConnection;
 import stundenplan.datenbank.DatenbankFabrik;
@@ -104,6 +105,11 @@ public class KlasseEditGUI extends javax.swing.JFrame {
         btn_klasse_speichern.setMaximumSize(new java.awt.Dimension(90, 30));
         btn_klasse_speichern.setMinimumSize(new java.awt.Dimension(90, 30));
         btn_klasse_speichern.setPreferredSize(new java.awt.Dimension(90, 30));
+        btn_klasse_speichern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_klasse_speichernActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,8 +121,7 @@ public class KlasseEditGUI extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(btn_klasse_abbrechen, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_klasse_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(btn_klasse_speichern, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +132,8 @@ public class KlasseEditGUI extends javax.swing.JFrame {
                                     .addComponent(txt_klasse_kuerzel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(lbl_klasse_ueberschrift))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,6 +160,23 @@ public class KlasseEditGUI extends javax.swing.JFrame {
         // Fenster schliessen
         this.setVisible(false);
     }//GEN-LAST:event_btn_klasse_abbrechenActionPerformed
+
+    private void btn_klasse_speichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_klasse_speichernActionPerformed
+        String kuerzel = txt_klasse_kuerzel.getText();
+        if (kuerzel.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Bitte tragen Sie einen Klassennamen ein.",
+                    "Keinen Klassennamen angegeben!",JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (klasse != null) {
+                verbinde.updateKlasse(klasse.getId(), kuerzel);
+            } else {
+                verbinde.neueKlasse(kuerzel);
+            }
+            this.setVisible(false);
+        }
+        
+    }//GEN-LAST:event_btn_klasse_speichernActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

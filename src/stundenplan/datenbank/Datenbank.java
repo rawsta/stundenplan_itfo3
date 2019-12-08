@@ -108,16 +108,15 @@ public class Datenbank implements IConnection{
     /**
      * Neue Klasse anlegen
      * 
-     * @param klasse
+     * @param kuerzel
      * @throws RuntimeException
      */
     @Override
-    public void neueKlasse(Klasse klasse) {
+    public void neueKlasse(String kuerzel) {
         oeffneVerbindung();
         try (PreparedStatement prep = this.verbinde.prepareStatement(
-                "INSERT INTO Klasse (K_ID, Kuerzel) VALUES (?, ?)")) {
-            prep.setInt(1, klasse.getId());
-            prep.setString(2, klasse.getKuerzel());
+                "INSERT INTO Klasse (Kuerzel) VALUES (?)")) {
+            prep.setString(1, kuerzel);
             
             prep.executeUpdate();
 
@@ -144,30 +143,28 @@ public class Datenbank implements IConnection{
                              "SELECT K_ID, Kuerzel FROM Klasse WHERE Kuerzel = ?")) {
             preparedStatement.setString(1, kuerzel);
             ResultSet results = preparedStatement.executeQuery();
+            statement.close();
             return convertRowToKlasse(results);
         } catch (SQLException e) {
             System.out.println("Kann die gewählte Klasse nicht finden");
             throw new RuntimeException(e);
-        } finally {
-            schliesseVerbindung();
         }
     }
 
     /**
      * Klasse aktualisieren
      * 
-     * @param title
-     * @param klasse
+     * @param id
+     * @param kuerzel
      * @throws RuntimeException
      */
     @Override
-    public void updateKlasse(String title, Klasse klasse) {
+    public void updateKlasse(int id, String kuerzel) {
         oeffneVerbindung();
         try (PreparedStatement prep = this.verbinde.prepareStatement(
-                "UPDATE Klasse SET K_ID = ?, Kuerzel = ? WHERE title = ?")) {
-            prep.setInt(1, klasse.getId());
-            prep.setString(2, klasse.getKuerzel());
-            prep.setString(3, title);
+                "UPDATE Klasse SET Kuerzel = ? WHERE K_ID = ?")) {
+            prep.setString(1, kuerzel);
+            prep.setInt(2, id);
 
             prep.executeUpdate();
 
@@ -270,12 +267,11 @@ public class Datenbank implements IConnection{
                              "SELECT L_ID, Name, Kuerzel, Mo_1, Mo_2, Mo_3, Do_1, Do_2, Do_3 FROM Lehrer WHERE Name = ? ")) {
             preparedStatement.setString(1, name);
             ResultSet results = preparedStatement.executeQuery();
+            statement.close();
             return convertRowToLehrer(results);
         } catch (SQLException e) {
             System.out.println("Kann den gewählten Lehrer nicht finden");
             throw new RuntimeException(e);
-        } finally {
-            schliesseVerbindung();
         }
     }
     
@@ -424,13 +420,11 @@ public class Datenbank implements IConnection{
                 "SELECT F_ID, Kuerzel, Name FROM Fach WHERE Name = ?")) {
             prep.setString(1, name);
             ResultSet results = prep.executeQuery();
+            statement.close();
             return convertRowToFach(results);
-
         } catch (SQLException e) {
             System.out.println("Das Fach konnte nicht gefunden werden");
             throw new RuntimeException(e);
-        } finally {
-            schliesseVerbindung();
         }
     }
     
@@ -531,7 +525,7 @@ public class Datenbank implements IConnection{
 
             Klasse klasse = getSelectedKlasse(klassenkuerzel);
             Lehrer lehrer = getSelectedLehrer(lehrername);
-            Fach fach = getSelectedFach(fachkuerzel);
+            Fach fach = getSelectedFach(fachname);
 
 
             return new Aktivitaet(klasse, new Pair(lehrer, null), fach);

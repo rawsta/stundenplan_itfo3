@@ -42,9 +42,9 @@ public interface IConnection {
    /**
     * Klasse in DB schreiben
     * 
-    * @param klasse
+    * @param kuerzel
     */
-   public void neueKlasse(Klasse klasse);
+   public void neueKlasse(String kuerzel);
    
    /**
     * Hole Klasse aus Datenbank
@@ -57,10 +57,10 @@ public interface IConnection {
    /**
     * Klasse aktualisieren
     * 
-    * @param title
-    * @param klasse
+    * @param id
+    * @param kuerzel
     */
-   public void updateKlasse(String title, Klasse klasse);
+   public void updateKlasse(int id, String kuerzel);
 
 
    /**
